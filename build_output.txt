@@ -1,0 +1,31 @@
+
+> hotel-rio-yurubi@1.0.0 build
+> next build
+
+⚠ Invalid next.config.ts options detected: 
+⚠     Unrecognized key(s) in object: 'turbo' at "experimental"
+⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+▲ Next.js 16.2.1 (Turbopack)
+- Environments: .env
+- Experiments (use with caution):
+  · serverActions
+  ? turbo (invalid experimental key)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 12.2s
+  Running TypeScript ...
+Failed to type check.
+
+./src/components/booking/Step1Search.tsx:125:17
+Type error: Type '{ from?: Date | undefined; to?: Date | undefined; } | undefined' is not assignable to type 'DateRange | undefined'.
+  Type '{ from?: Date | undefined; to?: Date | undefined; }' is not assignable to type 'DateRange'.
+    Property 'from' is optional in type '{ from?: Date | undefined; to?: Date | undefined; }' but required in type 'DateRange'.
+
+  [90m123 |[0m                 mode=[32m"range"[0m
+  [90m124 |[0m                 defaultMonth={date?.[36mfrom[0m}
+[31m[1m>[0m [90m125 |[0m                 selected={date}
+  [90m    |[0m                 [31m[1m^[0m
+  [90m126 |[0m                 onSelect={setDate}
+  [90m127 |[0m                 numberOfMonths={[36mtypeof[0m window !== [32m"undefined"[0m && window.innerWidth < [35m768[0m ..[35m.[0m
+  [90m128 |[0m                 locale={dateLocale}
+Next.js build worker exited with code: 1 and signal: null

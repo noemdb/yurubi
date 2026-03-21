@@ -1,0 +1,14 @@
+import createMiddleware from 'next-intl/middleware';
+import { routing } from './routing';
+
+export default createMiddleware(routing);
+
+export const config = {
+  // Match all pathnames except for
+  // - API routes
+  // - Static files (_next/static, _next/image, favicon.ico, etc.)
+  // - Files with extensions (e.g. .jpg, .png, etc.)
+  matcher: ['/', '/(es|en)/:path*', '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)']
+};
+
+

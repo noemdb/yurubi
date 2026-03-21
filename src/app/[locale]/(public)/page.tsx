@@ -1,0 +1,145 @@
+// src/app/[locale]/(public)/page.tsx
+import type { Metadata } from "next";
+import { Hero } from "@/components/sections/Hero";
+import { RoomsPreview } from "@/components/sections/RoomsPreview";
+import { Services } from "@/components/sections/Services";
+import { Location } from "@/components/sections/Location";
+import { Contact } from "@/components/sections/Contact";
+import { PromotionBanner } from "@/components/sections/PromotionBanner";
+import { ServiceHighlights } from "@/components/sections/ServiceHighlights";
+import { GalleryGrid } from "@/components/public/GalleryGrid";
+import { ReviewsCarousel } from "@/components/public/ReviewsCarousel";
+import { SectionReveal } from "@/components/shared/SectionReveal";
+
+
+interface PageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const isEs = locale === "es";
+
+  return {
+    title: isEs
+      ? "Hotel Río Yurubí | Alojamiento en San Felipe, Yaracuy"
+      : "Hotel Río Yurubí | Accommodation in San Felipe, Yaracuy",
+    description: isEs
+      ? "Hotel frente al Parque Nacional Yurubí. Habitaciones cómodas, restaurante, piscina y sala de reuniones en San Felipe, Yaracuy, Venezuela."
+      : "Hotel facing Yurubí National Park. Comfortable rooms, restaurant, pool and meeting room in San Felipe, Yaracuy, Venezuela.",
+  };
+}
+
+const hotelJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Hotel",
+  name: "Hotel Río Yurubí",
+  description: "Hotel frente al Parque Nacional Yurubí en San Felipe, Yaracuy",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Final Avenida La Fuente",
+    addressLocality: "San Felipe",
+    addressRegion: "Yaracuy",
+    postalCode: "3201",
+    addressCountry: "VE",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "10.4035",
+    longitude: "-68.7470",
+  },
+  telephone: "+582542310798",
+  email: "hotelrioyurubi@gmail.com",
+  priceRange: "$$",
+};
+
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { prisma } from "@/lib/prisma";
+
+export default async function HomePage({ params }: PageProps) {
+  const { locale } = await params;
+  setRequestLocale(locale); // Requerimiento Next.js 15+ para evitar bugs asíncronos en Client components
+
+  const reviews = await prisma.review.findMany({
+    where: { status: "APPROVED" },
+    orderBy: { createdAt: "desc" },
+    take: 6,
+    select: {
+      id: true,
+      guestName: true,
+      rating: true,
+      comment: true,
+    }
+  });
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(hotelJsonLd) }}
+      />
+      <div className="flex flex-col min-h-screen">
+        <PromotionBanner locale={locale} />
+        
+        <SectionReveal>
+          <Hero locale={locale} />
+        </SectionReveal>
+
+        <SectionReveal delay={0.1}>
+          <RoomsPreview locale={locale} />
+        </SectionReveal>
+
+        <SectionReveal delay={0.2}>
+          <ServiceHighlights locale={locale} />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Services />
+        </SectionReveal>
+
+        {/* Gallery Section */}
+        <SectionReveal>
+          <section className="py-24 bg-gray-50/50">
+            <div className="container mx-auto px-4 lg:px-8">
+              <div className="text-center max-w-2xl mx-auto mb-16">
+                <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  {locale === 'es' ? 'Nuestra Galería' : 'Our Gallery'}
+                </h2>
+                <p className="text-gray-500 text-lg">
+                  {locale === 'es' ? 'Explora los rincones más hermosos de nuestro hotel.' : 'Explore the most beautiful corners of our hotel.'}
+                </p>
+              </div>
+              <GalleryGrid locale={locale} />
+            </div>
+          </section>
+        </SectionReveal>
+
+        {/* Testimonials Section */}
+        <SectionReveal>
+          <section className="py-24 bg-white overflow-hidden">
+            <div className="container mx-auto px-4 lg:px-8">
+              <div className="text-center max-w-2xl mx-auto mb-16">
+                <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  {locale === 'es' ? 'Lo que dicen nuestros huéspedes' : 'What our guests say'}
+                </h2>
+                <p className="text-brand-blue-700 text-lg">
+                  {locale === 'es' ? 'Experiencias reales en el corazón de Yaracuy.' : 'Real experiences in the heart of Yaracuy.'}
+                </p>
+              </div>
+              <ReviewsCarousel reviews={reviews} locale={locale} />
+            </div>
+          </section>
+        </SectionReveal>
+
+        <SectionReveal>
+          <Location />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Contact />
+        </SectionReveal>
+      </div>
+
+    </>
+  );
+}

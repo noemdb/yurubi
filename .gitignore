@@ -1,0 +1,50 @@
+# Dependencias
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+
+# Producción
+build/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Variables de entorno (¡MUY IMPORTANTE!)
+# Nunca subas tu contraseña de Postgres a GitHub
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Editor de código (VS Code)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/settings.template.json
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Si usas Prisma (común con Postgres)
+# El schema se sube, pero los generados no
+prisma/*.env
+# (Opcional) Si usas drizzle o otro ORM, ajusta según necesites
+
+# Testing
+coverage/.next/
+node_modules/
+.env

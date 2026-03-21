@@ -1,0 +1,36 @@
+pipeline:
+
+  - step: validate_environment
+    type: system_check
+
+  - step: load_domain
+    input:
+      - prisma/schema.prisma
+      - zod/*
+    output:
+      - validated_domain
+
+  - step: generate_database
+    depends_on: load_domain
+    output:
+      - prisma_client
+
+  - step: generate_backend
+    depends_on: generate_database
+    input:
+      - server_actions
+    output:
+      - api_layer
+
+  - step: generate_frontend
+    depends_on: generate_backend
+    input:
+      - routes
+      - components
+    output:
+      - ui_layer
+
+  - step: validate_system
+    depends_on:
+      - generate_frontend
+      - generate_backend

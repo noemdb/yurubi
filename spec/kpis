@@ -1,0 +1,13 @@
+kpis:
+
+  booking_conversion:
+    formula: reservations_created / visits
+    target: 0.4
+
+  avg_booking_time:
+    formula: avg(time_step1_to_submit)
+    target: "< 120s"
+
+  system_integrity:
+    formula: failed_actions / total_actions
+    target: "< 0.01"

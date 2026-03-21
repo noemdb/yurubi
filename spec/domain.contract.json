@@ -1,0 +1,22 @@
+{
+  "version": "3.0",
+  "source_of_truth": "prisma",
+
+  "entities": {
+    "Reservation": {
+      "model": "Prisma",
+      "validation": "Zod",
+      "actions": [
+        "createReservationAction",
+        "confirmReservationAction",
+        "cancelReservationAction"
+      ]
+    }
+  },
+
+  "rules": [
+    "zod_must_match_prisma",
+    "no_extra_fields_allowed",
+    "all_actions_must_reference_entities"
+  ]
+}

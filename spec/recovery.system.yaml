@@ -1,0 +1,14 @@
+recovery:
+
+  strategies:
+
+    - type: validation_error
+      action: regenerate_input
+
+    - type: schema_mismatch
+      action: sync_domain
+
+    - type: ui_inconsistency
+      action: re-render_component
+
+  max_attempts: 3

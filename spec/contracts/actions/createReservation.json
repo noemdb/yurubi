@@ -1,0 +1,21 @@
+{
+  "name": "createReservationAction",
+
+  "input_schema": "CreateReservationInput",
+
+  "output": {
+    "success": "boolean",
+    "data": {
+      "reservationId": "string"
+    },
+    "error": "string"
+  },
+
+  "side_effects": [
+    "database_write",
+    "send_email",
+    "audit_log"
+  ],
+
+  "permissions": "public"
+}

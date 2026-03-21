@@ -1,0 +1,386 @@
+// prisma/schema.prisma
+// VERSIÓN CANÓNICA — No modificar sin actualizar este spec
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ENUMS
+// ═══════════════════════════════════════════════════════════════
+
+enum Role {
+  RECEPTIONIST
+  OWNER
+  ADMIN
+}
+
+// NOTA: VISITOR no es un rol de User. Los visitantes no tienen cuenta.
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  REJECTED
+  CANCELLED
+  COMPLETED
+}
+
+enum ServiceType {
+  ROOM
+  MEETING_ROOM
+  RESTAURANT
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum DiscountType {
+  PERCENT
+  FIXED
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  CONFIRM
+  REJECT
+  CANCEL
+  APPROVE
+  LOGIN
+  LOGOUT
+}
+
+// ═══════════════════════════════════════════════════════════════
+// USUARIOS DEL SISTEMA (Staff interno)
+// ═══════════════════════════════════════════════════════════════
+
+model User {
+  id    String  @id @default(cuid())
+  name  String
+  email String  @unique
+  password String  // bcrypt hash, cost=12
+  role  Role
+  isActive Boolean @default(true)
+  image String?
+
+  createdReservations   Reservation[] @relation("CreatedByUser")
+  confirmedReservations Reservation[] @relation("ConfirmedByUser")
+  auditLogs             AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([role])
+  @@index([isActive])
+  @@map("users")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// HUÉSPEDES (clientes externos, sin cuenta en el sistema)
+// ═══════════════════════════════════════════════════════════════
+
+model Guest {
+  id         String  @id @default(cuid())
+  fullName   String
+  email      String
+  phone      String         // Formato: +58XXXXXXXXXX
+  idDocument String         // Cédula / RIF / Pasaporte
+  address    String?
+  origin     String?        // Ciudad/País de procedencia
+
+  reservations Reservation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([idDocument])
+  @@map("guests")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// HABITACIONES
+// ═══════════════════════════════════════════════════════════════
+
+model RoomType {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  basePrice    Float
+  maxOccupancy Int
+  description  String?  @db.Text
+  amenities    String[]
+  images       String[]
+  isActive     Boolean  @default(true)
+
+  rooms        Room[]
+  reservations Reservation[]
+  promotions   Promotion[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([isActive])
+  @@map("room_types")
+}
+
+model Room {
+  id          String   @id @default(cuid())
+  roomNumber  String   @unique
+  floor       Int?
+  roomTypeId  String
+  roomType    RoomType @relation(fields: [roomTypeId], references: [id], onDelete: Restrict)
+  isAvailable Boolean  @default(true)
+  notes       String?  @db.Text
+
+  reservations Reservation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([roomTypeId])
+  @@index([isAvailable])
+  @@map("rooms")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RESERVAS (habitaciones)
+// ═══════════════════════════════════════════════════════════════
+
+model Reservation {
+  id String @id @default(cuid())
+
+  guestId   String
+  guest     Guest    @relation(fields: [guestId], references: [id], onDelete: Restrict)
+
+  roomTypeId String
+  roomType   RoomType @relation(fields: [roomTypeId], references: [id], onDelete: Restrict)
+  roomId     String?
+  room       Room?    @relation(fields: [roomId], references: [id])
+
+  checkIn    DateTime
+  checkOut   DateTime
+  numberOfNights Int
+
+  numberOfGuests     Int
+  totalPrice         Float
+  advancePaymentPaid Boolean @default(false)
+  paymentMethod      String?
+  paymentReference   String?
+
+  status             ReservationStatus @default(PENDING)
+  rejectionReason    String?
+  cancellationReason String?
+  notes              String?           @db.Text
+
+  language String @default("es")
+
+  createdById  String?
+  createdBy    User?   @relation("CreatedByUser", fields: [createdById], references: [id])
+  confirmedById String?
+  confirmedBy  User?   @relation("ConfirmedByUser", fields: [confirmedById], references: [id])
+
+  auditLogs AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([guestId])
+  @@index([roomTypeId])
+  @@index([status])
+  @@index([checkIn, checkOut])
+  @@index([createdAt])
+  @@map("reservations")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RESERVAS DE SALA DE REUNIONES
+// ═══════════════════════════════════════════════════════════════
+
+model MeetingRoomBooking {
+  id             String            @id @default(cuid())
+  contactName    String
+  company        String?
+  rif            String?
+  phone          String
+  email          String?
+  eventDetails   String            @db.Text
+  eventDate      DateTime
+  startTime      String
+  endTime        String
+  numberOfGuests Int
+  estimatedPrice Float
+  status         ReservationStatus @default(PENDING)
+  notes          String?           @db.Text
+
+  auditLogs AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([eventDate])
+  @@index([status])
+  @@map("meeting_room_bookings")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RESERVAS DE RESTAURANTE
+// ═══════════════════════════════════════════════════════════════
+
+model RestaurantBooking {
+  id             String              @id @default(cuid())
+  contactName    String
+  phone          String
+  idDocument     String?
+  email          String?
+  eventDate      DateTime
+  timeSlot       RestaurantTimeSlot
+  numberOfGuests Int
+  status         ReservationStatus   @default(PENDING)
+  notes          String?             @db.Text
+
+  auditLogs AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([eventDate])
+  @@index([status])
+  @@map("restaurant_bookings")
+}
+
+enum RestaurantTimeSlot {
+  SLOT_12_14
+  SLOT_14_16
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RESEÑAS
+// ═══════════════════════════════════════════════════════════════
+
+model Review {
+  id        String       @id @default(cuid())
+  guestName String
+  email     String?
+  rating    Int
+  comment   String       @db.Text
+  language  String       @default("es")
+  status    ReviewStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([rating])
+  @@index([createdAt])
+  @@map("reviews")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PROMOCIONES
+// ═══════════════════════════════════════════════════════════════
+
+model Promotion {
+  id            String       @id @default(cuid())
+  title         String
+  titleEn       String?
+  description   String       @db.Text
+  descriptionEn String?      @db.Text
+  discountType  DiscountType
+  value         Float
+  startDate     DateTime
+  endDate       DateTime
+  conditions    String?      @db.Text
+  conditionsEn  String?      @db.Text
+  imageUrl      String?
+  isActive      Boolean      @default(true)
+
+  applicableRooms RoomType[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive])
+  @@index([startDate, endDate])
+  @@map("promotions")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CONFIGURACIÓN DEL SISTEMA
+// ═══════════════════════════════════════════════════════════════
+
+model SystemSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       Json
+  description String?
+  category    String   @default("general")
+
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+  @@index([category])
+  @@map("system_settings")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SECCIONES DE PÁGINA (CMS básico)
+// ═══════════════════════════════════════════════════════════════
+
+model PageSection {
+  id       String   @id @default(cuid())
+  slug     String   @unique
+  title    String?
+  titleEn  String?
+  body     String?  @db.Text
+  bodyEn   String?  @db.Text
+  heroImage String?
+  images   String[]
+  order    Int      @default(0)
+  isActive Boolean  @default(true)
+  metadata Json?
+
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([isActive])
+  @@map("page_sections")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// BITÁCORA DE AUDITORÍA
+// ═══════════════════════════════════════════════════════════════
+
+model AuditLog {
+  id            String      @id @default(cuid())
+  entity        String
+  entityId      String
+  action        AuditAction
+  performedById String?
+  performedBy   User?       @relation(fields: [performedById], references: [id])
+  changes       Json?
+  ipAddress     String?
+  userAgent     String?
+  timestamp     DateTime    @default(now())
+
+  reservation        Reservation?        @relation(fields: [entityId], references: [id], map: "audit_reservation_fk")
+  meetingRoomBooking MeetingRoomBooking? @relation(fields: [entityId], references: [id], map: "audit_meeting_fk")
+  restaurantBooking  RestaurantBooking?  @relation(fields: [entityId], references: [id], map: "audit_restaurant_fk")
+
+  @@index([entity, entityId])
+  @@index([performedById])
+  @@index([timestamp])
+  @@map("audit_logs")
+}

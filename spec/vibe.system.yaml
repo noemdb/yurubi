@@ -1,0 +1,26 @@
+vibe:
+
+  experience:
+    tone:
+      - calm
+      - premium
+      - natural
+
+    ux_rules:
+      - no_friction_booking
+      - minimal_steps
+      - clear_feedback
+
+    ui_constraints:
+      - max_colors: 3
+      - spacing_consistency: strict
+      - typography_scale: defined
+
+    motion:
+      - smooth_transitions
+      - no_jank
+
+    anti_patterns:
+      - cluttered_ui
+      - excessive_modals
+      - inconsistent_spacing

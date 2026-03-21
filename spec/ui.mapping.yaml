@@ -1,0 +1,19 @@
+flows:
+
+  booking_flow:
+
+    step1:
+      component: RoomSelector
+      maps_to: reservationStep1Schema
+
+    step2:
+      component: GuestForm
+      maps_to: reservationStep2Schema
+
+    step3:
+      component: PaymentForm
+      maps_to: reservationStep3Schema
+
+    submit:
+      action: createReservationAction
+      redirect: /reservar/confirmada

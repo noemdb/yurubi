@@ -1,0 +1,7 @@
+security:
+
+  rules:
+    - all_inputs_validated_with_zod
+    - no_direct_db_access_from_ui
+    - all_mutations_server_only
+    - auth_required_for_dashboard

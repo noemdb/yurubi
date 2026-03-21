@@ -1,0 +1,17 @@
+validation:
+
+  domain:
+    - prisma_vs_zod_match
+    - required_fields_present
+
+  backend:
+    - all_actions_have_contract
+    - role_validation_present
+
+  frontend:
+    - all_forms_have_validation
+    - all_actions_connected
+
+  system:
+    - no_orphan_routes
+    - no_unused_entities
