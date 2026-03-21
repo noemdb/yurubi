@@ -19,15 +19,6 @@ const nextConfig: NextConfig = {
     serverActions: { bodySizeLimit: "2mb" },
   },
 
-  // Next.js 16: turbo is top-level (no longer nested under experimental)
-  // This manually provides the alias that the next-intl plugin tries to set
-  // via experimental.turbo (which no longer works in Next.js 16)
-  turbopack: {
-    resolveAlias: {
-      "next-intl/config": "./src/i18n/request.ts",
-    },
-  },
-
   async headers() {
     return [
       {

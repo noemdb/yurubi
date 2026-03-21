@@ -1,8 +1,6 @@
 // src/lib/email/index.ts
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function sendEmail({
   to,
   subject,
@@ -16,6 +14,9 @@ export async function sendEmail({
     console.warn("RESEND_API_KEY is not set. Email won't be sent.");
     return { success: false, error: "Missing API Key" };
   }
+
+  // Instantiate lazily so a missing key doesn't crash the module on import
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
     const { data, error } = await resend.emails.send({
