@@ -132,7 +132,7 @@ export function Hero({ locale }: { locale: string }) {
               asChild
               size="lg"
               variant="outline"
-              className="w-full sm:w-auto text-lg h-16 px-10 rounded-full border-white/40 text-white hover:bg-white/20 hover:text-white backdrop-blur-md transition-all hover:border-white transform hover:scale-105 active:scale-95"
+              className="w-full sm:w-auto text-lg h-16 px-10 rounded-full border-white/40 text-black hover:bg-white/20 hover:text-black backdrop-blur-md transition-all hover:border-white transform hover:scale-105 active:scale-95"
             >
               <Link href={`/${locale}/habitaciones`}>{t("ctaSecondary")}</Link>
             </Button>
