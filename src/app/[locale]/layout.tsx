@@ -1,20 +1,16 @@
 // src/app/[locale]/layout.tsx
 // Next.js 16: params es async — siempre await antes de usar (ADR-008)
 import type { Metadata } from "next";
-import { Outfit, Playfair_Display } from "next/font/google";
+import { Onest } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import "../globals.css";
 
-const outfit = Outfit({
+const onest = Onest({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-onest",
 });
 
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair-display",
-});
 
 export const metadata: Metadata = {
   title: {
@@ -40,7 +36,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${outfit.variable} ${playfairDisplay.variable}`}>
+    <html lang={locale} className={`${onest.variable}`}>
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
