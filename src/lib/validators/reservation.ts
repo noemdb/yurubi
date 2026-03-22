@@ -6,7 +6,11 @@ const baseStep1Schema = z.object({
   roomTypeId: z.string().cuid("Selecciona un tipo de habitación"),
   checkIn: z.coerce
     .date()
-    .refine((d) => d >= new Date(), "La fecha de entrada debe ser futura"),
+    .refine((d) => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return d >= today;
+    }, "La fecha de entrada no puede ser anterior a hoy"),
   checkOut: z.coerce.date(),
   numberOfGuests: z.number().int().min(1, "Mínimo 1 huésped").max(6),
 });

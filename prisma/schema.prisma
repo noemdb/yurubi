@@ -95,7 +95,7 @@ model Guest {
   fullName   String
   email      String
   phone      String         // Formato: +58XXXXXXXXXX
-  idDocument String         // Cédula / RIF / Pasaporte
+  idDocument String @unique    // Cédula / RIF / Pasaporte
   address    String?
   origin     String?        // Ciudad/País de procedencia
 
@@ -105,7 +105,6 @@ model Guest {
   updatedAt DateTime @updatedAt
 
   @@index([email])
-  @@index([idDocument])
   @@map("guests")
 }
 
@@ -192,7 +191,7 @@ model Reservation {
   confirmedById String?
   confirmedBy  User?   @relation("ConfirmedByUser", fields: [confirmedById], references: [id])
 
-  auditLogs AuditLog[]
+  // auditLogs AuditLog[] // Removido para desacoplar AuditLog polimórfico
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -225,7 +224,7 @@ model MeetingRoomBooking {
   status         ReservationStatus @default(PENDING)
   notes          String?           @db.Text
 
-  auditLogs AuditLog[]
+  // auditLogs AuditLog[] // Removido para desacoplar AuditLog polimórfico
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -251,7 +250,7 @@ model RestaurantBooking {
   status         ReservationStatus   @default(PENDING)
   notes          String?             @db.Text
 
-  auditLogs AuditLog[]
+  // auditLogs AuditLog[] // Removido para desacoplar AuditLog polimórfico
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -375,9 +374,9 @@ model AuditLog {
   userAgent     String?
   timestamp     DateTime    @default(now())
 
-  reservation        Reservation?        @relation(fields: [entityId], references: [id], map: "audit_reservation_fk")
-  meetingRoomBooking MeetingRoomBooking? @relation(fields: [entityId], references: [id], map: "audit_meeting_fk")
-  restaurantBooking  RestaurantBooking?  @relation(fields: [entityId], references: [id], map: "audit_restaurant_fk")
+  // Relaciones sin FK explícita para evitar conflictos de integridad en entityId polimórfico
+  // (P2003 workaround)
+
 
   @@index([entity, entityId])
   @@index([performedById])

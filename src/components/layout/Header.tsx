@@ -36,7 +36,7 @@ export function Header() {
               href="/"
               className="flex items-center gap-3 group"
             >
-              <div className="relative w-12 h-12 overflow-hidden rounded-xl border border-gray-700 shadow-2xl">
+              {/* <div className="relative w-12 h-12 overflow-hidden rounded-xl border border-gray-700 shadow-2xl">
                 <Image 
                   src="/images/logo/logo.jpg" 
                   alt="Hotel Río Yurubí Logo" 
@@ -47,7 +47,7 @@ export function Header() {
                 />
 
 
-              </div>
+              </div> */}
 
               <span className="font-serif text-xl font-bold text-gray-900 tracking-tight group-hover:text-brand-green transition-colors">
                 Hotel Río Yurubí

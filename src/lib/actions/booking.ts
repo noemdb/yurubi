@@ -92,12 +92,28 @@ export async function processReservation(input: CreateReservationInput) {
 
   // 3. Transacción atómica de persistencia
   const reservation = await prisma.$transaction(async (tx: any) => {
-    // Upsert guest basado en el ID Documento Único
-    const guest = await tx.guest.upsert({
-      where: { idDocument: data.guest.idDocument },
-      update: data.guest,
-      create: data.guest,
-    });
+    // Buscar guest por documento único
+    const existingGuest = await tx.guest.findUnique({ where: { idDocument: data.guest.idDocument } }).catch(() => null);
+    
+    let guest;
+    if (existingGuest) {
+      guest = await tx.guest.update({
+        where: { id: existingGuest.id },
+        data: data.guest
+      });
+    } else {
+      // Si findUnique falló (por caché de tipos) o no existe, intentar findFirst como fallback
+      const fallbackGuest = existingGuest || await tx.guest.findFirst({ where: { idDocument: data.guest.idDocument } });
+      if (fallbackGuest) {
+        guest = await tx.guest.update({
+          where: { id: fallbackGuest.id },
+          data: data.guest
+        });
+      } else {
+        guest = await tx.guest.create({ data: data.guest });
+      }
+    }
+
 
     const res = await tx.reservation.create({
       data: {
