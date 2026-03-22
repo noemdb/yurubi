@@ -47,6 +47,7 @@ export function Step3Checkout({
         email: "",
         phone: "",
         idDocument: "",
+        address: "",
         origin: "",
       },
       paymentMethod: "TRANSFERENCIA",
@@ -131,6 +132,17 @@ export function Step3Checkout({
                   </FormItem>
                 )} />
               </div>
+
+              <div className="grid grid-cols-1 gap-6">
+                <FormField control={form.control} name="guest.address" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{isEs ? "Dirección de Domicilio" : "Home Address"}</FormLabel>
+                    <FormControl><Input placeholder="Av. Principal, Edif. Rio, Apto 4" className="h-12 rounded-xl bg-white" {...field} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+              </div>
+
             </div>
 
             {/* Payment & Extras */}
