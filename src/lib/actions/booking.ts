@@ -17,38 +17,43 @@ export async function checkAvailability(params: { checkIn: Date; checkOut: Date;
 
   const { checkIn, checkOut, guests } = parsed.data;
 
-  // Encontrar todas las habitaciones base que cumplan con la ocupación
+  // Encontrar todos los tipos de habitación activos que soporten la ocupación
   const roomTypes = await prisma.roomType.findMany({
     where: {
       isActive: true,
       maxOccupancy: { gte: guests },
     },
+    include: {
+      _count: { select: { rooms: true } },
+    },
   });
 
-  // Para cada tipo de habitación, verificar disponibilidad calculando reservas superpuestas
+  // Para cada tipo, contar reservas activas solapadas y comparar con habitaciones físicas
   const availabilityRes = await Promise.all(
-    roomTypes.map(async (rt: any) => {
+    roomTypes.map(async (rt) => {
+      const totalRooms = rt._count.rooms;
+
+      // Si no hay habitaciones físicas registradas, igual aparece disponible con cupo 1
+      // (permite reservas por tipo aunque no se hayan cargado habitaciones individuales)
+      if (totalRooms === 0) {
+        return { ...rt, isAvailable: true, availableCount: 1 };
+      }
+
       const overlappingReservations = await prisma.reservation.count({
         where: {
           roomTypeId: rt.id,
-          status: { notIn: ["CANCELLED"] },
-          OR: [
-            {
-              // Check-in de la reserva existente cae dentro de mis fechas
-              checkIn: { lte: checkOut },
-              checkOut: { gte: checkIn },
-            },
-          ],
+          status: { notIn: ["CANCELLED", "REJECTED"] },
+          checkIn: { lt: checkOut },
+          checkOut: { gt: checkIn },
         },
       });
 
-      // Si las reservas sobrepasan (o igualan) la cantidad de habitaciones totales, no está disponible
-      const isAvailable = overlappingReservations < rt.totalRooms;
+      const isAvailable = overlappingReservations < totalRooms;
 
       return {
         ...rt,
         isAvailable,
-        availableCount: rt.totalRooms - overlappingReservations,
+        availableCount: Math.max(0, totalRooms - overlappingReservations),
       };
     })
   );
@@ -81,7 +86,7 @@ export async function processReservation(input: CreateReservationInput) {
   const room = await prisma.roomType.findUnique({ where: { id: data.roomTypeId } });
   if (!room) throw new Error("Habitación no encontrada");
 
-  // 2. Cálculo Server-Side confiable del precio
+  // 2. Cálculo Server-Side del precio y noches
   const nights = Math.max(1, Math.ceil((data.checkOut.getTime() - data.checkIn.getTime()) / (1000 * 60 * 60 * 24)));
   const totalPrice = room.basePrice * nights;
 
@@ -101,6 +106,7 @@ export async function processReservation(input: CreateReservationInput) {
         checkIn: data.checkIn,
         checkOut: data.checkOut,
         numberOfGuests: data.numberOfGuests,
+        numberOfNights: nights,
         totalPrice: totalPrice,
         status: "PENDING",
         paymentMethod: data.paymentMethod,
@@ -112,18 +118,18 @@ export async function processReservation(input: CreateReservationInput) {
     // Log de auditoría
     await tx.auditLog.create({
       data: {
-        action: "RESERVATION_CREATED",
-        entityType: "RESERVATION",
+        action: "CREATE",
+        entity: "RESERVATION",
         entityId: res.id,
-        details: { source: "WIZARD", paymentMethod: data.paymentMethod },
+        changes: { source: "WIZARD", paymentMethod: data.paymentMethod },
       }
     });
 
     return res;
   });
 
-  // 4. Enviar email de confirmación recibida (Background)
-  await sendReservationStatusEmail(reservation.id);
+  // 4. Enviar email de confirmación (non-blocking)
+  sendReservationStatusEmail(reservation.id).catch(console.error);
 
   return { id: reservation.id };
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ReactNode } from "react";
 
 interface AnimatedRoomsGridProps {
@@ -8,7 +8,7 @@ interface AnimatedRoomsGridProps {
 }
 
 export function AnimatedRoomsGrid({ children }: AnimatedRoomsGridProps) {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -18,7 +18,7 @@ export function AnimatedRoomsGrid({ children }: AnimatedRoomsGridProps) {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -29,6 +29,7 @@ export function AnimatedRoomsGrid({ children }: AnimatedRoomsGridProps) {
       },
     },
   };
+
 
   return (
     <motion.div

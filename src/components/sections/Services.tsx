@@ -3,7 +3,7 @@
 
 import { useTranslations } from "next-intl";
 import { Coffee, Map, Umbrella, Wifi } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 export function Services() {
   const t = useTranslations("services");
@@ -35,7 +35,7 @@ export function Services() {
     },
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -45,7 +45,7 @@ export function Services() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -56,6 +56,7 @@ export function Services() {
       },
     },
   };
+
 
   return (
     <section className="py-32 bg-white relative overflow-hidden">
