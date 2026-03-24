@@ -149,7 +149,7 @@ export function Hero({ locale }: { locale: string }) {
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 hidden md:block"
       >
         <div className="flex flex-col items-center gap-3">
-          <span className="text-white/40 text-xs uppercase tracking-widest font-medium">Scroll</span>
+          <span className="text-white/40 text-xs uppercase tracking-widest font-medium"></span>
           <div className="w-[1px] h-16 bg-gradient-to-b from-brand-green to-transparent" />
         </div>
       </motion.div>
