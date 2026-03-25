@@ -119,7 +119,7 @@ model RoomType {
   basePrice    Float
   maxOccupancy Int
   description  String?  @db.Text
-  amenities    String[]
+  amenities    Amenity[] @relation("RoomTypeAmenities")
   images       String[]
   isActive     Boolean  @default(true)
 
@@ -133,6 +133,18 @@ model RoomType {
   @@index([slug])
   @@index([isActive])
   @@map("room_types")
+}
+
+model Amenity {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  icon      String?
+  roomTypes RoomType[] @relation("RoomTypeAmenities")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("amenities")
 }
 
 model Room {

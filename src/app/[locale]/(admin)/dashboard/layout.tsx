@@ -10,11 +10,19 @@ import {
   Key, 
   Tags, 
   MessageSquare,
-  Hotel
+  Hotel,
+  Bed,
+  List,
+  PlusCircle,
+  BarChart2,
+  ScrollText,
+  ShieldCheck,
+  LayoutGrid
 } from "lucide-react";
 import { auth, signOut } from "@/auth";
 import { Link, redirect } from "@/routing";
 import { getTranslations } from "next-intl/server";
+import { getRoleHomeUrl } from "@/lib/rbac";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -33,16 +41,47 @@ export default async function DashboardLayout({ children, params }: DashboardLay
     return null;
   }
 
-  const navItems = [
+  const role = session.user?.role ?? "RECEPTIONIST";
+
+  // ─── Nav items por rol ────────────────────────────────────────
+  const adminNav = [
     { icon: <LayoutDashboard className="w-5 h-5" />, label: t("title"), path: "/dashboard" },
     { icon: <Calendar className="w-5 h-5" />, label: isEs ? "Calendario" : "Calendar", path: "/dashboard/calendario" },
     { icon: <CalendarCheck className="w-5 h-5" />, label: t("reservations"), path: "/dashboard/reservas" },
     { icon: <Users className="w-5 h-5" />, label: t("guests"), path: "/dashboard/huespedes" },
     { icon: <Key className="w-5 h-5" />, label: t("rooms"), path: "/dashboard/habitaciones" },
+    { icon: <Bed className="w-5 h-5" />, label: isEs ? "Categorías" : "Categories & Rates", path: "/dashboard/habitaciones/categorias" },
+    { icon: <List className="w-5 h-5" />, label: isEs ? "Amenidades" : "Amenities", path: "/dashboard/habitaciones/amenidades" },
     { icon: <Tags className="w-5 h-5" />, label: t("promotions"), path: "/dashboard/promociones" },
     { icon: <MessageSquare className="w-5 h-5" />, label: t("reviews"), path: "/dashboard/resenas" },
     { icon: <Settings className="w-5 h-5" />, label: t("settings"), path: "/dashboard/configuracion" },
   ];
+
+  const receptionistNav = [
+    { icon: <LayoutDashboard className="w-5 h-5" />, label: isEs ? "Inicio" : "Home", path: "/dashboard/recepcionista" },
+    { icon: <CalendarCheck className="w-5 h-5" />, label: isEs ? "Reservas" : "Reservations", path: "/dashboard/recepcionista/reservas" },
+    { icon: <PlusCircle className="w-5 h-5" />, label: isEs ? "Nueva Reserva" : "New Booking", path: "/dashboard/recepcionista/nueva-reserva" },
+    { icon: <Users className="w-5 h-5" />, label: isEs ? "Huéspedes" : "Guests", path: "/dashboard/huespedes" },
+    { icon: <LayoutGrid className="w-5 h-5" />, label: isEs ? "Estado Habitaciones" : "Room Status", path: "/dashboard/recepcionista/habitaciones" },
+    { icon: <Calendar className="w-5 h-5" />, label: isEs ? "Calendario" : "Calendar", path: "/dashboard/calendario" },
+  ];
+
+  const ownerNav = [
+    { icon: <BarChart2 className="w-5 h-5" />, label: isEs ? "Reportes" : "Reports", path: "/dashboard/reportes" },
+    { icon: <CalendarCheck className="w-5 h-5" />, label: isEs ? "Reservas" : "Reservations", path: "/dashboard/reservas" },
+    { icon: <Users className="w-5 h-5" />, label: isEs ? "Huéspedes" : "Guests", path: "/dashboard/huespedes" },
+    { icon: <ScrollText className="w-5 h-5" />, label: isEs ? "Bitácora" : "Audit Log", path: "/dashboard/bitacora" },
+  ];
+
+  const navItems = role === "RECEPTIONIST" ? receptionistNav
+    : role === "OWNER" ? ownerNav
+    : adminNav;
+
+  const roleBadge = role === "RECEPTIONIST" ? (isEs ? "Recepcionista" : "Receptionist")
+    : role === "OWNER" ? (isEs ? "Propietario" : "Owner")
+    : "Admin";
+
+  const roleHome = getRoleHomeUrl(role, locale);
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
@@ -54,7 +93,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
           </div>
           <div>
             <h1 className="text-xl font-serif font-bold text-brand-blue leading-none">Río Yurubí</h1>
-            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Admin Panel</p>
+            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">{roleBadge}</p>
           </div>
         </div>
 
@@ -71,6 +110,16 @@ export default async function DashboardLayout({ children, params }: DashboardLay
           ))}
         </nav>
 
+        {/* Role badge - only for non-admin */}
+        {role !== "ADMIN" && (
+          <div className="px-4 pb-2">
+            <div className="flex items-center gap-2 px-4 py-2 bg-brand-blue/5 rounded-2xl">
+              <ShieldCheck className="w-4 h-4 text-brand-blue" />
+              <span className="text-xs font-bold text-brand-blue">{roleBadge}</span>
+            </div>
+          </div>
+        )}
+
         <div className="p-6 mt-auto border-t border-gray-100">
           <div className="bg-gray-50 rounded-2xl p-4 flex items-center gap-3 mb-4">
              <div className="w-10 h-10 rounded-xl bg-brand-green flex items-center justify-center text-white font-bold uppercase">
@@ -78,7 +127,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
              </div>
              <div className="overflow-hidden">
                <p className="text-sm font-bold text-gray-900 truncate">{session.user?.name}</p>
-               <p className="text-[10px] text-gray-500 uppercase font-bold">{session.user?.role}</p>
+               <p className="text-[10px] text-gray-500 uppercase font-bold">{roleBadge}</p>
              </div>
           </div>
           

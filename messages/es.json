@@ -165,6 +165,20 @@
     "auditLog": "Bitácora",
     "logout": "Cerrar sesión"
   },
+  "auth": {
+    "loginTitle": "Bienvenido de nuevo",
+    "loginSubtitle": "Ingresa tus credenciales para acceder al sistema",
+    "emailLabel": "Email",
+    "passwordLabel": "Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "submitButton": "Entrar al Panel",
+    "loadingButton": "Iniciando sesión...",
+    "errorTitle": "Error",
+    "successTitle": "Bienvenido",
+    "successMessage": "Iniciando sesión...",
+    "invalidFields": "Campos inválidos",
+    "genericError": "Algo salió mal. Por favor intenta de nuevo."
+  },
   "status": {
     "PENDING": "Pendiente",
     "CONFIRMED": "Confirmada",

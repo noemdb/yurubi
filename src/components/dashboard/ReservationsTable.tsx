@@ -45,10 +45,12 @@ type Decimal = { toNumber(): number };
 
 export function ReservationsTable({ 
   initialData, 
-  locale 
+  locale,
+  readOnly = false,
 }: { 
   initialData: any[]; 
-  locale: string 
+  locale: string;
+  readOnly?: boolean;
 }) {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
@@ -131,8 +133,8 @@ export function ReservationsTable({
                 <th className="py-5 px-4">{isEs ? "Tipo Habitación" : "Room Type"}</th>
                 <th className="py-5 px-4">{isEs ? "Estadía" : "Stay"}</th>
                 <th className="py-5 px-4">Total</th>
-                <th className="py-5 px-4 text-center">Estado</th>
-                <th className="py-5 px-8 text-right">Acciones</th>
+                <th className="py-5 px-4 text-center">{isEs ? "Estado" : "Status"}</th>
+                {!readOnly && <th className="py-5 px-8 text-right">{isEs ? "Acciones" : "Actions"}</th>}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -172,6 +174,7 @@ export function ReservationsTable({
                       getStatusBadge(res.status)
                     )}
                   </td>
+                  {!readOnly && (
                   <td className="py-6 px-8 text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild disabled={isPending}>
@@ -218,11 +221,12 @@ export function ReservationsTable({
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </td>
+                  )}
                 </tr>
               ))}
               {filteredData.length === 0 && (
                 <tr>
-                   <td colSpan={6} className="py-20 text-center">
+                  <td colSpan={readOnly ? 5 : 6} className="py-20 text-center">
                       <div className="flex flex-col items-center gap-4">
                         <Search className="w-12 h-12 text-gray-100" />
                         <p className="text-gray-400 font-medium">

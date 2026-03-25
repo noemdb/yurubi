@@ -31,23 +31,11 @@ export default async function RoomDetailsPage({ params }: PageProps) {
 
   const room = await prisma.roomType.findUnique({
     where: { slug },
+    include: { amenities: true }
   });
 
   if (!room || !room.isActive) {
     notFound();
-  }
-
-  // Mapear amenidades (parse básico de JSON string array a items visuales)
-  // En Prisma está mockeado como Prisma.JsonValue = ["TV", "WiFi", "AC"] etc.
-  let amenities: string[] = [];
-  try {
-    if (Array.isArray(room.amenities)) {
-      amenities = room.amenities as string[];
-    } else if (room.amenities) {
-      amenities = JSON.parse(room.amenities as unknown as string);
-    }
-  } catch (e) {
-    amenities = ["WiFi", "TV por cable", "Aire Acondicionado"];
   }
 
   // Diccionario básico de iconos para amenidades
@@ -151,10 +139,10 @@ export default async function RoomDetailsPage({ params }: PageProps) {
                 {isEs ? "Amenidades de la Habitación" : "Room Amenities"}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {amenities.map((amenity, idx) => (
-                  <div key={idx} className="flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                    {getAmenityIcon(amenity)}
-                    <span className="font-medium text-gray-700">{amenity}</span>
+                {room.amenities.map((amenity) => (
+                  <div key={amenity.id} className="flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                    {getAmenityIcon(amenity.name)}
+                    <span className="font-medium text-gray-700">{amenity.name}</span>
                   </div>
                 ))}
               </div>

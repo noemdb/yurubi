@@ -12,9 +12,21 @@ import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/routing";
+import { QuickActions } from "@/components/dashboard/QuickActions";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { getRoleHomeUrl } from "@/lib/rbac";
 
 export default async function DashboardPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const session = await auth();
+
+  // Redirect non-admin roles to their own dashboard
+  const role = session?.user?.role ?? "ADMIN";
+  if (role !== "ADMIN") {
+    redirect(getRoleHomeUrl(role, locale));
+  }
+
   const isEs = locale === "es";
   const t = await getTranslations({ locale, namespace: "dashboard" });
 
@@ -31,6 +43,11 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
       guest: true,
       roomType: true,
     }
+  });
+
+  const roomTypes = await prisma.roomType.findMany({
+    where: { isActive: true },
+    select: { id: true, name: true, basePrice: true }
   });
 
   const stats = [
@@ -146,20 +163,8 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
            </div>
         </div>
 
-        {/* Quick Actions / Internal News Sidebar */}
         <div className="space-y-6">
-           <div className="bg-brand-blue rounded-[2rem] p-8 text-white relative overflow-hidden shadow-lg shadow-brand-blue/20">
-              <h3 className="text-xl font-serif font-bold mb-4 relative z-10">{isEs ? "Acceso Rápido" : "Quick Actions"}</h3>
-              <div className="space-y-3 relative z-10">
-                <Link href="/reservar" className="block w-full py-3 px-4 bg-white/10 hover:bg-white/20 rounded-xl text-sm font-bold transition-all text-center border border-white/20">
-                  {isEs ? "Nueva Reserva Manual" : "New Manual Booking"}
-                </Link>
-                <Link href="/dashboard/configuracion" className="block w-full py-3 px-4 bg-white/10 hover:bg-white/20 rounded-xl text-sm font-bold transition-all text-center border border-white/20">
-                  {isEs ? "Ajustar Tarifas" : "Adjust Rates"}
-                </Link>
-              </div>
-              <Hotel className="absolute -right-8 -bottom-8 w-40 h-40 opacity-10 rotate-12" />
-           </div>
+           <QuickActions roomTypes={roomTypes} locale={locale} />
 
            <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm">
               <h3 className="text-lg font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">

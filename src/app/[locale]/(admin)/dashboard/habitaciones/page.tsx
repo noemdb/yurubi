@@ -1,6 +1,6 @@
-// src/app/[locale]/(admin)/dashboard/habitaciones/page.tsx
 import { prisma } from "@/lib/prisma";
 import { RoomsTable } from "@/components/dashboard/RoomsTable";
+import { RoomsNav } from "@/components/dashboard/RoomsNav";
 
 export default async function HabitacionesAdminPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -15,17 +15,19 @@ export default async function HabitacionesAdminPage({ params }: { params: Promis
   });
 
   return (
-    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div>
-        <h1 className="text-3xl font-serif font-bold text-gray-900 mb-2">
-          {isEs ? "Inventario y Tarifas" : "Inventory and Rates"}
+        <h1 className="text-4xl font-serif font-bold text-gray-900 mb-3">
+          {isEs ? "Inventario de Habitaciones" : "Room Inventory"}
         </h1>
-        <p className="text-gray-500 max-w-2xl">
+        <p className="text-gray-500 max-w-2xl text-lg font-medium">
           {isEs 
-            ? "Administra los precios base por categoría y el estado operacional de cada habitación física." 
-            : "Manage base prices by category and the operational status of each physical room."}
+            ? "Gestiona el estado operacional y la asignación de cada habitación física del hotel." 
+            : "Manage the operational status and assignment of each physical room in the hotel."}
         </p>
       </div>
+
+      {/* <RoomsNav locale={locale} /> */}
 
       <RoomsTable roomTypes={roomTypes} locale={locale} />
     </div>

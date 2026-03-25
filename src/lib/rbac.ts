@@ -3,7 +3,7 @@ import { auth } from "@/auth";
 import { Role } from "@prisma/client";
 import { redirect } from "next/navigation";
 
-type Permission =
+export type Permission =
   | "reservations:read"
   | "reservations:write"
   | "reservations:confirm"
@@ -52,4 +52,16 @@ export async function requirePermission(permission: Permission) {
 
 export function hasPermission(role: Role, permission: Permission): boolean {
   return ROLE_PERMISSIONS[role]?.includes(permission) ?? false;
+}
+
+export function getRoleHomeUrl(role: string, locale: string): string {
+  switch (role) {
+    case "RECEPTIONIST":
+      return `/${locale}/dashboard/recepcionista`;
+    case "OWNER":
+      return `/${locale}/dashboard/reportes`;
+    case "ADMIN":
+    default:
+      return `/${locale}/dashboard`;
+  }
 }

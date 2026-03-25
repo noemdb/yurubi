@@ -7,31 +7,80 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("🌱 Seeding database...");
 
-  // ─── Admin user ────────────────────────────────────────────
-  const hashedPassword = await bcrypt.hash("Admin2024!", 12);
-
-  const admin = await prisma.user.upsert({
-    where: { email: "admin@hotelrioyurubi.com" },
-    update: {},
-    create: {
+  // ─── Test Users ─────────────────────────────────────────────
+  const testPassword = await bcrypt.hash("yurubi123", 12);
+  const users = [
+    {
       name: "Administrador",
       email: "admin@hotelrioyurubi.com",
-      password: hashedPassword,
-      role: "ADMIN",
-      isActive: true,
+      password: testPassword,
+      role: "ADMIN" as const,
     },
-  });
-  console.log("✅ Admin user:", admin.email);
+    {
+      name: "Recepcionista",
+      email: "recepcionist@hotelrioyurubi.com",
+      password: testPassword,
+      role: "RECEPTIONIST" as const,
+    },
+    {
+      name: "Dueño",
+      email: "owner@hotelrioyurubi.com",
+      password: testPassword,
+      role: "OWNER" as const,
+    },
+  ];
+
+  for (const userData of users) {
+    const user = await prisma.user.upsert({
+      where: { email: userData.email },
+      update: {
+        password: userData.password,
+        role: userData.role,
+      },
+      create: {
+        ...userData,
+        isActive: true,
+      },
+    });
+    console.log(`✅ User created/updated: ${user.email} (${user.role})`);
+  }
+
+  // ─── Amenities ──────────────────────────────────────────────
+  console.log("🛁 Seeding amenities...");
+  const allAmenities = [
+    { name: "WiFi", icon: "wifi" },
+    { name: "Aire acondicionado", icon: "air-conditioner" },
+    { name: "TV", icon: "tv" },
+    { name: "TV Smart", icon: "tv" },
+    { name: "Agua caliente", icon: "droplets" },
+    { name: "Ventilador", icon: "wind" },
+    { name: "Balcón", icon: "external-link" },
+    { name: "Minibar", icon: "coffee" },
+    { name: "Jacuzzi", icon: "bath" },
+    { name: "Sala de estar", icon: "layout" },
+    { name: "Balcón panorámico", icon: "sun" },
+    { name: "Cuna disponible", icon: "baby" },
+  ];
+
+  for (const amenity of allAmenities) {
+    await prisma.amenity.upsert({
+      where: { name: amenity.name },
+      update: { icon: amenity.icon },
+      create: amenity,
+    });
+  }
+  const dbAmenities = await prisma.amenity.findMany();
+  console.log(`✅ ${dbAmenities.length} amenities created/updated`);
 
   // ─── Room Types ────────────────────────────────────────────
-  const roomTypes = [
+  const roomTypesData = [
     {
       name: "Habitación Sencilla",
       slug: "sencilla",
       basePrice: 40,
       maxOccupancy: 1,
       description: "Habitación confortable para una persona con todas las comodidades.",
-      amenities: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador"],
+      amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador"],
     },
     {
       name: "Habitación Doble",
@@ -39,7 +88,7 @@ async function main() {
       basePrice: 60,
       maxOccupancy: 2,
       description: "Perfecta para parejas o dos personas. Cama matrimonial o dos camas.",
-      amenities: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador", "Balcón"],
+      amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador", "Balcón"],
     },
     {
       name: "Habitación Triple",
@@ -47,7 +96,7 @@ async function main() {
       basePrice: 80,
       maxOccupancy: 3,
       description: "Ideal para grupos de tres personas con amplio espacio.",
-      amenities: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador"],
+      amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador"],
     },
     {
       name: "Habitación Cuádruple",
@@ -55,7 +104,7 @@ async function main() {
       basePrice: 100,
       maxOccupancy: 4,
       description: "Amplia habitación para familias con cuatro ocupantes.",
-      amenities: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador"],
+      amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador"],
     },
     {
       name: "Suite Junior",
@@ -63,7 +112,7 @@ async function main() {
       basePrice: 120,
       maxOccupancy: 2,
       description: "Suite con sala de estar separada y acabados premium.",
-      amenities: ["WiFi", "Aire acondicionado", "TV Smart", "Agua caliente", "Minibar", "Sala de estar", "Balcón"],
+      amenityNames: ["WiFi", "Aire acondicionado", "TV Smart", "Agua caliente", "Minibar", "Sala de estar", "Balcón"],
     },
     {
       name: "Suite Master",
@@ -71,7 +120,7 @@ async function main() {
       basePrice: 160,
       maxOccupancy: 4,
       description: "La habitación más lujosa del hotel con vista panorámica.",
-      amenities: ["WiFi", "Aire acondicionado", "TV Smart", "Agua caliente", "Minibar", "Jacuzzi", "Sala de estar", "Balcón panorámico"],
+      amenityNames: ["WiFi", "Aire acondicionado", "TV Smart", "Agua caliente", "Minibar", "Jacuzzi", "Sala de estar", "Balcón panorámico"],
     },
     {
       name: "Habitación Familiar",
@@ -79,18 +128,58 @@ async function main() {
       basePrice: 90,
       maxOccupancy: 5,
       description: "Diseñada para familias con niños. Espacio amplio y cómodo.",
-      amenities: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador", "Cuna disponible"],
+      amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador", "Cuna disponible"],
     },
   ];
 
-  for (const rt of roomTypes) {
+  for (const rt of roomTypesData) {
+    const { amenityNames, ...rest } = rt;
+    const roomTypeAmenities = dbAmenities.filter(a => amenityNames.includes(a.name));
+
     await prisma.roomType.upsert({
       where: { slug: rt.slug },
-      update: {},
-      create: { ...rt, images: [], isActive: true },
+      update: {
+        amenities: {
+          set: roomTypeAmenities.map(a => ({ id: a.id }))
+        }
+      },
+      create: { 
+        ...rest, 
+        images: [], 
+        isActive: true,
+        amenities: {
+          connect: roomTypeAmenities.map(a => ({ id: a.id }))
+        }
+      },
     });
   }
-  console.log(`✅ ${roomTypes.length} room types created`);
+  
+  const createdRoomTypes = await prisma.roomType.findMany();
+  console.log(`✅ ${createdRoomTypes.length} room types created/updated`);
+
+  // ─── Physical Rooms ──────────────────────────────────────────
+  console.log("🏨 Creating physical rooms...");
+  let roomCounter = 1;
+  for (const rt of createdRoomTypes) {
+    // Create 3 rooms for each type as a baseline
+    for (let i = 1; i <= 3; i++) {
+      const floor = Math.ceil(roomCounter / 10); // Simple floor logic
+      const roomNumber = `${floor}${String(i).padStart(2, '0')}-${rt.slug.slice(0, 1).toUpperCase()}`;
+      
+      await prisma.room.upsert({
+        where: { roomNumber },
+        update: {},
+        create: {
+          roomNumber,
+          floor,
+          roomTypeId: rt.id,
+          isAvailable: true
+        }
+      });
+    }
+    roomCounter += 10;
+  }
+  console.log("✅ Physical rooms populated");
 
   // ─── System Settings ──────────────────────────────────────
   const settings = [
@@ -109,7 +198,7 @@ async function main() {
       key: "payment_instructions",
       value: {
         TRANSFERENCIA: "Banco Venezuela | Cta Cte: 0102-XXXX-XXXX | RIF: J-XXXXXXXX-X | A nombre de: Hotel Río Yurubí",
-        ZELLE: "Enviar pago a: hotelrioyurubi@gmail.com | Nombre: Hotel Rio Yurubi",
+        ZELLE: "Enviar pago a: hotelrioyurubi@gmail.com | Nombre: Hotel Río Yurubi",
         EFECTIVO: "Pago en efectivo al momento del check-in en recepción del hotel.",
       },
       description: "Instrucciones de pago por método",

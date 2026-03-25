@@ -55,7 +55,7 @@ export function Hero({ locale }: { locale: string }) {
           <motion.img
             key={currentImageIndex}
             src={images[currentImageIndex] || images[0]}
-            alt="Hotel Rio Yurubí Facade"
+            alt="Hotel Río Yurubí Facade"
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
@@ -90,7 +90,7 @@ export function Hero({ locale }: { locale: string }) {
             <div className="absolute -inset-4 bg-white/10 blur-2xl rounded-full" />
             <Image
               src="/images/logo/logo.jpg"
-              alt="Hotel Rio Yurubí Logo"
+              alt="Hotel Río Yurubí Logo"
               width={140}
               height={140}
               className="relative rounded-2xl shadow-2xl border-2 border-white/20"

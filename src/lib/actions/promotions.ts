@@ -31,3 +31,30 @@ export async function deletePromotion(id: string) {
   revalidatePath("/");
   return { success: true };
 }
+
+export async function createPromotion(data: {
+  title: string,
+  description: string,
+  code: string,
+  discountType: "PERCENT" | "FIXED",
+  value: number,
+  startDate: Date,
+  endDate: Date
+}) {
+  const session = await auth();
+  if (!session) throw new Error("Unauthorized");
+
+  await prisma.promotion.create({
+    data: {
+      ...data,
+      startDate: new Date(data.startDate),
+      endDate: new Date(data.endDate),
+      isActive: true
+    }
+  });
+
+  revalidatePath("/dashboard/promociones");
+  revalidatePath("/dashboard");
+  revalidatePath("/");
+  return { success: true };
+}
