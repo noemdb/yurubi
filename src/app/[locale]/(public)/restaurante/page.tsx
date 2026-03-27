@@ -124,8 +124,8 @@ export default async function RestaurantPage({ params }: PageProps) {
               </Button>
                */}
               <WhatsAppBookingButton
-                roomName={room.name}
-                roomId={room.id}
+                roomName="reservaRestarurant"
+                roomId="reservaId"
                 locale={locale}
                 className="w-full text-cta-sm h-12 px-6 border border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(37,211,102,0.1)]"
              />
