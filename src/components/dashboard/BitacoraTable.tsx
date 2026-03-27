@@ -50,6 +50,10 @@ export function BitacoraTable({ logs, locale }: { logs: AuditLog[]; locale: stri
     to: undefined
   });
   const [expanded, setExpanded] = useState<string | null>(null);
+  
+  const toggle = (id: string) => {
+    setExpanded(expanded === id ? null : id);
+  };
 
   const filtered = logs.filter((l) => {
     const matchesAction = actionFilter === "ALL" || l.action === actionFilter;
@@ -129,7 +133,7 @@ export function BitacoraTable({ logs, locale }: { logs: AuditLog[]; locale: stri
                   actionFilter === action ? "bg-white dark:bg-slate-900 text-brand-blue shadow-sm dark:shadow-none" : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
                 )}
               >
-                {isEs ? ACTION_STYLES[action].label : action}
+                {isEs ? (ACTION_STYLES[action]?.label ?? action) : action}
               </button>
             ))}
           </div>
