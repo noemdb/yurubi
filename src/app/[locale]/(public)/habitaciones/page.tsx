@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { SmartImage } from "@/components/public/SmartImage";
+import { WhatsAppBookingButton } from "@/components/public/WhatsAppBookingButton";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -98,11 +99,20 @@ export default async function RoomsPage({ params }: PageProps) {
                       {t("viewDetails")}
                     </Link>
                   </Button>
+                  
+                   <WhatsAppBookingButton
+                    roomName={room.name}
+                    roomId={room.id}
+                    locale={locale}
+                    className="w-full text-cta-sm h-12 px-6 border border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(37,211,102,0.1)]"
+                  />
+                  {/*
                   <Button asChild className="bg-brand-blue hover:bg-brand-blue-700 rounded-full h-12 shadow-md hover:shadow-lg transition-all text-white border-none">
                     <Link href={`/${locale}/reservar?roomType=${room.id}`}>
                       {t("bookRoom")}
                     </Link>
                   </Button>
+                  */}
                 </div>
               </div>
             </div>
