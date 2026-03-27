@@ -92,6 +92,13 @@ export async function RoomsPreview({ locale }: { locale: string }) {
                       {locale === 'es' ? 'Detalles' : 'Details'}
                     </Link>
                   </Button>
+                  {/*
+                  <Button asChild className="text-cta-sm rounded-full bg-brand-blue hover:bg-brand-blue-700 h-12 shadow-md hover:shadow-lg transition-all">
+                      <Link href={`/${locale}/reservar?roomType=${room.id}`}>
+                        {locale === 'es' ? 'Reservar' : 'Book Now'}
+                      </Link>
+                    </Button>
+                   */}
                   <WhatsAppBookingButton
                     roomName={room.name}
                     roomId={room.id}
