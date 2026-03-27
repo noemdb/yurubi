@@ -152,7 +152,7 @@ export function Contact() {
                     type="button" 
                     variant="outline" 
                     className="text-cta w-full sm:w-auto h-14 px-8 border-[#25D366] text-[#25D366] hover:bg-[#25D366]/10 rounded-full"
-                    onClick={() => window.open("https://wa.me/582542310798", "_blank")}
+                    onClick={() => window.open("https://wa.me/584267224991", "_blank")}
                   >
                     <MessageSquare className="mr-2 h-4 w-4" />
                     {t("whatsapp")}
