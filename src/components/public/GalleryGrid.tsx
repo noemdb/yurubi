@@ -12,18 +12,22 @@ const categories = [
   { id: "areas", label: "Áreas Comunes" },
 ];
 
-const images = [
-  { id: 1, src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000", category: "rooms", title: "Suite Matrimonial" },
-  { id: 2, src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1000", category: "rooms", title: "Habitación Doble" },
-  { id: 3, src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1000", category: "pool", title: "Piscina Principal" },
-  { id: 4, src: "https://images.unsplash.com/photo-1533779284115-9af2f8016ee3?q=80&w=1000", category: "areas", title: "Restaurante" },
-  { id: 5, src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1000", category: "pool", title: "Área de Solarium" },
-  { id: 6, src: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=1000", category: "areas", title: "Lobby" },
-];
-
 import { motion, AnimatePresence } from "framer-motion";
 
-export function GalleryGrid({ locale }: { locale: string }) {
+interface GalleryImage {
+  id: number;
+  src: string;
+  category: string;
+  title: string;
+}
+
+export function GalleryGrid({ 
+  locale, 
+  images = [] 
+}: { 
+  locale: string;
+  images?: GalleryImage[];
+}) {
   const [activeCategory, setActiveCategory] = useState("all");
   const isEs = locale === "es";
 

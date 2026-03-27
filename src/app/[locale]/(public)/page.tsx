@@ -116,13 +116,23 @@ export default async function HomePage({ params }: PageProps) {
                     : 'Every corner of Hotel Río Yurubí has been designed to connect with nature and offer you an unparalleled aesthetic experience. Explore our paradise.'}
                 </p>
               </div>
-              <GalleryGrid locale={locale} />
+              {(() => {
+                const allGalleryImages = Array.from({ length: 20 }, (_, i) => ({
+                  id: i + 1,
+                  src: `/images/galery/${String(i + 1).padStart(2, "0")}.jpg`,
+                  category: ["rooms", "pool", "areas"][i % 3] as string,
+                  title: locale === 'es' ? `Momento ${i + 1}` : `Moment ${i + 1}`,
+                }));
+                // Barajar y tomar 6 (servidor-side)
+                const randomImages = allGalleryImages.sort(() => 0.5 - Math.random()).slice(0, 6);
+                return <GalleryGrid locale={locale} images={randomImages} />;
+              })()}
             </div>
           </section>
         </SectionReveal>
 
         {/* Testimonials Section */}
-        <SectionReveal>
+        {/* <SectionReveal>
           <section className="py-24 bg-white overflow-hidden">
             <div className="container mx-auto px-4 lg:px-8">
               <div className="text-center max-w-3xl mx-auto mb-16">
@@ -138,7 +148,7 @@ export default async function HomePage({ params }: PageProps) {
               <ReviewsCarousel reviews={reviews} locale={locale} />
             </div>
           </section>
-        </SectionReveal>
+        </SectionReveal> */}
 
         <SectionReveal>
           <Location />
