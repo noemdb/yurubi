@@ -1,7 +1,7 @@
 // src/components/sections/RoomsPreview.tsx
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { ArrowRight, Users, Wifi } from "lucide-react";
+import { ArrowRight, Users, Wifi, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
