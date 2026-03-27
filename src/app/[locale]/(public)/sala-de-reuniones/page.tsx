@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Users, Clock, MonitorPlay, Wifi, ArrowRight, Sun, AirVent } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SmartImage } from "@/components/public/SmartImage";
+import { WhatsAppBookingButton } from "@/components/public/WhatsAppBookingButton";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -138,6 +139,7 @@ export default async function MeetingRoomPage({ params }: PageProps) {
                   </div>
                 </div>
 
+                {/*
                 <Button
                   asChild
                   size="lg"
@@ -147,6 +149,14 @@ export default async function MeetingRoomPage({ params }: PageProps) {
                     {t("requestQuote")} <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
+                */}
+
+                <WhatsAppBookingButton
+                  roomName="reserva"
+                  roomId="reservaId"
+                  locale={locale}
+                  className="w-full text-cta-sm h-12 px-6 border border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(37,211,102,0.1)]"
+                />
                 <p className="text-center text-[11px] text-gray-400 mt-6 italic">
                   * {isEs ? "Solicite un presupuesto personalizado para eventos de varios días." : "Request a custom quote for multi-day events."}
                 </p>
