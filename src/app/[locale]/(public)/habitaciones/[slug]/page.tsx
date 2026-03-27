@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { SmartImage } from "@/components/public/SmartImage";
+import { WhatsAppBookingButton } from "@/components/public/WhatsAppBookingButton";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -168,7 +169,8 @@ export default async function RoomDetailsPage({ params }: PageProps) {
                  {isEs ? "Selecciona fechas en el siguiente paso para confirmar disponibilidad real y desglose de tarifas." : "Select dates in the next step to confirm real availability and rate breakdown."}
                </p>
 
-               <Button 
+              {/*  
+              <Button 
                  asChild
                  size="lg"
                  className="w-full h-14 bg-brand-blue hover:bg-brand-blue-600 text-lg rounded-2xl"
@@ -177,6 +179,14 @@ export default async function RoomDetailsPage({ params }: PageProps) {
                    {t("bookRoom")} <ExternalLink className="w-5 h-5 ml-2 border-l border-white/20 pl-2" />
                  </Link>
                </Button>
+               */}
+              
+               <WhatsAppBookingButton
+                roomName={room.name}
+                roomId={room.id}
+                locale={locale}
+                className="w-full text-cta-sm h-12 px-6 border border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(37,211,102,0.1)]"
+              />
                
                <div className="mt-6 pt-6 border-t border-gray-100 space-y-3">
                  <div className="flex justify-between text-sm">
