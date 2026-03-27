@@ -91,10 +91,19 @@ export async function RoomsPreview({ locale }: { locale: string }) {
                       {locale === 'es' ? 'Detalles' : 'Details'}
                     </Link>
                   </Button>
-                  <Button asChild className="text-cta-sm rounded-full bg-brand-blue hover:bg-brand-blue-700 h-12 shadow-md hover:shadow-lg transition-all">
-                    <Link href={`/${locale}/reservar?roomType=${room.id}`}>
-                      {locale === 'es' ? 'Reservar' : 'Book Now'}
-                    </Link>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="w-full text-cta-sm h-12 px-6 border border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(37,211,102,0.1)]"
+                    onClick={() => {
+                      const message = encodeURIComponent(
+                        `Hola, estoy interesado en reservar: ${room.name} (ID: ${room.id}). ¿Podrían brindarme más información?`
+                      );
+                      window.open(`https://wa.me/584267224991?text=${message}`, "_blank");
+                    }}
+                  >
+                    <MessageSquare className="mr-2 h-4 w-4 text-[#25D366] fill-[#25D366]/10" />
+                    {locale === 'es' ? 'Reservar por WhatsApp' : 'Book via WhatsApp'}
                   </Button>
                 </div>
               </div>
