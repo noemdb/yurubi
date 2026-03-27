@@ -143,7 +143,7 @@ export function Hero({ locale }: { locale: string }) {
               type="button"
               variant="ghost"
               className="w-full sm:w-auto text-cta h-16 px-10 border border-[#25D366]/50 text-white hover:bg-[#25D366]/20 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(37,211,102,0.15)]"
-              onClick={() => window.open("https://wa.me/582542310798", "_blank")}
+              onClick={() => window.open("https://wa.me/584267224991", "_blank")}
             >
               <MessageSquare className="mr-3 h-6 w-6 text-[#25D366] fill-[#25D366]/10" />
               {t("whatsapp")}
