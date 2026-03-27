@@ -27,7 +27,7 @@ export function Header() {
   ];
 
   const handleWhatsApp = () => {
-    window.open("https://wa.me/582542310798", "_blank");
+    window.open("https://wa.me/584267224991", "_blank");
   };
 
   return (
