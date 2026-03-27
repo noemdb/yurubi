@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/routing";
-import { Menu, X } from "lucide-react";
+import { Menu, X, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { cn } from "@/lib/utils";
@@ -23,8 +23,12 @@ export function Header() {
     { name: t("pool"), href: "/piscina" },
     { name: t("meetingRoom"), href: "/sala-de-reuniones" },
     { name: t("gallery"), href: "/galeria" },
-    { name: t("contact"), href: "/contacto" },
+    // { name: t("contact"), href: "/contacto" },
   ];
+
+  const handleWhatsApp = () => {
+    window.open("https://wa.me/582542310798", "_blank");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300">
@@ -36,19 +40,6 @@ export function Header() {
               href="/"
               className="flex items-center gap-3 group"
             >
-              {/* <div className="relative w-12 h-12 overflow-hidden rounded-xl border border-gray-700 shadow-2xl">
-                <Image 
-                  src="/images/logo/logo.jpg" 
-                  alt="Hotel Río Yurubí Logo" 
-                  fill 
-                  className="object-cover"
-                  unoptimized
-                  sizes="48px"
-                />
-
-
-              </div> */}
-
               <span className="font-serif text-xl font-bold text-gray-900 tracking-tight group-hover:text-brand-green transition-colors">
                 Hotel Río Yurubí
               </span>
@@ -77,9 +68,12 @@ export function Header() {
           {/* Actions (Language + Booking CTA) */}
           <div className="hidden lg:flex items-center gap-4">
             <LanguageSwitcher />
-            <Button asChild className="bg-brand-green hover:bg-brand-green-600 rounded-full px-6">
-
-              <Link href="/reservar">{t("bookNow")}</Link>
+            <Button 
+              className="bg-[#25D366] hover:bg-[#25D366]/90 text-white rounded-full px-6 gap-2"
+              onClick={handleWhatsApp}
+            >
+              <MessageSquare className="h-4 w-4 fill-white/20" />
+              {t("whatsapp")}
             </Button>
             <Button asChild variant="ghost" className="text-gray-500 hidden xl:flex">
               <Link href="/login">{t("login")}</Link>
@@ -124,12 +118,22 @@ export function Header() {
               </Link>
             ))}
             <div className="pt-4 mt-4 border-t border-gray-100 flex flex-col gap-3">
-              <Button asChild className="w-full bg-brand-green hover:bg-brand-green-600">
-                <Link href="/reservar" onClick={() => setIsMobileMenuOpen(false)}>
+
+                {/* <Link href="/reservar" onClick={() => setIsMobileMenuOpen(false)}>
                   {t("bookNow")}
-                </Link>
+                </Link> */}
+                
+              <Button 
+                className="w-full bg-[#25D366] hover:bg-[#25D366]/90 text-white rounded-full h-12 gap-2"
+                onClick={() => {
+                  handleWhatsApp();
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                <MessageSquare className="h-4 w-4 fill-white/20" />
+                {t("whatsapp")}
               </Button>
-              <Button asChild variant="outline" className="w-full">
+              <Button asChild variant="outline" className="w-full rounded-full h-12">
                 <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
                   {t("login")}
                 </Link>

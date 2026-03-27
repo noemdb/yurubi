@@ -7,10 +7,13 @@ import { HeroScene } from "@/components/public/HeroScene";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { MessageSquare } from "lucide-react";
 
 const images = [
-  "/images/hero/IMG-20260316-WA0024.jpg",
-  "/images/hero/IMG-20260316-WA0025.jpg",
+  // "/images/hero/IMG-20260316-WA0024.jpg",
+  // "/images/hero/IMG-20260316-WA0025.jpg",
+  "/images/hero/front.jpg",
+  // "/images/hero/frontSqu.jpg",
 ];
 
 
@@ -99,20 +102,18 @@ export function Hero({ locale }: { locale: string }) {
               sizes="140px"
             />
 
-
-
           </motion.div>
 
           <motion.h1 
             variants={itemVariants}
-            className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 leading-tight tracking-tight drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
+            className="text-hero mb-6 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
           >
             {t("title")}
           </motion.h1>
           
           <motion.p 
             variants={itemVariants}
-            className="text-xl md:text-2xl text-slate-100 mb-12 max-w-2xl mx-auto font-light leading-relaxed drop-shadow-md"
+            className="text-hero-subtitle mb-12 max-w-2xl mx-auto drop-shadow-md"
           >
             {t("subtitle")}
           </motion.p>
@@ -121,20 +122,31 @@ export function Hero({ locale }: { locale: string }) {
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
-            <Button
+            {/* <Button
               asChild
               size="lg"
-              className="w-full sm:w-auto text-lg h-16 px-10 bg-brand-green hover:bg-brand-green-600 text-white font-bold rounded-full shadow-[0_0_20px_rgba(69,176,114,0.3)] hover:shadow-[0_0_30px_rgba(69,176,114,0.5)] transition-all transform hover:scale-105 active:scale-95 border-none"
+              className="w-full sm:w-auto text-cta h-16 px-10 bg-brand-green hover:bg-brand-green-600 text-white rounded-full shadow-[0_0_20px_rgba(69,176,114,0.3)] hover:shadow-[0_0_30px_rgba(69,176,114,0.5)] transition-all transform hover:scale-105 active:scale-95 border-none"
             >
               <Link href={`/${locale}/reservar`}>{t("cta")}</Link>
-            </Button>
+            </Button> */}
+            
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="w-full sm:w-auto text-lg h-16 px-10 rounded-full border-white/40 text-black hover:bg-white/20 hover:text-black backdrop-blur-md transition-all hover:border-white transform hover:scale-105 active:scale-95"
+              variant="ghost"
+              className="w-full sm:w-auto text-cta h-16 px-10 rounded-full border border-white/30 text-white hover:bg-white/10 hover:border-white backdrop-blur-md transition-all transform hover:scale-105 active:scale-95"
             >
               <Link href={`/${locale}/habitaciones`}>{t("ctaSecondary")}</Link>
+            </Button>
+
+            <Button
+              type="button"
+              variant="ghost"
+              className="w-full sm:w-auto text-cta h-16 px-10 border border-[#25D366]/50 text-white hover:bg-[#25D366]/20 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(37,211,102,0.15)]"
+              onClick={() => window.open("https://wa.me/582542310798", "_blank")}
+            >
+              <MessageSquare className="mr-3 h-6 w-6 text-[#25D366] fill-[#25D366]/10" />
+              {t("whatsapp")}
             </Button>
           </motion.div>
         </motion.div>

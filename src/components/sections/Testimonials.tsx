@@ -19,10 +19,10 @@ export async function Testimonials({ locale }: { locale: string }) {
     <section className="py-24 bg-brand-blue-50">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-section-title mb-4">
             {t("title")}
           </h2>
-          <p className="text-brand-blue-700 text-lg">{t("subtitle")}</p>
+          <p className="text-section-subtitle">{t("subtitle")}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -43,7 +43,7 @@ export async function Testimonials({ locale }: { locale: string }) {
                   />
                 ))}
               </div>
-              <p className="text-gray-700 italic mb-6 leading-relaxed line-clamp-4 relative">
+              <p className="text-review-quote mb-6 line-clamp-4 relative">
                 <span className="text-4xl text-brand-blue-200 absolute -top-4 -left-2 select-none">
                   "
                 </span>
@@ -54,7 +54,7 @@ export async function Testimonials({ locale }: { locale: string }) {
                   {review.guestName.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900">{review.guestName}</h4>
+                  <h4 className="text-review-author">{review.guestName}</h4>
                   <p className="text-sm text-gray-500">
                     {new Date(review.createdAt).toLocaleDateString()}
                   </p>

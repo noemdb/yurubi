@@ -33,23 +33,68 @@ export async function deletePromotion(id: string) {
 }
 
 export async function createPromotion(data: {
-  title: string,
-  description: string,
-  code: string,
-  discountType: "PERCENT" | "FIXED",
-  value: number,
-  startDate: Date,
-  endDate: Date
+  title: string;
+  titleEn?: string;
+  description: string;
+  descriptionEn?: string;
+  discountType: "PERCENT" | "FIXED";
+  value: number;
+  startDate: Date | string;
+  endDate: Date | string;
+  conditions?: string;
+  conditionsEn?: string;
+  roomTypeIds?: string[];
 }) {
   const session = await auth();
   if (!session) throw new Error("Unauthorized");
 
+  const { roomTypeIds, ...rest } = data;
+
   await prisma.promotion.create({
     data: {
-      ...data,
+      ...rest,
       startDate: new Date(data.startDate),
       endDate: new Date(data.endDate),
-      isActive: true
+      isActive: true,
+      applicableRooms: roomTypeIds ? {
+        connect: roomTypeIds.map(id => ({ id }))
+      } : undefined
+    }
+  });
+
+  revalidatePath("/dashboard/promociones");
+  revalidatePath("/dashboard");
+  revalidatePath("/");
+  return { success: true };
+}
+
+export async function updatePromotion(id: string, data: {
+  title: string;
+  titleEn?: string;
+  description: string;
+  descriptionEn?: string;
+  discountType: "PERCENT" | "FIXED";
+  value: number;
+  startDate: Date | string;
+  endDate: Date | string;
+  conditions?: string;
+  conditionsEn?: string;
+  roomTypeIds?: string[];
+}) {
+  const session = await auth();
+  if (!session) throw new Error("Unauthorized");
+
+  const { roomTypeIds, ...rest } = data;
+
+  await prisma.promotion.update({
+    where: { id },
+    data: {
+      ...rest,
+      startDate: new Date(data.startDate),
+      endDate: new Date(data.endDate),
+      applicableRooms: {
+        set: roomTypeIds ? roomTypeIds.map(id => ({ id })) : []
+      }
     }
   });
 

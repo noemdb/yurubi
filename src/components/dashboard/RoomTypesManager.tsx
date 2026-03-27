@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useMemo } from "react";
 import { 
-  Bed, 
-  Edit3, 
   Plus, 
   Trash2, 
-  Users, 
+  Edit3, 
   Tag, 
-  Info, 
   Check, 
-  X, 
-  Loader2 
+  Loader2,
+  Users,
+  Search,
+  Eraser
 } from "lucide-react";
+import { CURRENCY_SYMBOL } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -32,6 +32,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 export function RoomTypesManager({ 
   roomTypes, 
@@ -45,6 +46,7 @@ export function RoomTypesManager({
   const { toast } = useToast();
   const isEs = locale === "es";
   const [isPending, startTransition] = useTransition();
+  const [search, setSearch] = useState("");
 
   // CRUD Dialog State
   const [isOpen, setIsOpen] = useState(false);
@@ -60,6 +62,13 @@ export function RoomTypesManager({
 
   // Delete Confirmation State
   const [typeToDelete, setTypeToDelete] = useState<any>(null);
+
+  const filteredTypes = useMemo(() => {
+    return roomTypes.filter(t => 
+      t.name.toLowerCase().includes(search.toLowerCase()) || 
+      t.slug.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [roomTypes, search]);
 
   const handleOpen = (type?: any) => {
     if (type) {
@@ -132,164 +141,194 @@ export function RoomTypesManager({
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xl font-serif font-bold text-gray-900 flex items-center gap-2">
-          <Tag className="w-5 h-5 text-brand-blue" />
-          {isEs ? "Categorías de Habitación" : "Room Categories"}
-        </h3>
-        <Button 
-          variant="outline" 
-          className="rounded-2xl border-gray-100 font-bold gap-2 hover:bg-brand-blue hover:text-white transition-all"
-          onClick={() => handleOpen()}
-        >
-          <Plus className="w-4 h-4" />
-          {isEs ? "Nueva Categoría" : "New Category"}
-        </Button>
+      {/* Tool Bar */}
+      <div className="flex flex-col md:flex-row gap-4 items-center bg-white dark:bg-slate-900 px-8 py-5 rounded-[2.5rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none grow">
+        <div className="relative flex-1 w-full">
+           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
+           <Input 
+             placeholder={isEs ? "Buscar categorías..." : "Search categories..."}
+             className="pl-12 h-12 rounded-2xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white transition-all text-sm font-bold shadow-none"
+             value={search}
+             onChange={(e) => setSearch(e.target.value)}
+           />
+        </div>
+        
+        <div className="flex gap-4 w-full md:w-auto">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setSearch("")} 
+            className="h-12 w-12 rounded-2xl border border-gray-100 dark:border-slate-800 text-gray-300 dark:text-gray-600 hover:text-red-500 hover:bg-red-50"
+          >
+            <Eraser className="w-4 h-4" />
+          </Button>
+
+          <Button 
+            className="bg-gray-900 hover:bg-black text-white rounded-2xl h-12 px-8 font-bold gap-2 shadow-xl dark:shadow-none shadow-gray-200 transition-all active:scale-95 shrink-0 flex-1 md:flex-none"
+            onClick={() => handleOpen()}
+          >
+            <Plus className="w-4 h-4" />
+            {isEs ? "Nueva Categoría" : "New Category"}
+          </Button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {roomTypes.map((type) => (
-          <div key={type.id} className="bg-white p-6 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group flex flex-col justify-between overflow-hidden relative">
-            <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
-               <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:text-brand-blue" onClick={() => handleOpen(type)}>
-                 <Edit3 className="w-3.5 h-3.5" />
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+        {filteredTypes.map((type) => (
+          <div key={type.id} className="bg-white dark:bg-slate-900 p-6 rounded-[2.5rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none hover:shadow-2xl hover:border-brand-blue/20 dark:hover:border-brand-blue/40 transition-all group flex flex-col justify-between overflow-hidden relative min-h-[300px]">
+            <div className="absolute top-4 right-4 translate-x-10 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all flex gap-1.5 z-10">
+               <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl bg-white dark:bg-slate-900/90 backdrop-blur-sm shadow-sm dark:shadow-none hover:text-brand-blue border border-gray-100 dark:border-slate-800" onClick={() => handleOpen(type)}>
+                 <Edit3 className="w-4 h-4" />
                </Button>
-               <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:text-red-500" onClick={() => setTypeToDelete(type)}>
-                 <Trash2 className="w-3.5 h-3.5" />
+               <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl bg-white dark:bg-slate-900/90 backdrop-blur-sm shadow-sm dark:shadow-none hover:text-red-500 border border-gray-100 dark:border-slate-800" onClick={() => setTypeToDelete(type)}>
+                 <Trash2 className="w-4 h-4" />
                </Button>
             </div>
 
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-xl bg-brand-blue/5 flex items-center justify-center text-brand-blue font-bold text-xs uppercase">
+            <div className="space-y-6">
+              <div className="flex items-start gap-4 pr-16">
+                <div className="w-12 h-12 rounded-2xl bg-brand-blue/5 dark:bg-brand-blue/10 flex items-center justify-center text-brand-blue font-bold text-xs uppercase shrink-0 shadow-inner">
                   {type.slug.slice(0, 2)}
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 leading-none">{type.name}</h4>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">/{type.slug}</p>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 text-base leading-tight mb-1">{type.name}</h4>
+                  <p className="text-[10px] text-gray-400 dark:text-gray-500 font-mono font-bold uppercase tracking-widest bg-gray-50 dark:bg-slate-800/50 px-2 py-0.5 rounded-md inline-block">
+                    /{type.slug}
+                  </p>
                 </div>
               </div>
 
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-400 flex items-center gap-1.5 font-medium">
-                    <Users className="w-3.5 h-3.5" />
-                    {isEs ? "Ocupación Máx." : "Max Occupancy"}
-                  </span>
-                  <span className="font-bold text-gray-700">{type.maxOccupancy} {isEs ? 'Pers.' : 'Pax'}</span>
+              <div className="grid grid-cols-2 gap-4 bg-gray-50 dark:bg-slate-800/30 p-4 rounded-2xl border border-gray-50 dark:border-slate-800/50">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-1.5 opacity-40">
+                    <Users className="w-3 h-3" />
+                    <p className="text-[9px] font-bold uppercase tracking-wider">{isEs ? "Ocupación" : "Occupancy"}</p>
+                  </div>
+                  <p className="font-bold text-gray-700 dark:text-gray-300 text-xs">{type.maxOccupancy} Pers.</p>
                 </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-400 flex items-center gap-1.5 font-medium">
-                    <Bed className="w-3.5 h-3.5" />
-                    {isEs ? "Precio Base" : "Base Price"}
-                  </span>
-                  <span className="font-bold text-brand-blue text-lg">{formatPrice(type.basePrice)}</span>
+                <div className="space-y-1 text-right border-l border-gray-200/50 dark:border-slate-700/50 pl-4">
+                  <div className="flex items-center gap-1.5 justify-end opacity-40">
+                    <Tag className="w-3 h-3" />
+                    <p className="text-[9px] font-bold uppercase tracking-wider">{isEs ? "Tarifa Base" : "Base Rate"}</p>
+                  </div>
+                  <p className="font-bold text-brand-blue text-sm">{formatPrice(type.basePrice)}</p>
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-1.5 mb-6">
-                {type.amenities?.slice(0, 4).map((amenity: any) => (
-                  <span key={amenity.id} className="px-2 py-0.5 bg-gray-50 text-gray-400 rounded-lg text-[9px] font-bold uppercase tracking-wider">
+              <div className="flex flex-wrap gap-1.5 min-h-[50px]">
+                {type.amenities?.map((amenity: any) => (
+                  <span key={amenity.id} className="px-2 py-1 bg-brand-blue/5 dark:bg-brand-blue/10 text-brand-blue rounded-lg text-[9px] font-bold uppercase tracking-tight border border-brand-blue/10 dark:border-brand-blue/20">
                     {amenity.name}
                   </span>
                 ))}
-                {(type.amenities?.length || 0) > 4 && (
-                  <span className="px-2 py-0.5 bg-gray-50 text-gray-300 rounded-lg text-[9px] font-bold">
-                    +{(type.amenities?.length || 0) - 4}
-                  </span>
-                )}
               </div>
             </div>
 
-            <p className="text-xs text-gray-400 line-clamp-2 italic font-medium">
-              "{type.description || (isEs ? 'Sin descripción' : 'No description')}"
-            </p>
+            <div className="mt-8 pt-5 border-t border-gray-50 dark:border-slate-800/50">
+               <p className="text-[11px] text-gray-400 dark:text-gray-500 line-clamp-2 italic font-medium leading-relaxed px-1">
+                {type.description || (isEs ? 'Sin descripción configurada' : 'No description configured')}
+              </p>
+            </div>
           </div>
         ))}
+        
+        {filteredTypes.length === 0 && (
+          <div className="col-span-full py-32 text-center bg-white dark:bg-slate-900 rounded-[3rem] border border-dashed border-gray-100 dark:border-slate-800 flex flex-col items-center">
+             <div className="w-20 h-20 rounded-[2rem] bg-gray-50 dark:bg-slate-800/50 flex items-center justify-center text-gray-100 mb-6">
+                <Tag className="w-10 h-10" />
+             </div>
+             <p className="text-gray-400 dark:text-gray-500 font-bold uppercase tracking-[0.2em] text-sm">
+               {isEs ? "No se encontraron categorías" : "No categories found"}
+             </p>
+          </div>
+        )}
       </div>
 
       {/* Add / Edit Category Dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="rounded-[2.5rem] max-w-2xl p-10 border-none shadow-2xl overflow-y-auto max-h-[90vh]">
+        <DialogContent className="rounded-[3rem] max-w-2xl p-10 border-none shadow-2xl dark:shadow-none overflow-y-auto max-h-[90vh]">
           <DialogHeader className="mb-8">
-            <DialogTitle className="text-3xl font-serif font-bold text-gray-900 flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-brand-blue/5 flex items-center justify-center">
+            <DialogTitle className="text-3xl font-serif font-bold text-gray-900 dark:text-gray-100 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-brand-blue/5 dark:bg-brand-blue/10 flex items-center justify-center border border-brand-blue/10 dark:border-brand-blue/20">
                  <Tag className="w-6 h-6 text-brand-blue" />
               </div>
               {editingType ? (isEs ? "Editar Categoría" : "Edit Category") : (isEs ? "Nueva Categoría" : "New Category")}
             </DialogTitle>
-            <DialogDescription className="text-base font-medium text-gray-500">
-              {isEs ? "Configura los parámetros de este tipo de habitación." : "Configure the parameters for this room type."}
+            <DialogDescription className="text-sm font-medium text-gray-500 dark:text-gray-400 pt-2 px-1">
+              {isEs 
+                ? "Define la capacidad, servicios y tarifa base de este tipo de habitación." 
+                : "Define capacity, services, and base rate for this room type."}
             </DialogDescription>
           </DialogHeader>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 py-2">
             <div className="space-y-6">
               <div className="space-y-2">
-                <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">{isEs ? "Nombre" : "Name"}</Label>
+                <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] ml-2">{isEs ? "Nombre del Tipo" : "Type Name"}</Label>
                 <Input 
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder={isEs ? "Ej. Suite Junior" : "e.g. Junior Suite"}
-                  className="h-12 rounded-xl border-gray-100 bg-gray-50 focus:bg-white transition-all font-bold shadow-none"
+                  className="h-12 rounded-2xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white transition-all font-bold shadow-none text-sm px-5"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">{isEs ? "Slug (URL)" : "Slug"}</Label>
+                <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] ml-2">{isEs ? "Identificador (Slug)" : "Slug"}</Label>
                 <Input 
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/ /g, '-') })}
                   placeholder="ej-suite-junior"
-                  className="h-12 rounded-xl border-gray-100 bg-gray-50 focus:bg-white transition-all font-bold shadow-none"
+                  className="h-12 rounded-2xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white transition-all font-mono font-bold shadow-none text-xs px-5"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">{isEs ? "Precio" : "Price"}</Label>
+                  <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] ml-2">{isEs ? `Tarifa (${CURRENCY_SYMBOL})` : `Rate (${CURRENCY_SYMBOL})`}</Label>
                   <Input 
                     type="number"
                     value={formData.basePrice}
                     onChange={(e) => setFormData({ ...formData, basePrice: parseFloat(e.target.value) || 0 })}
-                    className="h-12 rounded-xl border-gray-100 bg-gray-50 focus:bg-white transition-all font-bold shadow-none"
+                    className="h-12 rounded-2xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white transition-all font-bold shadow-none text-sm px-5"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">{isEs ? "Ocupación" : "Occupancy"}</Label>
+                  <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] ml-2">{isEs ? "Ocupación" : "Occupancy"}</Label>
                   <Input 
                     type="number"
                     value={formData.maxOccupancy}
                     onChange={(e) => setFormData({ ...formData, maxOccupancy: parseInt(e.target.value) || 1 })}
-                    className="h-12 rounded-xl border-gray-100 bg-gray-50 focus:bg-white transition-all font-bold shadow-none"
+                    className="h-12 rounded-2xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white transition-all font-bold shadow-none text-sm px-5"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">{isEs ? "Descripción" : "Description"}</Label>
+                <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] ml-2">{isEs ? "Descripción" : "Description"}</Label>
                 <Textarea 
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows={4}
-                  className="rounded-xl border-gray-100 bg-gray-50 focus:bg-white transition-all font-medium shadow-none resize-none"
+                  className="rounded-2xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white transition-all font-medium shadow-none resize-none text-sm p-5"
                 />
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">{isEs ? "Servicios / Amenities" : "Amenities"}</Label>
-              <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 grid grid-cols-1 gap-2">
+            <div className="flex flex-col">
+              <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] ml-2 mb-3">{isEs ? "Servicios Incluidos" : "Included Amenities"}</Label>
+              <div className="bg-gray-50 dark:bg-slate-800/30 p-6 rounded-[2rem] border border-gray-100 dark:border-slate-800 grid grid-cols-1 gap-2 overflow-y-auto h-full max-h-[420px] custom-scrollbar shadow-inner">
                 {allAmenities.map(amenity => (
                   <button
                     key={amenity.id}
                     type="button"
                     onClick={() => toggleAmenity(amenity.name)}
-                    className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                    className={cn(
+                      "flex items-center justify-between px-5 py-4 rounded-xl text-xs font-bold transition-all border",
                       formData.amenities.includes(amenity.name) 
-                        ? 'bg-brand-blue text-white shadow-lg shadow-brand-blue/20' 
-                        : 'bg-white text-gray-500 hover:bg-gray-100 border border-gray-100/50'
-                    }`}
+                        ? 'bg-brand-blue border-brand-blue text-white shadow-lg dark:shadow-none shadow-brand-blue/20 translate-x-1' 
+                        : 'bg-white dark:bg-slate-900 border-gray-100 dark:border-slate-800 text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-slate-900 hover:border-brand-blue/20 dark:hover:border-brand-blue/40 hover:text-brand-blue'
+                    )}
                   >
                     {amenity.name}
                     {formData.amenities.includes(amenity.name) && <Check className="w-4 h-4" />}
@@ -302,18 +341,18 @@ export function RoomTypesManager({
           <DialogFooter className="mt-12 gap-4">
             <Button 
               variant="ghost" 
-              className="rounded-xl font-bold h-14 px-8"
+              className="rounded-2xl font-bold h-14 px-8 text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
               onClick={() => setIsOpen(false)}
               disabled={isPending}
             >
               {isEs ? "Descartar" : "Discard"}
             </Button>
             <Button 
-              className="bg-brand-blue hover:bg-brand-blue/90 text-white rounded-2xl h-14 px-10 font-bold shadow-xl shadow-brand-blue/20 transition-all active:scale-95"
+              className="bg-gray-900 hover:bg-black text-white rounded-[2rem] h-14 px-12 font-bold shadow-2xl dark:shadow-none shadow-gray-200 transition-all active:scale-95 text-xs uppercase tracking-widest"
               onClick={handleSave}
               disabled={isPending}
             >
-              {isPending && <Loader2 className="w-5 h-5 mr-2 animate-spin" />}
+              {isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
               {isEs ? "Guardar Categoría" : "Save Category"}
             </Button>
           </DialogFooter>
@@ -322,33 +361,33 @@ export function RoomTypesManager({
 
       {/* Delete Confirmation */}
       <Dialog open={!!typeToDelete} onOpenChange={(open) => !open && setTypeToDelete(null)}>
-        <DialogContent className="rounded-[2.5rem] max-w-sm p-10 border-none shadow-2xl text-center">
-          <div className="mx-auto w-20 h-20 bg-red-50 text-red-500 rounded-3xl flex items-center justify-center mb-6">
+        <DialogContent className="rounded-[3rem] max-w-sm p-12 border-none shadow-2xl dark:shadow-none text-center">
+          <div className="mx-auto w-20 h-20 bg-red-50 text-red-500 rounded-[1.5rem] flex items-center justify-center mb-8 border border-red-100 shadow-inner">
             <Trash2 className="w-10 h-10" />
           </div>
-          <DialogHeader className="space-y-3">
-            <DialogTitle className="text-2xl font-serif font-bold text-center text-gray-900">
-              {isEs ? "¿Eliminar Categoría?" : "Delete Category?"}
+          <DialogHeader className="space-y-4">
+            <DialogTitle className="text-2xl font-serif font-bold text-center text-gray-900 dark:text-gray-100">
+              {isEs ? "¿Confirmar Eliminación?" : "Confirm Deletion?"}
             </DialogTitle>
-            <DialogDescription className="text-center text-gray-500 leading-relaxed font-medium">
+            <DialogDescription className="text-center text-gray-400 dark:text-gray-500 text-xs font-bold uppercase tracking-wider leading-relaxed">
               {isEs 
-                ? `¿Estás seguro de que deseas eliminar la categoría "${typeToDelete?.name}"? Esta acción no se puede deshacer.` 
-                : `Are you sure you want to delete the category "${typeToDelete?.name}"? This action cannot be undone.`}
+                ? `Al eliminar la categoría "${typeToDelete?.name}" se verán afectadas las habitaciones asociadas. ¿Estás seguro?` 
+                : `Deleting the category "${typeToDelete?.name}" will affect associated rooms. Are you sure?`}
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-3 mt-10">
             <Button 
               variant="destructive" 
-              className="h-14 rounded-2xl font-bold text-lg shadow-lg shadow-red-200"
+              className="h-14 rounded-2xl font-bold text-sm shadow-xl dark:shadow-none shadow-red-100 uppercase tracking-widest active:scale-95"
               onClick={handleDelete}
               disabled={isPending}
             >
-              {isPending && <Loader2 className="w-5 h-5 mr-2 animate-spin" />}
+              {isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
               {isEs ? "Sí, Eliminar" : "Yes, Delete"}
             </Button>
             <Button 
               variant="ghost" 
-              className="h-12 rounded-xl text-gray-400 font-bold"
+              className="h-12 rounded-2xl text-gray-400 dark:text-gray-500 font-bold text-xs uppercase tracking-widest"
               onClick={() => setTypeToDelete(null)}
               disabled={isPending}
             >

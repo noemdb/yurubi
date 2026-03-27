@@ -7,6 +7,7 @@ import { Users, LayoutDashboard, Wifi, Tv, Coffee, ExternalLink, ShieldCheck } f
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
+import { SmartImage } from "@/components/public/SmartImage";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -91,32 +92,39 @@ export default async function RoomDetailsPage({ params }: PageProps) {
         {/* Galería / Main Image */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-12 h-[500px]">
           <div className="lg:col-span-2 bg-gray-200 rounded-3xl overflow-hidden h-full relative">
-            {room.images.length > 0 ? (
-              <img src={room.images[0]} alt={room.name} className="w-full h-full object-cover" />
-            ) : (
-               <div className="w-full h-full bg-brand-blue-50 flex items-center justify-center">
-                 <span className="font-serif text-brand-blue/30 text-3xl font-bold">{room.name}</span>
-               </div>
-            )}
+            <SmartImage
+              src={`/images/rooms/${room.slug}/01.jpg`}
+              alt={room.name}
+              fallbackText={room.name}
+              className="w-full h-full object-cover"
+              fallbackClassName="bg-brand-blue-50"
+              textClassName="font-serif text-brand-blue/30 text-3xl font-bold"
+            />
           </div>
           <div className="hidden lg:grid grid-rows-2 gap-4 h-full">
             <div className="bg-gray-200 rounded-3xl overflow-hidden h-full">
-               {room.images[1] ? (
-                 <img src={room.images[1]} alt="Detail 1" className="w-full h-full object-cover" />
-               ) : (
-                  <div className="w-full h-full bg-brand-green-50" />
-               )}
+              <SmartImage
+                src={`/images/rooms/${room.slug}/02.jpg`}
+                alt="Detail 1"
+                fallbackText=""
+                className="w-full h-full object-cover"
+                fallbackClassName="bg-brand-green-50"
+                textClassName="hidden"
+              />
             </div>
             <div className="bg-gray-200 rounded-3xl overflow-hidden h-full relative group">
-               {room.images[2] ? (
-                 <img src={room.images[2]} alt="Detail 2" className="w-full h-full object-cover" />
-               ) : (
-                  <div className="w-full h-full bg-gray-100" />
-               )}
-               {/* Overlay para "Ver todas las fotos" */}
-               <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-                 <span className="text-white font-bold">{isEs ? "Ver Galería" : "View Gallery"}</span>
-               </div>
+              <SmartImage
+                src={`/images/rooms/${room.slug}/03.jpg`}
+                alt="Detail 2"
+                fallbackText=""
+                className="w-full h-full object-cover"
+                fallbackClassName="bg-gray-100"
+                textClassName="hidden"
+              />
+              {/* Overlay para "Ver todas las fotos" */}
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                <span className="text-white font-bold">{isEs ? "Ver Galería" : "View Gallery"}</span>
+              </div>
             </div>
           </div>
         </div>

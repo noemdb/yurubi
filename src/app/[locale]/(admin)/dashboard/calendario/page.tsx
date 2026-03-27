@@ -32,10 +32,10 @@ export default async function CalendarioPage({ params }: { params: Promise<{ loc
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-3xl font-serif font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-gray-100 mb-2">
             {isEs ? "Calendario de Ocupación" : "Occupancy Calendar"}
           </h1>
-          <p className="text-gray-500 max-w-2xl">
+          <p className="text-gray-500 dark:text-gray-400 max-w-2xl">
             {isEs 
               ? "Vista mensual de disponibilidad por habitación. Pasa el cursor sobre una reserva para ver detalles o pulsa para editar." 
               : "Monthly view of availability by room. Hover over a reservation to see details or click to edit."}

@@ -11,34 +11,37 @@
     "contact": "Contacto",
     "promotions": "Promociones",
     "bookNow": "Reservar Ahora",
-    "login": "Iniciar Sesión"
+    "login": "Iniciar Sesión",
+    "whatsapp": "Reservar"
   },
   "hero": {
     "title": "Tu refugio natural en el corazón de Yaracuy",
     "subtitle": "Disfruta de la tranquilidad del Parque Nacional Yurubí con todas las comodidades de un hotel confortable",
     "cta": "Reservar Ahora",
-    "ctaSecondary": "Ver Habitaciones"
+    "ctaSecondary": "Ver Habitaciones",
+    "whatsapp": "Reservar"
   },
   "rooms": {
-    "title": "Nuestras Habitaciones",
-    "subtitle": "Comodidad y confort para cada tipo de viajero",
+    "title": "Habitaciones de Ensueño",
+    "subtitle": "Un refugio de paz diseñado para tu máximo confort y descanso profundo",
     "bookRoom": "Reservar esta habitación",
     "perNight": "/ noche",
-    "maxGuests": "Máx. {count} personas",
-    "amenities": "Amenidades",
-    "viewDetails": "Ver detalles"
+    "maxGuests": "Capacidad: {count} personas",
+    "amenities": "Comodidades exclusivas",
+    "viewDetails": "Explorar detalles",
+    "interestInfo": "Todas nuestras habitaciones cuentan con vistas privilegiadas al Parque Nacional Yurubí, aire acondicionado de última generación y lencería premium de 400 hilos."
   },
   "services": {
-    "title": "Nuestros Servicios",
-    "subtitle": "Todo lo que necesitas para una estadía perfecta",
-    "restaurant": "Restaurante",
-    "restaurantDesc": "Cocina venezolana e internacional con vista al jardín",
-    "pool": "Piscina",
-    "poolDesc": "Disfruta de nuestra piscina rodeada de naturaleza",
-    "meetingRoom": "Sala de Reuniones",
-    "meetingRoomDesc": "Espacio equipado para hasta 30 personas",
-    "bar": "Bar",
-    "barDesc": "Bebidas nacionales e importadas en ambiente relajado"
+    "title": "Experiencias Yurubí",
+    "subtitle": "Cada detalle está pensado para transformar tu estadía en un recuerdo inolvidable",
+    "restaurant": "Arte Culinario",
+    "restaurantDesc": "Sabores que cuentan historias. Gastronomía yaracuyana con un toque internacional y vista a nuestros jardines tropicales.",
+    "pool": "Oasis de Relajación",
+    "poolDesc": "Sumérgete en aguas cristalinas rodeadas de vegetación exuberante. El lugar perfecto para desconectar del mundo.",
+    "meetingRoom": "Eventos de Éxito",
+    "meetingRoomDesc": "Espacios versátiles y equipados con tecnología de punta para que tus reuniones corporativas sean impecables.",
+    "bar": "Coctelería de Autor",
+    "barDesc": "El punto de encuentro ideal. Disfruta de tragos diseñados para refrescar tus sentidos en un ambiente sofisticado."
   },
   "booking": {
     "title": "Reservar Habitación",
@@ -125,31 +128,35 @@
     "thankYou": "¡Gracias por tu opinión! Será revisada por nuestro equipo."
   },
   "location": {
-    "title": "Ubicación",
-    "subtitle": "Encuéntranos en San Felipe, Yaracuy",
+    "title": "En el Corazón de la Naturaleza",
+    "subtitle": "Ubicados estratégicamente a los pies del Parque Nacional Yurubí, donde el aire puro y el canto de las aves son tus mejores vecinos.",
     "address": "Final Avenida La Fuente, San Felipe, Yaracuy, Venezuela",
     "phone": "+58 254-231-0798",
     "email": "hotelrioyurubi@gmail.com",
-    "howToArrive": "Cómo llegar"
+    "howToArrive": "Trazar ruta",
+    "interestLocation": "A pocos minutos del centro de la ciudad pero lo suficientemente lejos para garantizar paz absoluta."
   },
   "contact": {
-    "title": "Contáctanos",
-    "subtitle": "Estamos aquí para ayudarte",
+    "title": "Comencemos a Planear tu Visita",
+    "subtitle": "Tu escape perfecto está a solo un mensaje de distancia",
     "name": "Nombre",
     "email": "Email",
     "message": "Mensaje",
-    "send": "Enviar mensaje",
-    "whatsapp": "Chatear por WhatsApp",
-    "successMessage": "Mensaje enviado correctamente."
+    "send": "Enviar Mensaje Directo",
+    "whatsapp": "Atención Inmediata vía WhatsApp",
+    "successMessage": "¡Mensaje recibido! Nos pondremos en contacto contigo muy pronto.",
+    "motivatingText": "Queremos que vivas la experiencia Yurubí. Si tienes dudas sobre nuestras tarifas, servicios especiales o simplemente quieres saludarnos, estamos listos para atenderte con la calidez que nos caracteriza."
   },
   "promotions": {
-    "title": "Promociones",
-    "subtitle": "Ofertas especiales para tu estadía",
+    "title": "Oportunidades Imperdibles",
+    "subtitle": "Garantiza el mejor precio y beneficios exclusivos reservando directamente con nosotros",
     "validUntil": "Válido hasta",
     "discount": "Descuento",
     "conditions": "Condiciones",
-    "bookNow": "Aprovechar oferta",
-    "noPromotions": "No hay promociones activas en este momento."
+    "bookNow": "¡Aprovechar esta Oferta!",
+    "noPromotions": "Pronto tendremos nuevas sorpresas para ti. ¡Mantente atento!",
+    "viewMore": "Explorar todas las promociones",
+    "specialTag": "Oferta Limitada"
   },
   "dashboard": {
     "title": "Panel de Gestión",

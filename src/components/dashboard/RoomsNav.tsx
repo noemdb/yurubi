@@ -31,7 +31,7 @@ export function RoomsNav({ locale }: { locale: string }) {
   ];
 
   return (
-    <div className="flex items-center gap-2 bg-gray-100/50 p-1.5 rounded-2xl w-fit border border-gray-100 mb-8">
+    <div className="flex items-center gap-2 bg-gray-100/50 dark:bg-slate-800/80 p-1.5 rounded-2xl w-fit border border-gray-100 dark:border-slate-800 mb-8">
       {navItems.map((item) => (
         <Link
           key={item.href}
@@ -39,11 +39,11 @@ export function RoomsNav({ locale }: { locale: string }) {
           className={cn(
             "flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all",
             item.active 
-              ? "bg-white text-brand-blue shadow-sm ring-1 ring-gray-100" 
-              : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
+              ? "bg-white dark:bg-slate-900 text-brand-blue shadow-sm dark:shadow-none ring-1 ring-gray-100" 
+              : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-800/50"
           )}
         >
-          <item.icon className={cn("w-4 h-4", item.active ? "text-brand-blue" : "text-gray-400")} />
+          <item.icon className={cn("w-4 h-4", item.active ? "text-brand-blue" : "text-gray-400 dark:text-gray-500")} />
           {item.name}
         </Link>
       ))}

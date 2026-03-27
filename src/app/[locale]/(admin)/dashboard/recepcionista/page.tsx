@@ -93,10 +93,10 @@ export default async function ReceptionistHomePage({
   return (
     <div className="space-y-8 max-w-7xl mx-auto pb-12">
       <div>
-        <h1 className="text-3xl font-serif font-bold text-gray-900">
+        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-gray-100">
           {isEs ? `Bienvenido, ${session.user?.name?.split(" ")[0]} 👋` : `Welcome, ${session.user?.name?.split(" ")[0]} 👋`}
         </h1>
-        <p className="text-gray-500 mt-1 font-medium">
+        <p className="text-gray-500 dark:text-gray-400 mt-1 font-medium">
           {isEs
             ? "Aquí tienes el resumen del día en Hotel Río Yurubí."
             : "Here is today's overview for Hotel Río Yurubí."}

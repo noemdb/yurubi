@@ -64,17 +64,17 @@ export function Services() {
       <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-brand-green/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-96 h-96 bg-brand-blue/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container mx-auto px-4 lg:px-8 text-center max-w-6xl relative z-10">
+      <div className="container mx-auto px-4 lg:px-8 text-center max-w-7xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+          <h2 className="text-section-title mb-6">
             {t("title")}
           </h2>
-          <p className="text-gray-500 text-xl mb-20 max-w-2xl mx-auto font-light">
+          <p className="text-section-subtitle mb-20 max-w-2xl mx-auto">
             {t("subtitle")}
           </p>
         </motion.div>
@@ -96,10 +96,10 @@ export function Services() {
               <div className="mb-8 inline-flex p-5 bg-gray-50 rounded-2xl shadow-inner group-hover:scale-110 group-hover:bg-brand-green/10 transition-all duration-300">
                 {service.icon}
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 font-serif">
+              <h3 className="text-card-title mb-4">
                 {service.title}
               </h3>
-              <p className="text-gray-500 text-base leading-relaxed font-light">
+              <p className="text-card-body">
                 {service.description}
               </p>
             </motion.div>

@@ -1,16 +1,11 @@
 // src/app/[locale]/layout.tsx
 // Next.js 16: params es async — siempre await antes de usar (ADR-008)
 import type { Metadata } from "next";
-import { Onest } from "next/font/google";
+import { playfairDisplay, lora, nunito } from "@/app/fonts";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
+import { Toaster } from "@/components/ui/toaster";
 import "../globals.css";
-
-const onest = Onest({
-  subsets: ["latin"],
-  variable: "--font-onest",
-});
-
 
 export const metadata: Metadata = {
   title: {
@@ -36,10 +31,15 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${onest.variable}`} suppressHydrationWarning>
-      <body suppressHydrationWarning>
+    <html 
+      lang={locale} 
+      className={`${playfairDisplay.variable} ${lora.variable} ${nunito.variable}`} 
+      suppressHydrationWarning
+    >
+      <body suppressHydrationWarning className="font-body">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
+          <Toaster />
         </NextIntlClientProvider>
       </body>
     </html>

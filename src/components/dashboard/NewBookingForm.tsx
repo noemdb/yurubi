@@ -113,55 +113,55 @@ export function NewBookingForm({
   };
 
   return (
-    <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm p-10">
+    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none p-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {/* Guest Information */}
         <div className="space-y-6">
-          <div className="pb-3 border-b border-gray-100">
-            <h2 className="font-bold text-gray-400 text-xs uppercase tracking-widest">
+          <div className="pb-3 border-b border-gray-100 dark:border-slate-800">
+            <h2 className="text-caption uppercase">
               {isEs ? "Información del Huésped" : "Guest Information"}
             </h2>
           </div>
 
           <div className="space-y-2">
-            <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+            <Label className="text-label ml-1">
               {isEs ? "Nombre Completo" : "Full Name"} *
             </Label>
             <Input
               value={form.fullName}
               onChange={(e) => field("fullName", e.target.value)}
               placeholder="Juan Pérez"
-              className="h-12 rounded-xl border-gray-100 bg-gray-50 focus:bg-white font-bold shadow-none"
+              className="text-input h-12 rounded-xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white shadow-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+              <Label className="text-label ml-1">
                 {isEs ? "Documento ID" : "ID Document"} *
               </Label>
               <Input
                 value={form.idDocument}
                 onChange={(e) => field("idDocument", e.target.value)}
                 placeholder="V-12345678"
-                className="h-12 rounded-xl border-gray-100 bg-gray-50 focus:bg-white font-bold shadow-none"
+                className="h-12 rounded-xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white font-bold shadow-none"
               />
             </div>
             <div className="space-y-2">
-              <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+              <Label className="text-label ml-1">
                 {isEs ? "Teléfono" : "Phone"}
               </Label>
               <Input
                 value={form.phone}
                 onChange={(e) => field("phone", e.target.value)}
                 placeholder="+58254..."
-                className="h-12 rounded-xl border-gray-100 bg-gray-50 focus:bg-white font-bold shadow-none"
+                className="text-input h-12 rounded-xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white shadow-none"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+            <Label className="text-label ml-1">
               Email *
             </Label>
             <Input
@@ -169,28 +169,28 @@ export function NewBookingForm({
               value={form.email}
               onChange={(e) => field("email", e.target.value)}
               placeholder="huesped@email.com"
-              className="h-12 rounded-xl border-gray-100 bg-gray-50 focus:bg-white font-bold shadow-none"
+              className="text-input h-12 rounded-xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white shadow-none"
             />
           </div>
         </div>
 
         {/* Stay Details */}
         <div className="space-y-6">
-          <div className="pb-3 border-b border-gray-100">
-            <h2 className="font-bold text-gray-400 text-xs uppercase tracking-widest">
+          <div className="pb-3 border-b border-gray-100 dark:border-slate-800">
+            <h2 className="text-caption uppercase">
               {isEs ? "Detalles de la Estadía" : "Stay Details"}
             </h2>
           </div>
 
           <div className="space-y-2">
-            <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+            <Label className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest ml-1">
               {isEs ? "Tipo de Habitación" : "Room Type"} *
             </Label>
             <Select
               value={form.roomTypeId}
               onValueChange={(v) => field("roomTypeId", v)}
             >
-              <SelectTrigger className="h-12 rounded-xl border-gray-100 bg-gray-50 font-bold shadow-none">
+              <SelectTrigger className="text-input h-12 rounded-xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 shadow-none">
                 <SelectValue
                   placeholder={isEs ? "Seleccionar tipo..." : "Select type..."}
                 />
@@ -207,31 +207,31 @@ export function NewBookingForm({
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+              <Label className="text-label ml-1">
                 Check-in *
               </Label>
               <Input
                 type="date"
                 value={form.checkIn}
                 onChange={(e) => field("checkIn", e.target.value)}
-                className="h-12 rounded-xl border-gray-100 bg-gray-50 font-bold shadow-none"
+                className="text-input h-12 rounded-xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 shadow-none"
               />
             </div>
             <div className="space-y-2">
-              <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+              <Label className="text-label ml-1">
                 Check-out *
               </Label>
               <Input
                 type="date"
                 value={form.checkOut}
                 onChange={(e) => field("checkOut", e.target.value)}
-                className="h-12 rounded-xl border-gray-100 bg-gray-50 font-bold shadow-none"
+                className="text-input h-12 rounded-xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 shadow-none"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
+            <Label className="text-label ml-1">
               {isEs ? "Número de Huéspedes" : "Number of Guests"}
             </Label>
             <Input
@@ -240,26 +240,26 @@ export function NewBookingForm({
               max={selectedType?.maxOccupancy ?? 10}
               value={form.numberOfGuests}
               onChange={(e) => field("numberOfGuests", parseInt(e.target.value) || 1)}
-              className="h-12 rounded-xl border-gray-100 bg-gray-50 font-bold shadow-none"
+              className="text-input h-12 rounded-xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 shadow-none"
             />
           </div>
 
           {/* Price Summary */}
           {nights > 0 && selectedType && (
-            <div className="bg-brand-blue/5 rounded-2xl p-5 space-y-2 border border-brand-blue/10">
-              <div className="flex justify-between text-sm font-medium text-gray-600">
+            <div className="bg-brand-blue/5 dark:bg-brand-blue/10 rounded-2xl p-5 space-y-2 border border-brand-blue/10 dark:border-brand-blue/20">
+              <div className="flex justify-between text-sm font-medium text-gray-600 dark:text-gray-400">
                 <span>{formatPrice(selectedType.basePrice)} × {nights} {isEs ? "noches" : "nights"}</span>
                 <span className="font-bold text-brand-blue">{formatPrice(suggestedPrice)}</span>
               </div>
               <div className="space-y-1.5">
-                <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                <Label className="text-caption uppercase">
                   {isEs ? "Monto Total (editable)" : "Total Amount (editable)"}
                 </Label>
                 <Input
                   type="number"
                   value={form.totalPrice || suggestedPrice}
                   onChange={(e) => field("totalPrice", parseFloat(e.target.value) || 0)}
-                  className="h-10 rounded-xl border-brand-blue/20 bg-white font-bold text-brand-blue shadow-none"
+                  className="h-10 rounded-xl border-brand-blue/20 bg-white dark:bg-slate-900 font-bold text-brand-blue shadow-none"
                 />
               </div>
             </div>
@@ -268,7 +268,7 @@ export function NewBookingForm({
       </div>
 
       {/* Submit */}
-      <div className="flex justify-end gap-4 mt-10 pt-8 border-t border-gray-100">
+      <div className="flex justify-end gap-4 mt-10 pt-8 border-t border-gray-100 dark:border-slate-800">
         <Button
           variant="ghost"
           className="h-14 px-8 rounded-2xl font-bold"
@@ -278,7 +278,7 @@ export function NewBookingForm({
           {isEs ? "Cancelar" : "Cancel"}
         </Button>
         <Button
-          className="h-14 px-10 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-2xl font-bold shadow-xl shadow-brand-blue/20 gap-2 active:scale-95 transition-all"
+          className="text-cta h-14 px-10 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-2xl shadow-xl dark:shadow-none shadow-brand-blue/20 gap-2 active:scale-95 transition-all"
           onClick={handleSubmit}
           disabled={isPending}
         >

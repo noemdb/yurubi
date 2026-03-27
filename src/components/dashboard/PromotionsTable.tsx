@@ -11,6 +11,7 @@ import {
   Clock,
   ExternalLink
 } from "lucide-react";
+import { CURRENCY_SYMBOL } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { togglePromotion, deletePromotion } from "@/lib/actions/promotions";
 import { useToast } from "@/hooks/use-toast";
@@ -53,10 +54,10 @@ export function PromotionsTable({ initialData, locale }: { initialData: Promotio
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
       {initialData.map((promo) => (
-        <div key={promo.id} className="bg-white rounded-[2rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-all group">
+        <div key={promo.id} className="bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none overflow-hidden flex flex-col hover:shadow-lg transition-all group">
           <div className="p-8 space-y-6">
             <div className="flex items-center justify-between">
-              <div className="bg-brand-blue/5 p-3 rounded-2xl text-brand-blue">
+              <div className="bg-brand-blue/5 dark:bg-brand-blue/10 p-3 rounded-2xl text-brand-blue">
                 <Tag className="w-6 h-6" />
               </div>
               <Switch 
@@ -67,22 +68,22 @@ export function PromotionsTable({ initialData, locale }: { initialData: Promotio
             </div>
             
             <div>
-              <h3 className="font-serif font-bold text-xl text-gray-900 group-hover:text-brand-blue transition-colors">
+              <h3 className="font-serif font-bold text-xl text-gray-900 dark:text-gray-100 group-hover:text-brand-blue transition-colors">
                 {promo.title}
               </h3>
               <p className="text-sm font-bold text-brand-green mt-1">
-                {promo.discountType === 'PERCENT' ? `${promo.value}% Off` : `$${promo.value} Discount`}
+                {promo.discountType === 'PERCENT' ? `${promo.value}% Off` : `${CURRENCY_SYMBOL}${promo.value} Discount`}
               </p>
             </div>
 
-            <div className="space-y-3 pt-4 border-t border-gray-50">
-              <div className="flex items-center gap-3 text-xs text-gray-500 font-medium">
-                <Calendar className="w-4 h-4 text-gray-400" />
+            <div className="space-y-3 pt-4 border-t border-gray-50 dark:border-slate-800/50">
+              <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 font-medium">
+                <Calendar className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                 <span>{new Date(promo.startDate).toLocaleDateString(locale)} - {new Date(promo.endDate).toLocaleDateString(locale)}</span>
               </div>
               <div className={cn(
                 "flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest",
-                promo.isActive ? "text-green-600" : "text-gray-400"
+                promo.isActive ? "text-green-600" : "text-gray-400 dark:text-gray-500"
               )}>
                 {promo.isActive ? <CheckCircle className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
                 {promo.isActive ? (isEs ? 'Activa ahora' : 'Active now') : (isEs ? 'Inactiva' : 'Inactive')}
@@ -90,8 +91,8 @@ export function PromotionsTable({ initialData, locale }: { initialData: Promotio
             </div>
           </div>
 
-          <div className="mt-auto px-8 py-4 bg-gray-50 flex items-center justify-between border-t border-gray-100 italic">
-            <Button variant="ghost" size="sm" className="text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl font-bold uppercase text-[10px]" onClick={() => handleDelete(promo.id)}>
+          <div className="mt-auto px-8 py-4 bg-gray-50 dark:bg-slate-800/50 flex items-center justify-between border-t border-gray-100 dark:border-slate-800 italic">
+            <Button variant="ghost" size="sm" className="text-gray-400 dark:text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-xl font-bold uppercase text-[10px]" onClick={() => handleDelete(promo.id)}>
               <Trash2 className="w-4 h-4 mr-2" />
               {isEs ? 'Eliminar' : 'Delete'}
             </Button>
@@ -104,9 +105,9 @@ export function PromotionsTable({ initialData, locale }: { initialData: Promotio
       ))}
       
       {initialData.length === 0 && (
-        <div className="col-span-full py-24 text-center bg-gray-50 rounded-[2.5rem] border-2 border-dashed border-gray-200">
-           <Tag className="w-16 h-16 text-gray-200 mx-auto mb-4" />
-           <p className="text-gray-400 font-medium">
+        <div className="col-span-full py-24 text-center bg-gray-50 dark:bg-slate-800/50 rounded-[2.5rem] border-2 border-dashed border-gray-200 dark:border-slate-700">
+           <Tag className="w-16 h-16 text-gray-200 dark:text-gray-700 mx-auto mb-4" />
+           <p className="text-gray-400 dark:text-gray-500 font-medium">
              {isEs ? "No hay promociones creadas." : "No promotions created yet."}
            </p>
         </div>

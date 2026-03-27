@@ -18,7 +18,15 @@ export type BookingData = {
   price?: number;
 };
 
-export function BookingWizard({ locale, initialRoomType }: { locale: string; initialRoomType?: string }) {
+export function BookingWizard({ 
+  locale, 
+  initialRoomType,
+  onSuccess 
+}: { 
+  locale: string; 
+  initialRoomType?: string;
+  onSuccess?: (details: any) => void;
+}) {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<BookingData>({ roomTypeId: initialRoomType });
   const [availableRooms, setAvailableRooms] = useState<any[]>([]);
@@ -44,7 +52,18 @@ export function BookingWizard({ locale, initialRoomType }: { locale: string; ini
         language: locale as "es" | "en",
       });
       
-      router.push(`/${locale}/reservar/confirmacion/${res.id}`);
+      if (onSuccess) {
+        onSuccess({
+          ...res,
+          roomTypeName: data.roomTypeName,
+          checkIn: data.checkIn,
+          checkOut: data.checkOut,
+          guests: data.guests,
+          total: (data.price || 0) * Math.max(1, Math.ceil((data.checkOut.getTime() - data.checkIn.getTime()) / (1000 * 60 * 60 * 24)))
+        });
+      } else {
+        router.push(`/${locale}/reservar/confirmacion/${res.id}`);
+      }
     } catch (e: any) {
       toast({ 
         title: isEs ? "Error al procesar reserva" : "Error processing reservation", 
@@ -60,13 +79,13 @@ export function BookingWizard({ locale, initialRoomType }: { locale: string; ini
       <div className="flex items-center justify-between mx-auto max-w-2xl mb-8 pb-8 border-b border-gray-100">
         {[1, 2, 3].map((s) => (
           <div key={s} className="flex flex-col items-center flex-1 relative">
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold mb-3 transition-colors z-10 ${
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center text-ui-bold mb-3 transition-colors z-10 ${
               step === s ? "bg-brand-blue text-white ring-4 ring-brand-blue/20" : 
               step > s ? "bg-brand-green text-white" : "bg-gray-100 text-gray-400"
             }`}>
               {s}
             </div>
-            <span className={`text-xs md:text-sm text-center tracking-wide uppercase ${step === s ? "font-bold text-brand-blue" : "text-gray-400 font-medium"}`}>
+            <span className={`text-badge text-center uppercase ${step === s ? "text-brand-blue" : "text-gray-400"}`}>
               {s === 1 ? (isEs ? "Búsqueda" : "Search") : 
                s === 2 ? (isEs ? "Habitación" : "Room") : 
                (isEs ? "Huésped y Pago" : "Checkout")}

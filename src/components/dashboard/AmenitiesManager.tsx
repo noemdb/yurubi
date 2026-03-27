@@ -6,9 +6,8 @@ import {
   Trash2, 
   Edit3,
   List,
-  Check,
   Loader2,
-  Box
+  Box,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +26,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { IconSelector, AmenityIcon } from "@/components/ui/IconSelector";
+import { cn } from "@/lib/utils";
 
 export function AmenitiesManager({ 
   amenities, 
@@ -102,14 +103,22 @@ export function AmenitiesManager({
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xl font-serif font-bold text-gray-900 flex items-center gap-2">
-          <List className="w-5 h-5 text-brand-blue" />
-          {isEs ? "Amenidades" : "Amenities"}
-        </h3>
+      <div className="flex items-center justify-between bg-white dark:bg-slate-900 px-8 py-5 rounded-[2.5rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-brand-blue/5 dark:bg-brand-blue/10 flex items-center justify-center text-brand-blue shadow-inner">
+            <List className="w-6 h-6" />
+          </div>
+          <div>
+            <h3 className="text-xl font-serif font-bold text-gray-900 dark:text-gray-100 leading-none">
+              {isEs ? "Catálogo de Amenidades" : "Amenities Catalog"}
+            </h3>
+            <p className="text-[10px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-[0.2em] mt-1.5 px-0.5">
+              {amenities.length} {isEs ? 'Servicios Registrados' : 'Registered Services'}
+            </p>
+          </div>
+        </div>
         <Button 
-          variant="outline" 
-          className="rounded-2xl border-gray-100 font-bold gap-2 hover:bg-brand-blue hover:text-white transition-all"
+          className="bg-gray-900 hover:bg-black text-white rounded-2xl h-12 px-8 font-bold gap-2 shadow-xl dark:shadow-none shadow-gray-200 transition-all active:scale-95 shrink-0"
           onClick={() => handleOpen()}
         >
           <Plus className="w-4 h-4" />
@@ -117,117 +126,136 @@ export function AmenitiesManager({
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
         {amenities.map((amenity) => (
-          <div key={amenity.id} className="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group flex items-center justify-between overflow-hidden relative">
-            
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-brand-blue/5 flex items-center justify-center text-brand-blue font-bold">
-                 <Box className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="font-bold text-gray-900 leading-none">{amenity.name}</h4>
-                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">{amenity.icon || "Sin ícono"}</p>
-              </div>
+          <div key={amenity.id} className="bg-white dark:bg-slate-900 p-5 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none hover:border-brand-blue/30 hover:shadow-xl transition-all group flex flex-col items-center text-center relative overflow-hidden">
+            <div className="w-16 h-16 rounded-[1.5rem] bg-gray-50 dark:bg-slate-800/50 flex items-center justify-center text-brand-blue mb-4 border border-gray-100 dark:border-slate-800 shadow-inner transition-all group-hover:scale-110 group-hover:bg-brand-blue group-hover:text-white group-hover:rotate-3">
+               <AmenityIcon name={amenity.icon} className="w-8 h-8" />
             </div>
+            
+            <h4 className="font-bold text-gray-900 dark:text-gray-100 text-[11px] uppercase tracking-wider mb-1 px-2 line-clamp-1">{amenity.name}</h4>
+            <span className="text-[9px] text-gray-400 dark:text-gray-500 font-mono font-bold uppercase tracking-widest bg-gray-50 dark:bg-slate-800/50 px-2 py-0.5 rounded-md">
+              {amenity.icon || "—"}
+            </span>
 
-            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-               <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:text-brand-blue" onClick={() => handleOpen(amenity)}>
+            <div className="absolute top-2 right-2 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
+               <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-8 w-8 rounded-xl bg-white dark:bg-slate-900/90 backdrop-blur-sm border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none hover:text-brand-blue hover:bg-white dark:hover:bg-slate-900" 
+                onClick={() => handleOpen(amenity)}
+               >
                  <Edit3 className="w-3.5 h-3.5" />
                </Button>
-               <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:text-red-500" onClick={() => setAmenityToDelete(amenity)}>
+               <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-8 w-8 rounded-xl bg-white dark:bg-slate-900/90 backdrop-blur-sm border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none hover:text-red-500 hover:bg-white dark:hover:bg-slate-900" 
+                onClick={() => setAmenityToDelete(amenity)}
+               >
                  <Trash2 className="w-3.5 h-3.5" />
                </Button>
             </div>
           </div>
         ))}
+
+        {amenities.length === 0 && (
+          <div className="col-span-full py-24 text-center bg-white dark:bg-slate-900 rounded-[3rem] border border-dashed border-gray-200 dark:border-slate-700">
+             <Box className="w-16 h-16 text-gray-100 mx-auto mb-4 opacity-50" />
+             <p className="text-sm text-gray-400 dark:text-gray-500 font-bold uppercase tracking-widest">
+               {isEs ? "No hay amenidades registradas." : "No amenities registered."}
+             </p>
+          </div>
+        )}
       </div>
 
+      {/* Add / Edit Amenity Dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="rounded-[2.5rem] max-w-md p-8 border-none shadow-2xl overflow-y-auto max-h-[90vh]">
-          <DialogHeader className="mb-6">
-            <DialogTitle className="text-2xl font-serif font-bold text-gray-900 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-brand-blue/5 flex items-center justify-center">
-                 <List className="w-5 h-5 text-brand-blue" />
+        <DialogContent className="rounded-[3rem] max-w-md p-10 border-none shadow-2xl dark:shadow-none overflow-y-auto max-h-[90vh]">
+          <DialogHeader className="mb-8">
+            <DialogTitle className="text-3xl font-serif font-bold text-gray-900 dark:text-gray-100 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-brand-blue/5 dark:bg-brand-blue/10 flex items-center justify-center border border-brand-blue/10 dark:border-brand-blue/20">
+                 <List className="w-6 h-6 text-brand-blue" />
               </div>
               {editingAmenity ? (isEs ? "Editar Amenidad" : "Edit Amenity") : (isEs ? "Nueva Amenidad" : "New Amenity")}
             </DialogTitle>
-            <DialogDescription className="text-sm font-medium text-gray-500">
-              {isEs ? "Registra los detalles de esta amenidad." : "Register the details for this amenity."}
+            <DialogDescription className="text-sm font-medium text-gray-500 dark:text-gray-400 pt-2 px-1">
+              {isEs ? "Registra los detalles y elige un ícono visual para identificar el servicio." : "Register details and choose a visual icon to identify the service."}
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-4 py-2">
-            <div className="space-y-2">
-              <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">{isEs ? "Nombre" : "Name"}</Label>
+          <div className="space-y-8 py-2">
+            <div className="space-y-2.5">
+              <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] ml-2">{isEs ? "Nombre de la Amenidad" : "Amenity Name"}</Label>
               <Input 
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder={isEs ? "Ej. WiFi" : "e.g. WiFi"}
-                className="h-12 rounded-xl border-gray-100 bg-gray-50 focus:bg-white transition-all font-bold shadow-none"
+                placeholder={isEs ? "Ej. Aire Acondicionado" : "e.g. Air Conditioning"}
+                className="h-14 rounded-2xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white transition-all font-bold shadow-none text-sm px-5"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">{isEs ? "Ícono" : "Icon"}</Label>
-              <Input 
-                value={formData.icon}
-                onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                placeholder="wifi"
-                className="h-12 rounded-xl border-gray-100 bg-gray-50 focus:bg-white transition-all font-bold shadow-none"
-              />
+            <div className="space-y-3">
+              <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] ml-2">{isEs ? "Elegir Ícono Visual" : "Choose Visual Icon"}</Label>
+              <div className="bg-gray-50 dark:bg-slate-800/30 p-6 rounded-[2rem] border border-gray-100 dark:border-slate-800">
+                <IconSelector 
+                  value={formData.icon} 
+                  onChange={(val) => setFormData({ ...formData, icon: val })} 
+                />
+              </div>
             </div>
           </div>
 
-          <DialogFooter className="mt-8 gap-4">
+          <DialogFooter className="mt-12 gap-4 flex-col sm:flex-row">
             <Button 
               variant="ghost" 
-              className="rounded-xl font-bold h-12 px-6"
+              className="rounded-2xl font-bold h-14 flex-1 text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
               onClick={() => setIsOpen(false)}
               disabled={isPending}
             >
               {isEs ? "Descartar" : "Discard"}
             </Button>
             <Button 
-              className="bg-brand-blue hover:bg-brand-blue/90 text-white rounded-xl h-12 px-6 font-bold shadow-lg shadow-brand-blue/20 transition-all active:scale-95"
+              className="bg-gray-900 hover:bg-black text-white rounded-2xl h-14 flex-1 font-bold shadow-xl dark:shadow-none shadow-gray-200 transition-all active:scale-95 text-xs uppercase tracking-widest"
               onClick={handleSave}
               disabled={isPending}
             >
               {isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              {isEs ? "Guardar Amenidad" : "Save Amenity"}
+              {isEs ? "Guardar Cambios" : "Save Changes"}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
+      {/* Delete Confirmation */}
       <Dialog open={!!amenityToDelete} onOpenChange={(open) => !open && setAmenityToDelete(null)}>
-        <DialogContent className="rounded-[2.5rem] max-w-sm p-10 border-none shadow-2xl text-center">
-          <div className="mx-auto w-20 h-20 bg-red-50 text-red-500 rounded-3xl flex items-center justify-center mb-6">
+        <DialogContent className="rounded-[3rem] max-w-sm p-12 border-none shadow-2xl dark:shadow-none text-center">
+          <div className="mx-auto w-20 h-20 bg-red-50 text-red-500 rounded-[1.5rem] flex items-center justify-center mb-8 border border-red-100 shadow-inner">
             <Trash2 className="w-10 h-10" />
           </div>
-          <DialogHeader className="space-y-3">
-            <DialogTitle className="text-2xl font-serif font-bold text-center text-gray-900">
+          <DialogHeader className="space-y-4">
+            <DialogTitle className="text-2xl font-serif font-bold text-center text-gray-900 dark:text-gray-100">
               {isEs ? "¿Eliminar Amenidad?" : "Delete Amenity?"}
             </DialogTitle>
-            <DialogDescription className="text-center text-gray-500 leading-relaxed font-medium">
+            <DialogDescription className="text-center text-gray-400 dark:text-gray-500 text-xs font-bold uppercase tracking-wider leading-relaxed">
               {isEs 
-                ? `¿Estás seguro de que deseas eliminar la amenidad "${amenityToDelete?.name}"? Las categorías de cuarto perderán esta amenidad. Esta acción no se puede deshacer.` 
-                : `Are you sure you want to delete the amenity "${amenityToDelete?.name}"? Room categories will lose this amenity. This action cannot be undone.`}
+                ? `¿Eliminar "${amenityToDelete?.name}"? Esta acción no se puede deshacer y afectará a las categorías.` 
+                : `Delete "${amenityToDelete?.name}"? This action cannot be undone and will affect categories.`}
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-3 mt-10">
             <Button 
               variant="destructive" 
-              className="h-14 rounded-2xl font-bold text-lg shadow-lg shadow-red-200"
+              className="h-14 rounded-2xl font-bold text-sm shadow-xl dark:shadow-none shadow-red-100 uppercase tracking-widest active:scale-95"
               onClick={handleDelete}
               disabled={isPending}
             >
-              {isPending && <Loader2 className="w-5 h-5 mr-2 animate-spin" />}
+              {isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
               {isEs ? "Sí, Eliminar" : "Yes, Delete"}
             </Button>
             <Button 
               variant="ghost" 
-              className="h-12 rounded-xl text-gray-400 font-bold"
+              className="h-12 rounded-2xl text-gray-400 dark:text-gray-500 font-bold text-xs uppercase tracking-widest"
               onClick={() => setAmenityToDelete(null)}
               disabled={isPending}
             >

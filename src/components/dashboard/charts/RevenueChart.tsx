@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { CURRENCY_SYMBOL } from '@/lib/constants';
 
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -27,8 +28,11 @@ export function RevenueChart({ data, locale = "es" }: RevenueChartProps) {
     },
     yaxis: {
       labels: {
-        formatter: (v: number) => `$${v >= 1000 ? `${(v / 1000).toFixed(1)}k` : v}`,
+        formatter: (v: number) => `${CURRENCY_SYMBOL}${v >= 1000 ? `${(v / 1000).toFixed(1)}k` : v}`,
         style: { fontSize: "10px", fontWeight: "600", colors: "#9ca3af" },
+      },
+      title: {
+        text: isEs ? "Ingresos" : "Revenue",
       },
     },
     colors: ["#22c55e"],
@@ -44,7 +48,7 @@ export function RevenueChart({ data, locale = "es" }: RevenueChartProps) {
     tooltip: {
       y: {
         formatter: (v: number) =>
-          `$${v.toLocaleString(isEs ? "es-VE" : "en-US")} USD`,
+          `${CURRENCY_SYMBOL} ${v.toLocaleString(isEs ? "es-VE" : "en-US")}`,
       },
     },
   };

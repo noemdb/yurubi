@@ -33,10 +33,10 @@ export default async function BitacoraPage({
   return (
     <div className="space-y-8 max-w-7xl mx-auto pb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div>
-        <h1 className="text-3xl font-serif font-bold text-gray-900">
+        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-gray-100">
           {isEs ? "Bitácora de Auditoría" : "Audit Log"}
         </h1>
-        <p className="text-gray-500 mt-1 font-medium">
+        <p className="text-gray-500 dark:text-gray-400 mt-1 font-medium">
           {isEs
             ? "Registro de todas las acciones realizadas sobre el sistema."
             : "Record of all actions performed on the system."}

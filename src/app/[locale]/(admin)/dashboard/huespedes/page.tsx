@@ -19,10 +19,10 @@ export default async function HuespedesAdminPage({
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-3xl font-serif font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-gray-100 mb-2">
             {isEs ? "Base de Datos de Huéspedes" : "Guest Database"}
           </h1>
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400">
             {isEs ? "Consulta el historial de clientes, sus datos de contacto y procedencia." : "Manage customer records, contact information, and origins."}
           </p>
         </div>

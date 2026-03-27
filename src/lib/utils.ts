@@ -1,6 +1,6 @@
-// src/lib/utils.ts
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { CURRENCY_SYMBOL } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -15,12 +15,11 @@ export function formatDate(date: Date | string, locale = "es"): string {
   });
 }
 
-export function formatPrice(amount: number, currency = "USD"): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency,
+export function formatPrice(amount: number): string {
+  const formatted = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
   }).format(amount);
+  return `${CURRENCY_SYMBOL} ${formatted}`;
 }
 
 export function calculateReservationPrice(

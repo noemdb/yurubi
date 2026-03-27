@@ -19,10 +19,10 @@ export default async function ConfiguracionPage({ params }: { params: Promise<{ 
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div>
-        <h1 className="text-3xl font-serif font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-gray-100 mb-2">
           {isEs ? "Configuración General" : "System Settings"}
         </h1>
-        <p className="text-gray-500 max-w-2xl">
+        <p className="text-gray-500 dark:text-gray-400 max-w-2xl">
           {isEs 
             ? "Ajusta la información pública del hotel, enlaces a redes sociales y precios de servicios adicionales." 
             : "Adjust public hotel information, social media links, and additional service prices."}

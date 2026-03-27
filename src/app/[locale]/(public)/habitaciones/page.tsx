@@ -6,6 +6,7 @@ import { Users, Wifi, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
+import { SmartImage } from "@/components/public/SmartImage";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -40,78 +41,64 @@ export default async function RoomsPage({ params }: PageProps) {
         </div>
 
         {/* Grid de Habitaciones */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
           {rooms.map((room) => (
             <div
               key={room.id}
-              className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col md:flex-row group"
+              className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col group h-full"
             >
               {/* Image Section */}
-              <div className="md:w-2/5 aspect-[4/3] md:aspect-auto relative bg-gray-200 overflow-hidden shrink-0">
-                {room.images.length > 0 ? (
-                  <img
-                    src={room.images[0]}
-                    alt={room.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-brand-blue-50 to-brand-green-50 flex items-center justify-center">
-                    <span className="font-serif text-brand-blue/30 text-2xl font-bold -rotate-12">
-                      {room.name}
-                    </span>
-                  </div>
-                )}
-                {/* Price tag flotante */}
-                <div className="absolute top-4 left-4 md:hidden bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm">
-                  <span className="font-bold text-gray-900">
+              <div className="aspect-[4/3] relative bg-gray-200 overflow-hidden shrink-0">
+                <SmartImage
+                  src={`/images/rooms/${room.slug}/01.jpg`}
+                  alt={room.name}
+                  fallbackText={room.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                  fallbackClassName="bg-gradient-to-br from-brand-blue-50 to-brand-green-50"
+                  textClassName="font-serif text-brand-blue/30 text-2xl font-bold -rotate-12"
+                />
+                
+                {/* Price tag flotante - Glassmorphism style */}
+                <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-2xl shadow-lg z-10 ring-1 ring-black/5">
+                  <span className="font-serif text-xl font-bold text-brand-blue">
                     {formatPrice(room.basePrice)}
                   </span>
-                  <span className="text-gray-500 text-sm ml-1">{t("perNight")}</span>
+                  <span className="text-gray-500 text-xs ml-1 uppercase tracking-wider">{t("perNight")}</span>
                 </div>
+
+                <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </div>
 
               {/* Content Section */}
               <div className="p-8 flex flex-col flex-grow">
-                <div className="mb-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <h2 className="font-serif text-2xl font-bold text-gray-900">
-                      {room.name}
-                    </h2>
-                    <div className="hidden md:block text-right shrink-0 ml-4">
-                      <div className="font-bold text-xl text-brand-blue">
-                        {formatPrice(room.basePrice)}
-                      </div>
-                      <div className="text-gray-500 text-sm">
-                        {t("perNight")}
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-gray-600 text-sm line-clamp-2">
+                <div className="mb-6">
+                  <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">
+                    {room.name}
+                  </h2>
+                  <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
                     {room.description}
                   </p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-8">
-                  <div className="flex items-center gap-1.5 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
+                <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-8 mt-auto">
+                  <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-xl border border-gray-100">
                     <Users className="h-4 w-4 text-brand-blue" />
-                    <span>{t("maxGuests", { count: room.maxOccupancy })}</span>
+                    <span>{room.maxOccupancy} max</span>
                   </div>
-                  <div className="flex items-center gap-1.5 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
+                  <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-xl border border-gray-100">
                     <Wifi className="h-4 w-4 text-brand-green" />
-                    <span>Free WiFi</span>
+                    <span>Wi-Fi</span>
                   </div>
                 </div>
 
                 {/* Footer del card */}
-                <div className="mt-auto flex items-center justify-between pt-6 border-t border-gray-50">
-                  <Link
-                    href={`/${locale}/habitaciones/${room.slug}`}
-                    className="text-gray-500 hover:text-brand-blue text-sm font-medium transition-colors flex items-center gap-1"
-                  >
-                    {t("viewDetails")}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                  <Button asChild className="bg-brand-blue hover:bg-brand-blue-600 rounded-full px-6">
+                <div className="mt-auto grid grid-cols-2 gap-4 pt-6 border-t border-gray-50">
+                  <Button asChild variant="outline" className="rounded-full h-12 border-gray-200 hover:border-brand-blue hover:bg-brand-blue/5 text-gray-600 transition-all">
+                    <Link href={`/${locale}/habitaciones/${room.slug}`}>
+                      {t("viewDetails")}
+                    </Link>
+                  </Button>
+                  <Button asChild className="bg-brand-blue hover:bg-brand-blue-700 rounded-full h-12 shadow-md hover:shadow-lg transition-all text-white border-none">
                     <Link href={`/${locale}/reservar?roomType=${room.id}`}>
                       {t("bookRoom")}
                     </Link>

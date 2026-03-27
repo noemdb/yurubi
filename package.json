@@ -35,6 +35,7 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@types/bcryptjs": "2.4.6",
+    "@types/ws": "^8.18.1",
     "apexcharts": "3.54.0",
     "bcryptjs": "2.4.3",
     "class-variance-authority": "^0.7.1",
@@ -56,6 +57,7 @@
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.183.2",
     "typescript": "5.7.2",
+    "ws": "^8.20.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

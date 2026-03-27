@@ -32,11 +32,14 @@ export function Location() {
             className="w-full lg:w-1/2 space-y-10"
           >
             <div>
-              <h2 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              <h2 className="text-section-title mb-6">
                 {t("title")}
               </h2>
-              <p className="text-gray-600 text-xl leading-relaxed max-w-xl">
+              <p className="text-section-subtitle max-w-xl mb-4">
                 {t("subtitle")}
+              </p>
+              <p className="text-gray-500 italic text-sm">
+                {t("interestLocation")}
               </p>
             </div>
             
@@ -46,7 +49,7 @@ export function Location() {
                   <MapPin className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">Ubicación</h3>
+                  <h3 className="text-card-title mb-2">Ubicación</h3>
                   <p className="text-gray-600 text-sm leading-relaxed mb-4">
                     {t("address")}
                   </p>
@@ -67,7 +70,7 @@ export function Location() {
                   <Phone className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">Contacto</h3>
+                  <h3 className="text-card-title mb-2">Contacto</h3>
                   <p className="text-gray-600 text-sm mb-1">+58 254 231.07.98</p>
                   <p className="text-gray-600 text-sm mb-4">hotelrioyurubi@gmail.com</p>
                   <div className="flex items-center gap-2 text-brand-green font-bold text-sm">

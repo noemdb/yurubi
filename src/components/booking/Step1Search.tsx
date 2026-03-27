@@ -79,10 +79,10 @@ export function Step1Search({
   return (
     <div className="space-y-10 max-w-xl mx-auto py-8 animate-in fade-in zoom-in-95 duration-500">
       <div className="text-center space-y-3 mb-10">
-        <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900">
+        <h2 className="text-dashboard-title">
           {isEs ? "¿Cuándo nos visitas?" : "When are you visiting?"}
         </h2>
-        <p className="text-gray-500 text-lg">
+        <p className="text-section-subtitle">
           {isEs ? "Selecciona tus fechas para ver disponibilidad real." : "Select your dates to see real availability."}
         </p>
       </div>
@@ -90,7 +90,7 @@ export function Step1Search({
       <div className="space-y-6 bg-gray-50 p-6 rounded-3xl border border-gray-100">
         {/* Date Picker */}
         <div className="space-y-2">
-          <label className="text-sm font-bold text-gray-900 ml-1">
+          <label className="text-label ml-1">
             {isEs ? "Fechas de estadía" : "Stay dates"}
           </label>
           <Popover>
@@ -99,7 +99,7 @@ export function Step1Search({
                 id="date"
                 variant={"outline"}
                 className={cn(
-                  "w-full justify-start text-left font-normal h-14 rounded-2xl text-md border-gray-200 shadow-sm bg-white hover:bg-gray-50",
+                  "text-slate-950 w-full justify-start text-left font-bold h-14 rounded-2xl border-gray-200 shadow-sm bg-white hover:bg-gray-50",
                   !date && "text-muted-foreground"
                 )}
               >
@@ -138,11 +138,11 @@ export function Step1Search({
 
         {/* Guest Selector */}
         <div className="space-y-2">
-          <label className="text-sm font-bold text-gray-900 ml-1">
+          <label className="text-label ml-1">
             {isEs ? "Huéspedes" : "Guests"}
           </label>
           <Select value={guests} onValueChange={setGuests}>
-            <SelectTrigger className="h-14 rounded-2xl text-md border-gray-200 shadow-sm bg-white hover:bg-gray-50 font-medium">
+            <SelectTrigger className="text-slate-950 h-14 rounded-2xl border-gray-200 shadow-sm bg-white hover:bg-gray-50 font-bold">
               <div className="flex items-center gap-3">
                 <Users className="w-5 h-5 text-brand-blue" />
                 <SelectValue placeholder={isEs ? "Número de huéspedes" : "Number of guests"} />
@@ -162,7 +162,7 @@ export function Step1Search({
       <Button 
         onClick={handleSearch} 
         disabled={isSearching} 
-        className="w-full h-16 bg-brand-green hover:bg-brand-green-600 text-lg rounded-2xl shadow-md transition-all active:scale-[0.98] font-bold"
+        className="text-cta w-full h-16 bg-brand-green hover:bg-brand-green-600 rounded-2xl shadow-md transition-all active:scale-[0.98]"
       >
         {isSearching ? <Loader2 className="w-6 h-6 animate-spin mx-auto" /> : (isEs ? "Buscar Disponibilidad" : "Search Availability")}
       </Button>

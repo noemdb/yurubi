@@ -19,26 +19,31 @@ export async function PromotionBanner({ locale }: { locale: string }) {
   if (!promotion) return null;
 
   return (
-    <div className="bg-brand-blue py-3 px-4 text-white overflow-hidden relative">
-      <div className="container mx-auto flex items-center justify-center gap-4 text-center">
-        <Tag className="w-4 h-4 text-brand-green shrink-0 animate-bounce" />
-        <p className="text-sm md:text-base font-medium">
-          <span className="font-bold">
-            {isEs ? "¡Promoción Especial!" : "Special Promotion!"}
-          </span>{" "}
-          {promotion.title} — {isEs ? "Reserva ahora y ahorra." : "Book now and save."}
-        </p>
+    <div className="bg-brand-blue-900 py-2.5 px-4 text-white overflow-hidden relative border-b border-white/5">
+      <div className="container mx-auto flex items-center justify-center gap-6 text-center relative z-10">
+        <div className="flex items-center gap-2">
+          <div className="bg-brand-green/20 p-1.5 rounded-lg">
+            <Tag className="w-3.5 h-3.5 text-brand-green animate-pulse" />
+          </div>
+          <p className="text-xs md:text-sm font-medium tracking-wide">
+            <span className="font-bold text-brand-green uppercase text-[10px] mr-2 tracking-[0.2em] px-2 py-0.5 bg-brand-green/10 rounded-md">
+              {isEs ? "PROMO" : "OFFER"}
+            </span>
+            {promotion.title}
+          </p>
+        </div>
+        
         <Link 
           href={`/${locale}/promociones`}
-          className="text-xs md:text-sm bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full flex items-center gap-1 transition-colors font-bold whitespace-nowrap"
+          className="group text-[11px] font-bold uppercase tracking-widest bg-white/10 hover:bg-brand-green hover:text-brand-blue-900 px-4 py-1.5 rounded-full flex items-center gap-2 transition-all duration-300 border border-white/10 hover:border-brand-green"
         >
-          {isEs ? "Ver más" : "See more"} <ArrowRight className="w-3 h-3" />
+          {isEs ? "Aprovechar" : "Claim Offer"} 
+          <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
       
-      {/* Luces decorativas */}
-      <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-white/10 to-transparent skew-x-[-20deg]" />
-      <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-white/10 to-transparent skew-x-[-20deg]" />
+      {/* Subtle glassmorphism effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-[-45deg] animate-[shimmer_5s_infinite]" />
     </div>
   );
 }

@@ -11,34 +11,37 @@
     "contact": "Contact",
     "promotions": "Promotions",
     "bookNow": "Book Now",
-    "login": "Log in"
+    "login": "Log in",
+    "whatsapp": "Book via WhatsApp"
   },
   "hero": {
     "title": "Your natural retreat in the heart of Yaracuy",
     "subtitle": "Enjoy the tranquility of Yurubí National Park with all the comforts of a comfortable hotel",
     "cta": "Book Now",
-    "ctaSecondary": "View Rooms"
+    "ctaSecondary": "View Rooms",
+    "whatsapp": "Book via WhatsApp"
   },
   "rooms": {
-    "title": "Our Rooms",
-    "subtitle": "Comfort and convenience for every type of traveler",
+    "title": "Dream Rooms",
+    "subtitle": "A haven of peace designed for your maximum comfort and deep rest",
     "bookRoom": "Book this room",
     "perNight": "/ night",
-    "maxGuests": "Max. {count} guests",
-    "amenities": "Amenities",
-    "viewDetails": "View details"
+    "maxGuests": "Capacity: {count} guests",
+    "amenities": "Exclusive Amenities",
+    "viewDetails": "Explore details",
+    "interestInfo": "All our rooms feature privileged views of the Yurubí National Park, state-of-the-art air conditioning, and premium 400-thread-count linens."
   },
   "services": {
-    "title": "Our Services",
-    "subtitle": "Everything you need for a perfect stay",
-    "restaurant": "Restaurant",
-    "restaurantDesc": "Venezuelan and international cuisine with garden view",
-    "pool": "Pool",
-    "poolDesc": "Enjoy our pool surrounded by nature",
-    "meetingRoom": "Meeting Room",
-    "meetingRoomDesc": "Equipped space for up to 30 people",
-    "bar": "Bar",
-    "barDesc": "National and imported drinks in a relaxed atmosphere"
+    "title": "Yurubí Experiences",
+    "subtitle": "Every detail is designed to transform your stay into an unforgettable memory",
+    "restaurant": "Culinary Art",
+    "restaurantDesc": "Flavors that tell stories. Yaracuy gastronomy with an international touch and views of our tropical gardens.",
+    "pool": "Relaxation Oasis",
+    "poolDesc": "Dive into crystal-clear waters surrounded by lush vegetation. The perfect place to disconnect from the world.",
+    "meetingRoom": "Success Events",
+    "meetingRoomDesc": "Versatile spaces equipped with cutting-edge technology to make your corporate meetings flawless.",
+    "bar": "Signature Cocktails",
+    "barDesc": "The ideal meeting point. Enjoy drinks designed to refresh your senses in a sophisticated atmosphere."
   },
   "booking": {
     "title": "Book a Room",
@@ -125,31 +128,35 @@
     "thankYou": "Thank you for your review! It will be reviewed by our team."
   },
   "location": {
-    "title": "Location",
-    "subtitle": "Find us in San Felipe, Yaracuy",
+    "title": "In the Heart of Nature",
+    "subtitle": "Strategically located at the foot of Yurubí National Park, where fresh air and birdsong are your best neighbors.",
     "address": "Final Avenida La Fuente, San Felipe, Yaracuy, Venezuela",
     "phone": "+58 254-231-0798",
     "email": "hotelrioyurubi@gmail.com",
-    "howToArrive": "How to arrive"
+    "howToArrive": "Get Directions",
+    "interestLocation": "A few minutes from the city center but far enough to guarantee absolute peace."
   },
   "contact": {
-    "title": "Contact Us",
-    "subtitle": "We are here to help you",
+    "title": "Let's Start Planning Your Visit",
+    "subtitle": "Your perfect escape is just a message away",
     "name": "Name",
     "email": "Email",
     "message": "Message",
-    "send": "Send message",
-    "whatsapp": "Chat on WhatsApp",
-    "successMessage": "Message sent successfully."
+    "send": "Send Direct Message",
+    "whatsapp": "Immediate Support via WhatsApp",
+    "successMessage": "Message received! We will be in touch very soon.",
+    "motivatingText": "We want you to live the Yurubí experience. If you have questions about our rates, special services, or just want to say hello, we are ready to assist you with our characteristic warmth."
   },
   "promotions": {
-    "title": "Promotions",
-    "subtitle": "Special offers for your stay",
+    "title": "Unmissable Opportunities",
+    "subtitle": "Guarantee the best price and exclusive benefits by booking directly with us",
     "validUntil": "Valid until",
     "discount": "Discount",
     "conditions": "Conditions",
-    "bookNow": "Take advantage",
-    "noPromotions": "No active promotions at this time."
+    "bookNow": "Take advantage of this Offer!",
+    "noPromotions": "We will have new surprises for you soon. Stay tuned!",
+    "viewMore": "Explore all promotions",
+    "specialTag": "Limited Offer"
   },
   "dashboard": {
     "title": "Management Panel",

@@ -18,10 +18,10 @@ export default async function RoomCategoriesPage({ params }: { params: Promise<{
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div>
-        <h1 className="text-4xl font-serif text-gray-900 mb-3 font-bold">
+        <h1 className="text-4xl font-serif text-gray-900 dark:text-gray-100 mb-3 font-bold">
           {isEs ? "Categorías y Tarifas" : "Categories & Rates"}
         </h1>
-        <p className="text-gray-500 max-w-2xl text-lg font-medium">
+        <p className="text-gray-500 dark:text-gray-400 max-w-2xl text-lg font-medium">
           {isEs 
             ? "Gestiona los tipos de habitación, sus precios base, ocupación y servicios." 
             : "Manage room types, their base prices, occupancy, and services."}

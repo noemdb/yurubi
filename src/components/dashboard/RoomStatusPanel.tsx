@@ -69,7 +69,7 @@ function RoomDot({ room, isEs }: { room: Room; isEs: boolean }) {
   return (
     <div
       title={tooltip}
-      className={`relative group flex items-center justify-center w-10 h-10 rounded-xl border-2 border-white ring-2 ${ringColor} ${statusColor} cursor-default transition-transform hover:scale-110`}
+      className={`relative group flex items-center justify-center w-10 h-10 rounded-xl border-2 border-white dark:border-slate-900 ring-2 ${ringColor} ${statusColor} cursor-default transition-transform hover:scale-110`}
     >
       <span className="text-white text-[10px] font-black">{room.roomNumber}</span>
 
@@ -106,8 +106,8 @@ export function RoomStatusPanel({ roomTypes, locale, fullPage = false }: RoomSta
   return (
     <aside className={fullPage ? "w-full space-y-5" : "w-full xl:w-80 shrink-0 space-y-5"}>
       {/* Header card */}
-      <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm p-6">
-        <h2 className="text-base font-serif font-bold text-gray-900 flex items-center gap-2 mb-5">
+      <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none p-6">
+        <h2 className="text-card-title flex items-center gap-2 mb-5">
           <Bed className="w-4 h-4 text-brand-blue" />
           {isEs ? "Estado de Habitaciones" : "Room Status"}
         </h2>
@@ -122,13 +122,13 @@ export function RoomStatusPanel({ roomTypes, locale, fullPage = false }: RoomSta
           ].map((item) => (
             <div key={item.label} className="flex items-center gap-1.5">
               <div className={`w-2.5 h-2.5 rounded-full ${item.color}`} />
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wide">{item.label}</span>
+              <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">{item.label}</span>
             </div>
           ))}
         </div>
 
         {/* Summary bar */}
-        <div className="h-2 rounded-full bg-gray-100 overflow-hidden flex">
+        <div className="h-2 rounded-full bg-gray-100 dark:bg-slate-800 overflow-hidden flex">
           {occupiedCount > 0 && (
             <div
               className="bg-red-500 h-full transition-all"
@@ -143,7 +143,7 @@ export function RoomStatusPanel({ roomTypes, locale, fullPage = false }: RoomSta
           )}
           <div className="bg-green-500 h-full flex-1" />
         </div>
-        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-2 text-right">
+        <p className="text-badge text-gray-400 dark:text-gray-500 uppercase mt-2 text-right">
           {freeCount}/{totalRooms} {isEs ? "disponibles" : "available"}
         </p>
       </div>
@@ -151,11 +151,11 @@ export function RoomStatusPanel({ roomTypes, locale, fullPage = false }: RoomSta
       {/* Per-category breakdown */}
       <div className={fullPage ? "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" : "space-y-3"}>
         {roomTypes.map((rt) => (
-          <div key={rt.id} className="bg-white rounded-[2rem] border border-gray-100 shadow-sm p-5">
+          <div key={rt.id} className="bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none p-5">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="text-xs font-bold text-gray-900 leading-none">{rt.name}</p>
-                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">
+                <p className="text-ui-bold text-gray-900 dark:text-gray-100 leading-none">{rt.name}</p>
+                <p className="text-badge text-gray-400 dark:text-gray-500 uppercase mt-0.5">
                   {rt.rooms.length} {isEs ? "hab." : "rooms"}
                 </p>
               </div>
@@ -173,7 +173,7 @@ export function RoomStatusPanel({ roomTypes, locale, fullPage = false }: RoomSta
                 <RoomDot key={room.id} room={room} isEs={isEs} />
               ))}
               {rt.rooms.length === 0 && (
-                <p className="text-xs text-gray-300 font-medium italic">
+                <p className="text-xs text-gray-300 dark:text-gray-600 font-medium italic">
                   {isEs ? "Sin habitaciones físicas" : "No physical rooms"}
                 </p>
               )}

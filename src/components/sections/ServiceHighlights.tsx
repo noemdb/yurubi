@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Utensils, Waves, Users, ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { SmartImage } from "@/components/public/SmartImage";
 
 export async function ServiceHighlights({ locale }: { locale: string }) {
   const isEs = locale === "es";
@@ -11,7 +12,7 @@ export async function ServiceHighlights({ locale }: { locale: string }) {
     {
       id: "restaurant",
       icon: <Utensils className="w-8 h-8 text-brand-blue" />,
-      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop",
+      image: "/images/service/restaurant/01.jpg",
       title: isEs ? "Restaurante El Yurubí" : "El Yurubí Restaurant",
       desc: isEs 
         ? "Gastronomía local e internacional con los mejores ingredientes de la región." 
@@ -21,7 +22,7 @@ export async function ServiceHighlights({ locale }: { locale: string }) {
     {
       id: "pool",
       icon: <Waves className="w-8 h-8 text-brand-green" />,
-      image: "https://images.unsplash.com/photo-1576013551627-1cc001f80211?q=80&w=2070&auto=format&fit=crop",
+      image: "/images/service/pool/01.jpg",
       title: isEs ? "Piscina y Relax" : "Pool & Relax",
       desc: isEs 
         ? "Relájate en nuestras aguas cristalinas rodeado de vegetación exuberante." 
@@ -31,7 +32,7 @@ export async function ServiceHighlights({ locale }: { locale: string }) {
     {
       id: "events",
       icon: <Users className="w-8 h-8 text-brand-blue" />,
-      image: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?q=80&w=2070&auto=format&fit=crop",
+      image: "/images/service/events/01.jpg",
       title: isEs ? "Eventos Corporativos" : "Corporate Events",
       desc: isEs 
         ? "Salones equipados para tus conferencias, talleres y celebraciones especiales." 
@@ -44,13 +45,13 @@ export async function ServiceHighlights({ locale }: { locale: string }) {
     <section className="py-24 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-5xl font-serif font-bold text-gray-900 mb-6 italic">
+          <h2 className="text-section-title mb-6 italic text-brand-blue-900">
             {isEs ? "Mucho más que descanso" : "More than just rest"}
           </h2>
-          <p className="text-gray-500 text-lg">
+          <p className="text-section-subtitle font-medium text-gray-600">
             {isEs 
-              ? "Descubre todas las experiencias que tenemos preparadas para ti dentro de nuestras instalaciones." 
-              : "Discover all the experiences we have prepared for you within our facilities."}
+              ? "Transformamos tu estadía en una experiencia sensorial completa. Descubre los rincones diseñados para tu placer." 
+              : "We transform your stay into a complete sensory experience. Discover the corners designed for your pleasure."}
           </p>
         </div>
 
@@ -58,9 +59,10 @@ export async function ServiceHighlights({ locale }: { locale: string }) {
           {highlights.map((item) => (
             <div key={item.id} className="group relative bg-gray-50 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col">
               <div className="aspect-[4/3] overflow-hidden relative">
-                <img 
+                <SmartImage 
                   src={item.image} 
                   alt={item.title} 
+                  fallbackText={item.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent" />
@@ -70,7 +72,7 @@ export async function ServiceHighlights({ locale }: { locale: string }) {
               </div>
               
               <div className="p-8 flex flex-col flex-grow">
-                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">{item.title}</h3>
+                <h3 className="text-card-title mb-4">{item.title}</h3>
                 <p className="text-gray-500 mb-8 leading-relaxed">
                   {item.desc}
                 </p>

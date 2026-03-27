@@ -111,15 +111,7 @@ export function LoginForm({ locale }: { locale: string }) {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center justify-between">
-                    <FormLabel className="text-gray-700 font-medium">{t("passwordLabel")}</FormLabel>
-                    <button
-                      type="button"
-                      className="text-xs text-brand-green-700 hover:text-brand-green-800 font-medium transition-colors"
-                    >
-                      {t("forgotPassword")}
-                    </button>
-                  </div>
+                  <FormLabel className="text-gray-700 font-medium">{t("passwordLabel")}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />

@@ -32,10 +32,10 @@ export function Step2RoomSelection({
     <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-500">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2 pb-6 border-b border-gray-100">
         <div>
-          <h2 className="text-2xl font-serif font-bold text-gray-900">
+          <h2 className="text-dashboard-title">
             {isEs ? "Habitaciones Disponibles" : "Available Rooms"}
           </h2>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-caption mt-1">
             {isEs ? "Selecciona la habitación ideal para tu estadía." : "Select the ideal room for your stay."}
           </p>
         </div>
@@ -55,7 +55,7 @@ export function Step2RoomSelection({
                    <span className="text-brand-blue-200 font-serif text-xl">{room.name}</span>
                  </div>
                )}
-               <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm text-xs font-bold text-gray-700 flex items-center gap-1.5 border border-gray-100/50">
+               <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm text-badge text-gray-700 flex items-center gap-1.5 border border-gray-100/50">
                  <span className="w-2 h-2 rounded-full bg-brand-green animate-pulse" />
                  {room.availableCount} {isEs ? "disp." : "avail."}
                </div>
@@ -63,20 +63,20 @@ export function Step2RoomSelection({
             
             <div className="p-6 flex flex-col flex-grow">
                <div className="flex justify-between items-start mb-3">
-                 <h3 className="font-serif text-xl font-bold text-gray-900 pr-2">{room.name}</h3>
+                 <h3 className="text-card-title pr-2">{room.name}</h3>
                  <div className="text-right shrink-0 bg-brand-green-50 px-3 py-1.5 rounded-xl border border-brand-green-100">
-                   <div className="text-lg font-bold text-brand-green leading-none">{formatPrice(room.basePrice)}</div>
+                   <div className="text-card-price text-brand-green leading-none">{formatPrice(room.basePrice)}</div>
                  </div>
                </div>
                
-               <p className="text-gray-500 text-sm line-clamp-2 mb-6 leading-relaxed">
+               <p className="text-card-body line-clamp-2 mb-6">
                  {room.description}
                </p>
                
                <div className="mt-auto">
                  <Button 
                    onClick={(e) => { e.stopPropagation(); onSelect(room); }} 
-                   className="w-full bg-brand-blue hover:bg-brand-blue-600 h-12 rounded-xl text-md shadow-sm transition-transform active:scale-[0.98]"
+                   className="text-cta w-full bg-brand-blue hover:bg-brand-blue-600 h-12 rounded-xl shadow-sm transition-transform active:scale-[0.98]"
                  >
                    {isEs ? "Seleccionar" : "Select Room"}
                  </Button>

@@ -5,6 +5,21 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { Points, PointMaterial } from "@react-three/drei";
 
+// Suppress THREE.Clock deprecation warning until @react-three/fiber updates
+if (typeof window !== "undefined") {
+  const originalWarn = console.warn;
+  console.warn = (...args: any[]) => {
+    if (
+      args[0] &&
+      typeof args[0] === "string" &&
+      args[0].includes("THREE.Clock: This module has been deprecated")
+    ) {
+      return;
+    }
+    originalWarn(...args);
+  };
+}
+
 function ParticleField() {
   const ref = useRef<THREE.Points>(null!);
   

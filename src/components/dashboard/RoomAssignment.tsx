@@ -49,16 +49,16 @@ export function RoomAssignment({
   };
 
   return (
-    <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm p-8 sm:p-10 mt-8 mb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none p-8 sm:p-10 mt-8 mb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex items-center gap-4 mb-8">
-        <div className="p-3 bg-brand-blue/5 rounded-2xl text-brand-blue">
+        <div className="p-3 bg-brand-blue/5 dark:bg-brand-blue/10 rounded-2xl text-brand-blue">
           <Home className="w-6 h-6" />
         </div>
         <div>
-          <h2 className="text-xl font-serif font-bold text-gray-900">
+          <h2 className="text-xl font-serif font-bold text-gray-900 dark:text-gray-100">
             {isEs ? "Asignar Habitación Física" : "Assign Physical Room"}
           </h2>
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 dark:text-gray-500 text-sm">
             {isEs ? "Selecciona el número de habitación para este huésped." : "Select the room number for this guest."}
           </p>
         </div>
@@ -66,7 +66,7 @@ export function RoomAssignment({
 
       <div className="flex flex-col md:flex-row items-end gap-6 max-w-2xl">
         <div className="flex-1 space-y-3 w-full">
-          <Label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1 lowercase first-letter:uppercase">
+          <Label className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest ml-1 lowercase first-letter:uppercase">
             {isEs ? "Habitaciones Disponibles" : "Available Rooms"}
           </Label>
           <Select 
@@ -74,10 +74,10 @@ export function RoomAssignment({
             onValueChange={setSelectedRoomId}
             disabled={isPending}
           >
-            <SelectTrigger className="h-14 rounded-2xl border-gray-100 bg-gray-50 focus:ring-brand-blue/20 transition-all font-bold text-gray-900 shadow-none">
+            <SelectTrigger className="h-14 rounded-2xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:ring-brand-blue/20 transition-all font-bold text-gray-900 dark:text-gray-100 shadow-none">
               <SelectValue placeholder={isEs ? "Seleccionar número..." : "Select number..."} />
             </SelectTrigger>
-            <SelectContent className="rounded-2xl border-gray-100 shadow-xl p-2">
+            <SelectContent className="rounded-2xl border-gray-100 dark:border-slate-800 shadow-xl dark:shadow-none p-2">
               {availableRooms.map((room) => (
                 <SelectItem 
                   key={room.id} 
@@ -88,7 +88,7 @@ export function RoomAssignment({
                 </SelectItem>
               ))}
               {availableRooms.length === 0 && (
-                <div className="p-4 text-center text-sm text-gray-400">
+                <div className="p-4 text-center text-sm text-gray-400 dark:text-gray-500">
                   {isEs ? "No hay habitaciones libres de este tipo." : "No free rooms of this type."}
                 </div>
               )}
@@ -97,7 +97,7 @@ export function RoomAssignment({
         </div>
 
         <Button 
-          className="h-14 px-10 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-2xl font-bold shadow-lg shadow-brand-blue/20 gap-2 transition-all active:scale-95 disabled:opacity-50"
+          className="h-14 px-10 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-2xl font-bold shadow-lg dark:shadow-none shadow-brand-blue/20 gap-2 transition-all active:scale-95 disabled:opacity-50"
           onClick={handleAssign}
           disabled={isPending || !selectedRoomId || selectedRoomId === currentRoomId}
         >
@@ -111,7 +111,7 @@ export function RoomAssignment({
       </div>
 
       {currentRoomId && (
-        <div className="mt-8 pt-8 border-t border-gray-50 flex items-center gap-3 text-sm text-brand-green font-medium">
+        <div className="mt-8 pt-8 border-t border-gray-50 dark:border-slate-800/50 flex items-center gap-3 text-sm text-brand-green font-medium">
           <div className="w-2 h-2 rounded-full bg-brand-green animate-pulse" />
           <span>{isEs ? "Habitación actualmente asignada" : "Currently assigned room"}</span>
         </div>

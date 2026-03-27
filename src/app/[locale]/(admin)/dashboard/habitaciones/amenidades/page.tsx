@@ -19,10 +19,10 @@ export default async function AmenitiesPage({ params }: { params: Promise<{ loca
   return (
     <div className="space-y-8 max-w-7xl mx-auto pb-12">
       <div>
-        <h1 className="text-3xl font-serif font-bold text-gray-900">
+        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-gray-100">
           {locale === "es" ? "Amenidades de Habitación" : "Room Amenities"}
         </h1>
-        <p className="text-gray-500 mt-2 font-medium">
+        <p className="text-gray-500 dark:text-gray-400 mt-2 font-medium">
           {locale === "es" 
             ? "Gestiona las amenidades disponibles para las habitaciones."
             : "Manage the amenities available for the rooms."}

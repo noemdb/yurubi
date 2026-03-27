@@ -15,6 +15,7 @@ import { es, enUS } from "date-fns/locale";
 import type { BookingData } from "./BookingWizard";
 import { guestSchema } from "@/lib/validators/guest";
 import { formatPrice } from "@/lib/utils";
+import { CURRENCY_SYMBOL } from "@/lib/constants";
 
 const checkoutSchema = z.object({
   guest: guestSchema,
@@ -77,7 +78,7 @@ export function Step3Checkout({
       {/* Formulario Izquierda (2/3) */}
       <div className="lg:col-span-2 space-y-8">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-2xl font-serif font-bold text-gray-900 flex items-center gap-3">
+          <h2 className="text-dashboard-title flex items-center gap-3">
             <User className="h-6 w-6 text-brand-blue" />
             {isEs ? "Datos del Huésped Principal" : "Main Guest Details"}
           </h2>
@@ -92,9 +93,9 @@ export function Step3Checkout({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField control={form.control} name="guest.fullName" render={({ field }) => (
                   <FormItem className="md:col-span-2">
-                    <FormLabel>{isEs ? "Nombre Completo" : "Full Name"}</FormLabel>
-                    <FormControl><Input placeholder="Juan Pérez" className="h-12 rounded-xl bg-white" {...field} /></FormControl>
-                    <FormMessage />
+                    <FormLabel className="text-label">{isEs ? "Nombre Completo" : "Full Name"}</FormLabel>
+                    <FormControl><Input placeholder="Juan Pérez" className="text-slate-950 h-12 rounded-xl bg-white focus:bg-white font-bold" {...field} /></FormControl>
+                    <FormMessage className="text-error" />
                   </FormItem>
                 )} />
               </div>
@@ -103,14 +104,14 @@ export function Step3Checkout({
                 <FormField control={form.control} name="guest.email" render={({ field }) => (
                   <FormItem>
                     <FormLabel>{isEs ? "Correo Electrónico" : "Email Address"}</FormLabel>
-                    <FormControl><Input type="email" placeholder="correo@ejemplo.com" className="h-12 rounded-xl bg-white" {...field} /></FormControl>
+                    <FormControl><Input type="email" placeholder="correo@ejemplo.com" className="h-12 rounded-xl bg-white text-slate-950 focus:bg-white font-bold" {...field} /></FormControl>
                     <FormMessage />
                   </FormItem>
                 )} />
                 <FormField control={form.control} name="guest.phone" render={({ field }) => (
                   <FormItem>
                     <FormLabel>{isEs ? "Teléfono Móvil" : "Phone Number"}</FormLabel>
-                    <FormControl><Input placeholder="+58 412 0000000" className="h-12 rounded-xl bg-white" {...field} /></FormControl>
+                    <FormControl><Input placeholder="+58 412 0000000" className="h-12 rounded-xl bg-white text-slate-950 focus:bg-white font-bold" {...field} /></FormControl>
                     <FormMessage />
                   </FormItem>
                 )} />
@@ -120,14 +121,14 @@ export function Step3Checkout({
                 <FormField control={form.control} name="guest.idDocument" render={({ field }) => (
                   <FormItem>
                     <FormLabel>{isEs ? "Cédula / Pasaporte" : "ID Document / Passport"}</FormLabel>
-                    <FormControl><Input placeholder="V-12345678" className="h-12 rounded-xl bg-white" {...field} /></FormControl>
+                    <FormControl><Input placeholder="V-12345678" className="h-12 rounded-xl bg-white text-slate-950 focus:bg-white font-bold" {...field} /></FormControl>
                     <FormMessage />
                   </FormItem>
                 )} />
                 <FormField control={form.control} name="guest.origin" render={({ field }) => (
                   <FormItem>
                     <FormLabel>{isEs ? "Ciudad / País de Origen" : "City / Country of Origin"}</FormLabel>
-                    <FormControl><Input placeholder="Caracas, Venezuela" className="h-12 rounded-xl bg-white" {...field} /></FormControl>
+                    <FormControl><Input placeholder="Caracas, Venezuela" className="h-12 rounded-xl bg-white text-slate-950 focus:bg-white font-bold" {...field} /></FormControl>
                     <FormMessage />
                   </FormItem>
                 )} />
@@ -137,7 +138,7 @@ export function Step3Checkout({
                 <FormField control={form.control} name="guest.address" render={({ field }) => (
                   <FormItem>
                     <FormLabel>{isEs ? "Dirección de Domicilio" : "Home Address"}</FormLabel>
-                    <FormControl><Input placeholder="Av. Principal, Edif. Rio, Apto 4" className="h-12 rounded-xl bg-white" {...field} /></FormControl>
+                    <FormControl><Input placeholder="Av. Principal, Edif. Rio, Apto 4" className="h-12 rounded-xl bg-white text-slate-950 focus:bg-white font-bold" {...field} /></FormControl>
                     <FormMessage />
                   </FormItem>
                 )} />
@@ -147,7 +148,7 @@ export function Step3Checkout({
 
             {/* Payment & Extras */}
             <div className="bg-gray-50 p-6 md:p-8 rounded-3xl border border-gray-100 space-y-6">
-               <h3 className="text-xl font-serif font-bold text-gray-900 flex items-center gap-2 mb-4">
+               <h3 className="text-card-title flex items-center gap-2 mb-4">
                  <ShieldCheck className="h-5 w-5 text-brand-green" />
                  {isEs ? "Pago y Detalles Finales" : "Payment & Final Details"}
                </h3>
@@ -157,7 +158,7 @@ export function Step3Checkout({
                     <FormLabel>{isEs ? "Método de Pago Preferido" : "Preferred Payment Method"}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger className="h-12 rounded-xl bg-white">
+                        <SelectTrigger className="h-12 rounded-xl bg-white text-slate-950 font-bold">
                           <SelectValue placeholder={isEs ? "Selecciona..." : "Select..."} />
                         </SelectTrigger>
                       </FormControl>
@@ -177,7 +178,7 @@ export function Step3Checkout({
                     <FormControl>
                       <Textarea 
                         placeholder={isEs ? "¿Alguna petición especial, alergia o requerimiento?" : "Any special requests?"} 
-                        className="resize-none h-24 rounded-xl bg-white" 
+                        className="resize-none h-24 rounded-xl bg-white text-slate-950 font-bold" 
                         {...field} 
                       />
                     </FormControl>
@@ -186,7 +187,7 @@ export function Step3Checkout({
                 )} />
             </div>
 
-            <Button type="submit" disabled={isSubmitting} className="w-full h-16 bg-brand-blue hover:bg-brand-blue-600 text-lg font-bold rounded-2xl shadow-md transition-transform active:scale-[0.99] mt-8">
+            <Button type="submit" disabled={isSubmitting} className="text-cta w-full h-16 bg-brand-blue hover:bg-brand-blue-600 rounded-2xl shadow-md transition-transform active:scale-[0.99] mt-8">
               {isSubmitting ? <Loader2 className="w-6 h-6 animate-spin mx-auto" /> : (isEs ? "Confirmar Reserva" : "Confirm Reservation")}
             </Button>
 
@@ -205,7 +206,7 @@ export function Step3Checkout({
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-brand-green-50 rounded-full blur-3xl -z-0" />
           
           <div className="relative z-10">
-            <h3 className="font-serif text-xl font-bold text-gray-900 border-b border-gray-100 pb-4 mb-6">
+            <h3 className="text-card-title border-b border-gray-100 pb-4 mb-6">
               {isEs ? "Resumen de tu Estadía" : "Stay Summary"}
             </h3>
             
@@ -245,13 +246,13 @@ export function Step3Checkout({
               </div>
               <div className="flex justify-between text-sm text-gray-600">
                 <span>{isEs ? "Impuestos (Incluidos)" : "Taxes (Included)"}</span>
-                <span>$0.00</span>
+                <span>{CURRENCY_SYMBOL} 0.00</span>
               </div>
             </div>
             
             <div className="flex justify-between items-end pt-4 border-t border-gray-100">
-              <span className="text-gray-900 font-bold">{isEs ? "Total a Pagar" : "Total to Pay"}</span>
-              <span className="text-3xl font-bold text-brand-green">{formatPrice(total)}</span>
+              <span className="text-label text-gray-900">{isEs ? "Total a Pagar" : "Total to Pay"}</span>
+              <span className="text-card-price text-brand-green !text-3xl">{formatPrice(total)}</span>
             </div>
           </div>
         </div>

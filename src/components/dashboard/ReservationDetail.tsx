@@ -60,7 +60,7 @@ export function ReservationDetail({
       case "REJECTED":
         return <Badge className="bg-red-100 text-red-700 hover:bg-red-100 border-none px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">{isEs ? "Rechazada" : "Rejected"}</Badge>;
       case "CANCELLED":
-        return <Badge className="bg-gray-100 text-gray-500 hover:bg-gray-100 border-none px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">{isEs ? "Cancelada" : "Cancelled"}</Badge>;
+        return <Badge className="bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800 border-none px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">{isEs ? "Cancelada" : "Cancelled"}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -72,13 +72,13 @@ export function ReservationDetail({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <Link 
           href="/dashboard/reservas" 
-          className="flex items-center text-sm text-gray-500 hover:text-brand-blue transition-colors group"
+          className="flex items-center text-sm text-gray-500 dark:text-gray-400 hover:text-brand-blue transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           {isEs ? "Volver a Reservas" : "Back to Reservations"}
         </Link>
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="rounded-2xl gap-2 font-bold h-11 px-6 border-gray-200" onClick={() => window.print()}>
+          <Button variant="outline" className="rounded-2xl gap-2 font-bold h-11 px-6 border-gray-200 dark:border-slate-700" onClick={() => window.print()}>
             <Printer className="w-4 h-4" />
             {isEs ? "Imprimir" : "Print"}
           </Button>
@@ -92,17 +92,17 @@ export function ReservationDetail({
         <div className="lg:col-span-2 space-y-8">
           
           {/* Reservation Status Card */}
-          <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm overflow-hidden p-8 sm:p-10">
+          <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none overflow-hidden p-8 sm:p-10">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-brand-blue/5 flex items-center justify-center text-brand-blue font-bold text-xl">
+                <div className="w-14 h-14 rounded-2xl bg-brand-blue/5 dark:bg-brand-blue/10 flex items-center justify-center text-brand-blue font-bold text-xl">
                   <Hash className="w-6 h-6" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-serif font-bold text-gray-900 leading-none">
+                  <h1 className="text-2xl font-serif font-bold text-gray-900 dark:text-gray-100 leading-none">
                     Reserva #{reservation.id.slice(-6).toUpperCase()}
                   </h1>
-                  <p className="text-gray-400 text-sm mt-2">
+                  <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
                     {isEs ? "Realizada el " : "Created on "} 
                     {format(new Date(reservation.createdAt), "PPP", { locale: isEs ? es : undefined })}
                   </p>
@@ -115,23 +115,23 @@ export function ReservationDetail({
               {/* Check-in / Check-out */}
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 p-2 bg-gray-50 rounded-lg">
-                    <Calendar className="w-4 h-4 text-gray-400" />
+                  <div className="mt-1 p-2 bg-gray-50 dark:bg-slate-800/50 rounded-lg">
+                    <Calendar className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                   </div>
                   <div>
-                    <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 block">Check-in</Label>
-                    <p className="font-bold text-lg text-gray-900">
+                    <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1 block">Check-in</Label>
+                    <p className="font-bold text-lg text-gray-900 dark:text-gray-100">
                       {format(new Date(reservation.checkIn), "EEEE, d 'de' MMMM", { locale: isEs ? es : undefined })}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 p-2 bg-gray-50 rounded-lg">
-                    <Calendar className="w-4 h-4 text-gray-400" />
+                  <div className="mt-1 p-2 bg-gray-50 dark:bg-slate-800/50 rounded-lg">
+                    <Calendar className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                   </div>
                   <div>
-                    <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 block">Check-out</Label>
-                    <p className="font-bold text-lg text-gray-900">
+                    <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1 block">Check-out</Label>
+                    <p className="font-bold text-lg text-gray-900 dark:text-gray-100">
                       {format(new Date(reservation.checkOut), "EEEE, d 'de' MMMM", { locale: isEs ? es : undefined })}
                     </p>
                   </div>
@@ -141,22 +141,22 @@ export function ReservationDetail({
               {/* Guest / Room Info */}
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 p-2 bg-gray-50 rounded-lg">
-                    <User className="w-4 h-4 text-gray-400" />
+                  <div className="mt-1 p-2 bg-gray-50 dark:bg-slate-800/50 rounded-lg">
+                    <User className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                   </div>
                   <div>
-                    <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 block">{isEs ? "Huéspedes" : "Guests"}</Label>
-                    <p className="font-bold text-lg text-gray-900">
+                    <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1 block">{isEs ? "Huéspedes" : "Guests"}</Label>
+                    <p className="font-bold text-lg text-gray-900 dark:text-gray-100">
                       {reservation.numberOfGuests} {isEs ? (reservation.numberOfGuests === 1 ? "Huésped" : "Huéspedes") : "Person(s)"}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 p-2 bg-gray-50 rounded-lg text-brand-blue">
+                  <div className="mt-1 p-2 bg-gray-50 dark:bg-slate-800/50 rounded-lg text-brand-blue">
                     <FileText className="w-4 h-4" />
                   </div>
                   <div>
-                    <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 block">{isEs ? "Habitación" : "Room"}</Label>
+                    <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1 block">{isEs ? "Habitación" : "Room"}</Label>
                     <p className="font-bold text-lg text-brand-blue">
                       {reservation.roomType.name}
                     </p>
@@ -167,16 +167,16 @@ export function ReservationDetail({
           </div>
 
           {/* Financial Card */}
-          <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm p-8 sm:p-10">
-            <h2 className="text-xl font-serif font-bold text-gray-900 mb-8 flex items-center gap-3">
-              <CreditCard className="w-5 h-5 text-gray-400" />
+          <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none p-8 sm:p-10">
+            <h2 className="text-xl font-serif font-bold text-gray-900 dark:text-gray-100 mb-8 flex items-center gap-3">
+              <CreditCard className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               {isEs ? "Detalles Financieros" : "Financial Details"}
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               <div className="space-y-6">
                 <div>
-                  <Label className="text-sm font-medium text-gray-500 mb-2 block">{isEs ? "Precio Total" : "Total Price"}</Label>
+                  <Label className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 block">{isEs ? "Precio Total" : "Total Price"}</Label>
                   <p className="text-4xl font-serif font-bold text-brand-green">
                     {formatPrice(reservation.totalPrice)}
                   </p>
@@ -184,10 +184,10 @@ export function ReservationDetail({
               </div>
 
               <div className="space-y-6">
-                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-slate-800/50 rounded-2xl border border-gray-100 dark:border-slate-800">
                   <div className="space-y-1">
-                    <Label className="font-bold text-gray-900">{isEs ? "Pago por Adelantado" : "Advance Paid"}</Label>
-                    <p className="text-xs text-gray-400">{isEs ? "Confirmar recepción del pago" : "Confirm payment receipt"}</p>
+                    <Label className="font-bold text-gray-900 dark:text-gray-100">{isEs ? "Pago por Adelantado" : "Advance Paid"}</Label>
+                    <p className="text-xs text-gray-400 dark:text-gray-500">{isEs ? "Confirmar recepción del pago" : "Confirm payment receipt"}</p>
                   </div>
                   <Switch 
                     checked={reservation.advancePaymentPaid} 
@@ -197,9 +197,9 @@ export function ReservationDetail({
                 </div>
 
                 {reservation.paymentMethod && (
-                  <div className="p-4 rounded-2xl border border-gray-100">
-                     <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 block">{isEs ? "Método / Referencia" : "Method / Reference"}</Label>
-                     <p className="font-bold text-gray-900 uppercase">
+                  <div className="p-4 rounded-2xl border border-gray-100 dark:border-slate-800">
+                     <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1 block">{isEs ? "Método / Referencia" : "Method / Reference"}</Label>
+                     <p className="font-bold text-gray-900 dark:text-gray-100 uppercase">
                        {reservation.paymentMethod} {reservation.paymentReference && ` - ${reservation.paymentReference}`}
                      </p>
                   </div>
@@ -226,8 +226,8 @@ export function ReservationDetail({
         <div className="space-y-8">
           
           {/* Status Actions Card */}
-          <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm p-8 space-y-4">
-            <h3 className="text-md font-bold text-gray-900 mb-4">{isEs ? "Acciones de Estado" : "Status Actions"}</h3>
+          <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none p-8 space-y-4">
+            <h3 className="text-md font-bold text-gray-900 dark:text-gray-100 mb-4">{isEs ? "Acciones de Estado" : "Status Actions"}</h3>
             
             {reservation.status === 'PENDING' && (
               <>
@@ -257,7 +257,7 @@ export function ReservationDetail({
             {reservation.status === 'CONFIRMED' && (
               <Button 
                 variant="outline"
-                className="w-full border-gray-100 text-gray-500 hover:bg-gray-50 rounded-xl h-12 font-bold gap-2"
+                className="w-full border-gray-100 dark:border-slate-800 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-800/50 rounded-xl h-12 font-bold gap-2"
                 onClick={() => {
                   const reason = window.prompt(isEs ? "Motivo de la cancelación:" : "Cancellation reason:");
                   if (reason !== null) handleAction(cancelReservation, reason);
@@ -270,31 +270,31 @@ export function ReservationDetail({
             )}
 
             {(reservation.status === 'REJECTED' || reservation.status === 'CANCELLED') && (
-              <p className="text-xs text-center text-gray-400 font-medium p-4 bg-gray-50 rounded-xl">
+              <p className="text-xs text-center text-gray-400 dark:text-gray-500 font-medium p-4 bg-gray-50 dark:bg-slate-800/50 rounded-xl">
                 {isEs ? "Esta reserva no puede ser alterada." : "This booking cannot be modified."}
               </p>
             )}
           </div>
 
           {/* Guest Sidebar Card */}
-          <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm p-8">
-            <h3 className="text-md font-bold text-gray-900 mb-6">{isEs ? "Información del Huésped" : "Guest info"}</h3>
+          <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm dark:shadow-none p-8">
+            <h3 className="text-md font-bold text-gray-900 dark:text-gray-100 mb-6">{isEs ? "Información del Huésped" : "Guest info"}</h3>
             <div className="space-y-6">
               <div>
-                <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Nombre</Label>
-                <p className="font-bold text-gray-900">{reservation.guest.fullName}</p>
+                <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest block mb-1">Nombre</Label>
+                <p className="font-bold text-gray-900 dark:text-gray-100">{reservation.guest.fullName}</p>
               </div>
               <div>
-                <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Email</Label>
-                <p className="text-sm text-gray-600 break-all">{reservation.guest.email}</p>
+                <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest block mb-1">Email</Label>
+                <p className="text-sm text-gray-600 dark:text-gray-400 break-all">{reservation.guest.email}</p>
               </div>
               <div>
-                <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Teléfono</Label>
-                <p className="text-sm text-gray-600">{reservation.guest.phone}</p>
+                <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest block mb-1">Teléfono</Label>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{reservation.guest.phone}</p>
               </div>
               <div>
-                <Label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Documento</Label>
-                <p className="text-sm text-gray-600 font-mono tracking-tighter">{reservation.guest.idDocument}</p>
+                <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest block mb-1">Documento</Label>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-mono tracking-tighter">{reservation.guest.idDocument}</p>
               </div>
             </div>
           </div>

@@ -7,6 +7,7 @@ import { Location } from "@/components/sections/Location";
 import { Contact } from "@/components/sections/Contact";
 import { PromotionBanner } from "@/components/sections/PromotionBanner";
 import { ServiceHighlights } from "@/components/sections/ServiceHighlights";
+import { PromotionsSection } from "@/components/sections/PromotionsSection";
 import { GalleryGrid } from "@/components/public/GalleryGrid";
 import { ReviewsCarousel } from "@/components/public/ReviewsCarousel";
 import { SectionReveal } from "@/components/shared/SectionReveal";
@@ -90,6 +91,10 @@ export default async function HomePage({ params }: PageProps) {
         </SectionReveal>
 
         <SectionReveal delay={0.2}>
+          <PromotionsSection locale={locale} />
+        </SectionReveal>
+
+        <SectionReveal delay={0.3}>
           <ServiceHighlights locale={locale} />
         </SectionReveal>
 
@@ -101,12 +106,14 @@ export default async function HomePage({ params }: PageProps) {
         <SectionReveal>
           <section className="py-24 bg-gray-50/50">
             <div className="container mx-auto px-4 lg:px-8">
-              <div className="text-center max-w-2xl mx-auto mb-16">
-                <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                  {locale === 'es' ? 'Nuestra Galería' : 'Our Gallery'}
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <h2 className="font-serif text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+                  {locale === 'es' ? 'Nuestra Galería Visual' : 'Our Visual Gallery'}
                 </h2>
-                <p className="text-gray-500 text-lg">
-                  {locale === 'es' ? 'Explora los rincones más hermosos de nuestro hotel.' : 'Explore the most beautiful corners of our hotel.'}
+                <p className="text-gray-500 text-lg leading-relaxed">
+                  {locale === 'es' 
+                    ? 'Cada rincón del Hotel Río Yurubí ha sido diseñado para conectar con la naturaleza y ofrecerte una experiencia estética inigualable. Explora nuestro paraíso.' 
+                    : 'Every corner of Hotel Río Yurubí has been designed to connect with nature and offer you an unparalleled aesthetic experience. Explore our paradise.'}
                 </p>
               </div>
               <GalleryGrid locale={locale} />
@@ -118,12 +125,14 @@ export default async function HomePage({ params }: PageProps) {
         <SectionReveal>
           <section className="py-24 bg-white overflow-hidden">
             <div className="container mx-auto px-4 lg:px-8">
-              <div className="text-center max-w-2xl mx-auto mb-16">
-                <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <h2 className="font-serif text-3xl md:text-5xl font-bold text-gray-900 mb-6">
                   {locale === 'es' ? 'Lo que dicen nuestros huéspedes' : 'What our guests say'}
                 </h2>
-                <p className="text-brand-blue-700 text-lg">
-                  {locale === 'es' ? 'Experiencias reales en el corazón de Yaracuy.' : 'Real experiences in the heart of Yaracuy.'}
+                <p className="text-brand-blue-700 text-lg font-medium">
+                  {locale === 'es' 
+                    ? 'Historias reales de descanso y confort. Descubre por qué somos el destino favorito en San Felipe.' 
+                    : 'Real stories of rest and comfort. Discover why we are the favorite destination in San Felipe.'}
                 </p>
               </div>
               <ReviewsCarousel reviews={reviews} locale={locale} />

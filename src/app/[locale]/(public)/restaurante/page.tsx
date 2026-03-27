@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Clock, Users, ArrowRight, ChefHat, CheckSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SmartImage } from "@/components/public/SmartImage";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -42,14 +43,14 @@ export default async function RestaurantPage({ params }: PageProps) {
     <div className="min-h-screen bg-white">
       {/* Hero Header Restaurante */}
       <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+        <SmartImage
+          src="/images/restaurant/01.jpg"
+          alt="Restaurante Hotel Río Yurubí"
+          className="absolute inset-0 w-full h-full object-cover"
+          fallbackText={isEs ? "Restaurante El Yurubí" : "El Yurubí Restaurant"}
+          fallbackClassName="bg-brand-blue-900"
+        />
         <div className="absolute inset-0 bg-gray-900/50 z-10" />
-        <picture>
-          <img
-            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop"
-            alt="Restaurante Hotel Río Yurubí"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        </picture>
         <div className="container relative z-20 mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
             <ChefHat className="w-16 h-16 text-white/90 mx-auto mb-6" />
@@ -123,15 +124,19 @@ export default async function RestaurantPage({ params }: PageProps) {
 
             {/* Collage Lateral */}
             <div className="grid grid-cols-2 gap-4 h-full">
-              <img
-                src="https://images.unsplash.com/photo-1414235077428-338988a2e8c0?q=80&w=2070&auto=format&fit=crop"
+              <SmartImage
+                src="/images/restaurant/01.jpg"
                 alt="Plato del restaurante"
-                className="w-full h-[300px] object-cover rounded-3xl"
+                className="w-full h-[300px] object-cover rounded-3xl shadow-lg"
+                fallbackText=""
+                fallbackClassName="bg-brand-blue-50"
               />
-              <img
-                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop"
+              <SmartImage
+                src="/images/restaurant/02.jpg"
                 alt="Ambiente del restaurante"
-                className="w-full h-[300px] object-cover rounded-3xl mt-12"
+                className="w-full h-[300px] object-cover rounded-3xl mt-12 shadow-lg"
+                fallbackText=""
+                fallbackClassName="bg-brand-green-50"
               />
             </div>
           </div>

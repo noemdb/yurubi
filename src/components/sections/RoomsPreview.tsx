@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/utils";
 import { AnimatedRoomsGrid } from "@/components/public/AnimatedRoomsGrid";
+import { SmartImage } from "@/components/public/SmartImage";
 
 export async function RoomsPreview({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "rooms" });
@@ -24,10 +25,13 @@ export async function RoomsPreview({ locale }: { locale: string }) {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
           <div className="max-w-2xl">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-section-title mb-4">
               {t("title")}
             </h2>
-            <p className="text-gray-600 text-lg">{t("subtitle")}</p>
+            <p className="text-section-subtitle mb-6">{t("subtitle")}</p>
+            <p className="text-gray-500 mb-2 italic">
+              {t("interestInfo")}
+            </p>
           </div>
           <Button
             asChild
@@ -47,34 +51,26 @@ export async function RoomsPreview({ locale }: { locale: string }) {
               className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 group h-full flex flex-col"
             >
               <div className="aspect-[4/3] relative bg-gray-200 overflow-hidden">
-                {/* Fallback pattern si no hay imágenes o placeholder */}
-                {room.images.length > 0 ? (
-                  <img
-                    src={room.images[0]}
-                    alt={room.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                    <span className="text-gray-400 font-serif text-xl border-b border-gray-300 pb-1">
-                      {room.name}
-                    </span>
-                  </div>
-                )}
+                <SmartImage
+                  src={`/images/rooms/${room.slug}/01.jpg`}
+                  alt={room.name}
+                  fallbackText={room.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
                 <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-sm z-10">
-                  <span className="font-bold text-gray-900">
+                  <span className="text-card-price">
                     {formatPrice(room.basePrice)}
                   </span>
-                  <span className="text-gray-500 text-sm">{t("perNight")}</span>
+                  <span className="text-caption ml-1">{t("perNight")}</span>
                 </div>
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </div>
 
               <div className="p-8 flex flex-col flex-grow">
-                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">
+                <h3 className="text-card-title mb-3 group-hover:text-brand-blue transition-colors">
                   {room.name}
                 </h3>
-                <p className="text-gray-500 text-base mb-8 line-clamp-2 font-light leading-relaxed">
+                <p className="text-card-body mb-8 line-clamp-2">
                   {room.description}
                 </p>
 
@@ -90,12 +86,12 @@ export async function RoomsPreview({ locale }: { locale: string }) {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mt-auto">
-                  <Button asChild variant="outline" className="rounded-full border-gray-200 hover:border-brand-blue hover:bg-brand-blue/5 transition-colors h-12">
+                  <Button asChild variant="outline" className="text-cta-sm rounded-full border-gray-200 hover:border-brand-blue hover:bg-brand-blue/5 transition-colors h-12">
                     <Link href={`/${locale}/habitaciones/${room.slug}`}>
                       {locale === 'es' ? 'Detalles' : 'Details'}
                     </Link>
                   </Button>
-                  <Button asChild className="rounded-full bg-brand-blue hover:bg-brand-blue-700 h-12 shadow-md hover:shadow-lg transition-all">
+                  <Button asChild className="text-cta-sm rounded-full bg-brand-blue hover:bg-brand-blue-700 h-12 shadow-md hover:shadow-lg transition-all">
                     <Link href={`/${locale}/reservar?roomType=${room.id}`}>
                       {locale === 'es' ? 'Reservar' : 'Book Now'}
                     </Link>

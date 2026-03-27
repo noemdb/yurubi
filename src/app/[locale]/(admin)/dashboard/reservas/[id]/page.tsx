@@ -45,7 +45,7 @@ export default async function ReservationIdPage({ params }: PageProps) {
   });
 
   return (
-    <div className="p-4 sm:p-8 space-y-8 min-h-screen bg-gray-50/30">
+    <div className="p-4 sm:p-8 space-y-8 min-h-screen bg-gray-50 dark:bg-slate-800/50/30">
       <ReservationDetail 
         reservation={reservation} 
         locale={locale} 
