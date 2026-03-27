@@ -32,7 +32,7 @@ export function WhatsAppBookingButton({
       onClick={handleClick}
     >
       <MessageSquare className="mr-2 h-4 w-4 text-[#25D366] fill-[#25D366]/10" />
-      {locale === 'es' ? 'Reservar por WhatsApp' : 'Book via WhatsApp'}
+      {locale === 'es' ? 'Reservar WS' : 'Book via WS'}
     </Button>
   );
 }
