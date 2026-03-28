@@ -53,7 +53,7 @@ export async function RoomsPreview({ locale }: { locale: string }) {
             >
               <div className="aspect-[4/3] relative bg-muted overflow-hidden">
                 <SmartImage
-                  src={room.images?.[0] || "/images/hero/IMG-20260316-WA0024.jpg"}
+                  src={room.images?.[0] || ""}
                   alt={room.name}
                   fallbackText={room.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"

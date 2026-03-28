@@ -4,7 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface SmartImageProps {
-  src: string;
+  src?: string | null;
   alt: string;
   className?: string;
   fallbackText?: string;
@@ -22,7 +22,7 @@ export function SmartImage({
 }: SmartImageProps) {
   const [error, setError] = useState(false);
 
-  if (error) {
+  if (error || !src) {
     return (
       <div className={cn("w-full h-full flex items-center justify-center", fallbackClassName)}>
         {fallbackText && (
