@@ -15,6 +15,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 import { SmartImage } from "@/components/public/SmartImage";
 import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
+import { prisma } from "@/lib/prisma";
 
 // ...
 export default async function GalleryPage({ params }: PageProps) {
@@ -23,11 +24,26 @@ export default async function GalleryPage({ params }: PageProps) {
   const tHero = await getTranslations({ locale, namespace: "hero" });
   const isEs = locale === "es";
 
+  // Fetch room category images
+  const roomTypes = await prisma.roomType.findMany({
+    where: { isActive: true },
+    select: { name: true, slug: true, images: true }
+  });
+
+  const roomImages = roomTypes
+    .filter(rt => rt.images && rt.images.length > 0)
+    .map(rt => ({
+      src: rt.images[0]!, // Non-null assertion after filter
+      title: rt.name
+    }));
+
   // Generar array de 20 imágenes locales
-  const galleryImages = Array.from({ length: 20 }, (_, i) => ({
+  const placeholderImages = Array.from({ length: 20 }, (_, i) => ({
     src: `/images/galery/${String(i + 1).padStart(2, "0")}.jpg`,
     title: isEs ? `Momento ${i + 1}` : `Moment ${i + 1}`,
   }));
+
+  const galleryImages = [...roomImages, ...placeholderImages];
 
   return (
     <div className="min-h-screen bg-white pb-20">

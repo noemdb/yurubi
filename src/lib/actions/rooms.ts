@@ -81,23 +81,45 @@ export async function deleteRoom(id: string) {
   return { success: true };
 }
 
-export async function createRoomType(data: { 
-  name: string, 
-  slug: string, 
-  description: string, 
-  basePrice: number, 
-  maxOccupancy: number, 
-  amenities: string[] 
-}) {
+import { writeFile, mkdir } from "fs/promises";
+import path from "path";
+
+export async function createRoomType(formData: FormData) {
   const session = await auth();
   if (!session) throw new Error("Unauthorized");
 
-  const { amenities, ...rest } = data;
+  const name = formData.get("name") as string;
+  const slug = formData.get("slug") as string;
+  const description = formData.get("description") as string;
+  const basePrice = parseFloat(formData.get("basePrice") as string);
+  const maxOccupancy = parseInt(formData.get("maxOccupancy") as string);
+  const amenities = formData.getAll("amenities") as string[];
+  const imageFile = formData.get("image") as File | null;
+
+  let imageUrls: string[] = [];
+
+  if (imageFile && imageFile.size > 0) {
+    const buffer = Buffer.from(await imageFile.arrayBuffer());
+    const publicDir = path.join(process.cwd(), "public");
+    const relativePath = `/images/rooms/${slug}/01.jpg`;
+    const fullPath = path.join(publicDir, relativePath);
+
+    // Create directory if it doesn't exist
+    await mkdir(path.dirname(fullPath), { recursive: true });
+    
+    // Save the file
+    await writeFile(fullPath, buffer);
+    imageUrls = [relativePath];
+  }
 
   await prisma.roomType.create({
     data: {
-      ...rest,
-      images: [],
+      name,
+      slug,
+      description,
+      basePrice,
+      maxOccupancy,
+      images: imageUrls,
       isActive: true,
       amenities: {
         connect: amenities.map(name => ({ name }))
@@ -105,35 +127,58 @@ export async function createRoomType(data: {
     }
   });
 
-  revalidatePath("/dashboard/habitaciones");
+  revalidatePath("/dashboard/habitaciones/categorias");
+  revalidatePath("/habitaciones");
   revalidatePath("/reservar");
   return { success: true };
 }
 
-export async function updateRoomType(id: string, data: { 
-  name: string, 
-  slug: string, 
-  description: string, 
-  basePrice: number, 
-  maxOccupancy: number, 
-  amenities: string[] 
-}) {
+export async function updateRoomType(id: string, formData: FormData) {
   const session = await auth();
   if (!session) throw new Error("Unauthorized");
 
-  const { amenities, ...rest } = data;
+  const name = formData.get("name") as string;
+  const slug = formData.get("slug") as string;
+  const description = formData.get("description") as string;
+  const basePrice = parseFloat(formData.get("basePrice") as string);
+  const maxOccupancy = parseInt(formData.get("maxOccupancy") as string);
+  const amenities = formData.getAll("amenities") as string[];
+  const imageFile = formData.get("image") as File | null;
+
+  const currentRoomType = await prisma.roomType.findUnique({ where: { id } });
+  let imageUrls = currentRoomType?.images || [];
+
+  if (imageFile && imageFile.size > 0) {
+    const buffer = Buffer.from(await imageFile.arrayBuffer());
+    const publicDir = path.join(process.cwd(), "public");
+    const relativePath = `/images/rooms/${slug}/01.jpg`;
+    const fullPath = path.join(publicDir, relativePath);
+
+    // Create directory if it doesn't exist
+    await mkdir(path.dirname(fullPath), { recursive: true });
+    
+    // Save the file
+    await writeFile(fullPath, buffer);
+    imageUrls = [relativePath];
+  }
 
   await prisma.roomType.update({
     where: { id },
     data: {
-      ...rest,
+      name,
+      slug,
+      description,
+      basePrice,
+      maxOccupancy,
+      images: imageUrls,
       amenities: {
         set: amenities.map(name => ({ name }))
       }
     }
   });
 
-  revalidatePath("/dashboard/habitaciones");
+  revalidatePath("/dashboard/habitaciones/categorias");
+  revalidatePath("/habitaciones");
   revalidatePath("/reservar");
   return { success: true };
 }

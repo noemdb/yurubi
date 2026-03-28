@@ -1,7 +1,7 @@
 // src/app/[locale]/layout.tsx
 // Next.js 16: params es async — siempre await antes de usar (ADR-008)
 import type { Metadata } from "next";
-import { inter } from "@/app/fonts";
+import { carlito } from "@/app/fonts";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { Toaster } from "@/components/ui/toaster";
@@ -34,7 +34,7 @@ export default async function RootLayout({
   return (
     <html 
       lang={locale} 
-      className={inter.variable} 
+      className={carlito.variable} 
       suppressHydrationWarning
     >
       <body suppressHydrationWarning className="font-sans antialiased bg-white dark:bg-gray-950 text-neutral-900 dark:text-neutral-50 transition-colors duration-300">

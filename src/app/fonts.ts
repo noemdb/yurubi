@@ -2,18 +2,18 @@
 // ÚNICA fuente de verdad tipográfica del proyecto.
 // Importar SOLO desde este archivo — nunca re-importar next/font en componentes.
 
-import { Inter } from "next/font/google";
+import { Carlito } from "next/font/google";
 
-export const inter = Inter({
+export const carlito = Carlito({
   subsets: ["latin"],
-  variable: "--font-sans",    // CSS custom property inyectada en <html>
+  variable: "--font-carlito", // CSS custom property inyectada en <html>
   display: "swap",            // Equivalente al font-display: swap del CSS original
-  weight: ["300", "400", "500", "600", "700"], // Los 5 pesos del CSS original
-  style: ["normal"],
-  preload: true,              // Crítica para LCP — Inter está en hero y cuerpo
+  weight: ["400", "700"],     // Estilo regular y negrita compatible con Calibri
+  style: ["normal", "italic"],
+  preload: true,              // Crítica para LCP
   fallback: [
-    "-apple-system",          // Fallback del CSS original preservado
-    "BlinkMacSystemFont",
+    "Calibri",                // Prioridad nativa si está instalada en el sistema
+    "Candara",
     "Segoe UI",
     "Roboto",
     "sans-serif",

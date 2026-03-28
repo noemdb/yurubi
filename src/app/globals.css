@@ -27,43 +27,43 @@
     --radius: 0.5rem;
 
     /* ── VARIABLES TIPOGRÁFICAS ── */
-    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-sans: "Calibri", var(--font-carlito), "Candara", "Segoe UI", Roboto, sans-serif;
 
     /* Aliases semánticos (todos apuntan a --font-sans) */
     --font-display: var(--font-sans);
-    --font-body:    var(--font-sans);
-    --font-ui:      var(--font-sans);
+    --font-body: var(--font-sans);
+    --font-ui: var(--font-sans);
 
-    /* Escala de tamaños */
-    --text-display-2xl: 3.75rem;  /* 60px */
-    --text-display-xl:  3rem;     /* 48px */
-    --text-heading-xl:  2.5rem;   /* 40px */
-    --text-heading-lg:  2.25rem;  /* 36px */
-    --text-heading-md:  1.75rem;  /* 28px */
-    --text-heading-sm:  1.5rem;   /* 24px */
-    --text-heading-xs:  1.25rem;  /* 20px */
-    --text-body-lg:     1.125rem; /* 18px */
-    --text-body-md:     1rem;     /* 16px */
-    --text-body-sm:     0.875rem; /* 14px */
-    --text-ui-lg:       1rem;     /* 16px */
-    --text-ui-sm:       0.875rem; /* 14px */
-    --text-caption:     0.75rem;  /* 12px */
-    --text-overline:    0.6875rem;/* 11px */
-    --text-kpi-lg:      3rem;     /* 48px */
-    --text-kpi-md:      2.5rem;   /* 40px */
+    /* Escala de tamaños (Basada en 1rem = 15px por reducción de un punto) */
+    --text-display-2xl: 3.75rem; /* ~56px */
+    --text-display-xl: 3rem; /* 45px */
+    --text-heading-xl: 2.5rem; /* 37.5px */
+    --text-heading-lg: 2.25rem; /* 33.75px */
+    --text-heading-md: 1.75rem; /* 26.25px */
+    --text-heading-sm: 1.5rem; /* 22.5px */
+    --text-heading-xs: 1.25rem; /* 18.75px */
+    --text-body-lg: 1.125rem; /* 16.8px */
+    --text-body-md: 1rem; /* 15px */
+    --text-body-sm: 0.875rem; /* 13.1px */
+    --text-ui-lg: 1rem; /* 15px */
+    --text-ui-sm: 0.875rem; /* 13.1px */
+    --text-caption: 0.75rem; /* 11.2px */
+    --text-overline: 0.6875rem; /* 10.3px */
+    --text-kpi-lg: 3rem; /* 45px */
+    --text-kpi-md: 2.5rem; /* 37.5px */
 
     /* Line heights */
     --leading-display: 1.1;
     --leading-heading: 1.2;
-    --leading-body:    1.5;
-    --leading-ui:      1.0;
+    --leading-body: 1.5;
+    --leading-ui: 1;
     --leading-caption: 1.4;
 
     /* Letter spacing */
     --tracking-display: -0.02em;
     --tracking-heading: -0.01em;
-    --tracking-body:     0em;
-    --tracking-ui:       0.01em;
+    --tracking-body: 0em;
+    --tracking-ui: 0.01em;
     --tracking-overline: 0.08em;
   }
 
@@ -90,12 +90,12 @@
   }
 
   html {
-    font-size: 16px;
+    font-size: 15px; /* Reducción de un punto vs estándar 16px */
     -webkit-text-size-adjust: 100%;
   }
 
   * {
-    @apply border-border;
+    @apply border-border/60 transition-colors duration-300;
   }
 
   body {
@@ -105,7 +105,9 @@
     line-height: var(--leading-body);
     letter-spacing: var(--tracking-body);
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
     scroll-behavior: smooth;
   }
 
@@ -117,14 +119,17 @@
     line-height: var(--leading-display);
   }
 
-  h2, h3 {
+  h2,
+  h3 {
     font-family: var(--font-sans);
     font-weight: 600;
     letter-spacing: var(--tracking-heading);
     line-height: var(--leading-heading);
   }
 
-  h4, h5, h6 {
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-sans);
     font-weight: 500;
     letter-spacing: 0;
@@ -132,7 +137,11 @@
   }
 
   /* Elementos UI heredan font-sans (ya es el default, explícito para claridad) */
-  button, input, select, textarea, label {
+  button,
+  input,
+  select,
+  textarea,
+  label {
     font-family: var(--font-sans);
   }
 }
@@ -154,24 +163,24 @@
 
   .text-section-title {
     @apply font-sans text-heading-lg md:text-heading-xl
-           font-semibold leading-tight tracking-tight text-neutral-900;
+           font-semibold leading-tight tracking-tight text-foreground;
   }
 
   .text-section-subtitle {
     @apply font-sans text-body-lg
-           font-normal leading-relaxed tracking-normal text-neutral-500;
+           font-normal leading-relaxed tracking-normal text-muted-foreground;
   }
 
   /* ── HEADINGS DE CARDS ──────────────────────────────────────── */
 
   .text-card-title {
     @apply font-sans text-heading-sm
-           font-semibold leading-snug tracking-tight text-neutral-900;
+           font-semibold leading-snug tracking-tight text-foreground;
   }
 
   .text-card-body {
     @apply font-sans text-body-md
-           font-normal leading-relaxed tracking-normal text-neutral-600;
+           font-normal leading-relaxed tracking-normal text-muted-foreground;
   }
 
   .text-card-price {
@@ -183,12 +192,12 @@
 
   .text-prose {
     @apply font-sans text-body-md
-           font-normal leading-relaxed tracking-normal text-neutral-700;
+           font-normal leading-relaxed tracking-normal text-foreground/80;
   }
 
   .text-prose-lg {
     @apply font-sans text-body-lg
-           font-normal leading-loose tracking-normal text-neutral-700;
+           font-normal leading-loose tracking-normal text-foreground/80;
   }
 
   /* ── BOTONES Y CTA ───────────────────────────────────────────── */
@@ -207,12 +216,12 @@
 
   .text-label {
     @apply font-sans text-ui-sm
-           font-medium leading-snug tracking-wide text-neutral-700;
+           font-medium leading-snug tracking-wide text-muted-foreground;
   }
 
   .text-input {
     @apply font-sans text-body-md
-           font-normal leading-relaxed tracking-normal text-neutral-900;
+           font-normal leading-relaxed tracking-normal text-foreground;
   }
 
   .text-placeholder {
@@ -391,4 +400,3 @@
 .dark .apexcharts-legend-text {
   color: #94a3b8 !important;
 }
-

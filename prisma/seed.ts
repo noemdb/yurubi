@@ -75,62 +75,77 @@ async function main() {
   // ─── Room Types ────────────────────────────────────────────
   const roomTypesData = [
     {
-      name: "Habitación Sencilla",
-      slug: "sencilla",
-      basePrice: 40,
-      maxOccupancy: 1,
-      description: "Habitación confortable para una persona con todas las comodidades.",
+      name: "Habitación Matrimonial",
+      slug: "matrimonial",
+      basePrice: 45,
+      maxOccupancy: 2,
+      description: "Habitación con cama matrimonial, ideal para parejas.",
       amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador"],
     },
     {
       name: "Habitación Doble",
       slug: "doble",
-      basePrice: 60,
+      basePrice: 45,
       maxOccupancy: 2,
-      description: "Perfecta para parejas o dos personas. Cama matrimonial o dos camas.",
+      description: "Habitación con dos camas individuales o una matrimonial.",
       amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador", "Balcón"],
     },
     {
       name: "Habitación Triple",
       slug: "triple",
-      basePrice: 80,
+      basePrice: 60,
       maxOccupancy: 3,
-      description: "Ideal para grupos de tres personas con amplio espacio.",
+      description: "Habitación espaciosa para tres personas.",
       amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador"],
     },
     {
       name: "Habitación Cuádruple",
       slug: "cuadruple",
-      basePrice: 100,
+      basePrice: 70,
       maxOccupancy: 4,
-      description: "Amplia habitación para familias con cuatro ocupantes.",
+      description: "Habitación familiar para cuatro ocupantes.",
       amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador"],
     },
     {
-      name: "Suite Junior",
-      slug: "suite-junior",
-      basePrice: 120,
+      name: "Habitación Quíntuple",
+      slug: "quintuple",
+      basePrice: 85,
+      maxOccupancy: 5,
+      description: "Amplio espacio para familias de cinco integrantes.",
+      amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador"],
+    },
+    {
+      name: "Habitación Séxtuple",
+      slug: "sextuple",
+      basePrice: 99,
+      maxOccupancy: 6,
+      description: "La mayor capacidad para grupos o familias numerosas.",
+      amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador"],
+    },
+    {
+      name: "Suite Matrimonial",
+      slug: "suite-matrimonial",
+      basePrice: 65,
       maxOccupancy: 2,
-      description: "Suite con sala de estar separada y acabados premium.",
+      description: "Suite de lujo con cama King Size y acabados premium.",
       amenityNames: ["WiFi", "Aire acondicionado", "TV Smart", "Agua caliente", "Minibar", "Sala de estar", "Balcón"],
     },
     {
-      name: "Suite Master",
-      slug: "suite-master",
-      basePrice: 160,
-      maxOccupancy: 4,
-      description: "La habitación más lujosa del hotel con vista panorámica.",
-      amenityNames: ["WiFi", "Aire acondicionado", "TV Smart", "Agua caliente", "Minibar", "Jacuzzi", "Sala de estar", "Balcón panorámico"],
-    },
-    {
-      name: "Habitación Familiar",
-      slug: "familiar",
-      basePrice: 90,
-      maxOccupancy: 5,
-      description: "Diseñada para familias con niños. Espacio amplio y cómodo.",
-      amenityNames: ["WiFi", "Aire acondicionado", "TV", "Agua caliente", "Ventilador", "Cuna disponible"],
+      name: "Cama Adicional",
+      slug: "cama-adicional",
+      basePrice: 15,
+      maxOccupancy: 1,
+      description: "Servicio de cama adicional para cualquier tipo de habitación.",
+      amenityNames: ["WiFi", "Agua caliente"],
     },
   ];
+
+  // Deactivate room types not in the new list
+  const currentSlugs = roomTypesData.map(rt => rt.slug);
+  await prisma.roomType.updateMany({
+    where: { slug: { notIn: currentSlugs } },
+    data: { isActive: false }
+  });
 
   for (const rt of roomTypesData) {
     const { amenityNames, ...rest } = rt;
@@ -139,6 +154,8 @@ async function main() {
     await prisma.roomType.upsert({
       where: { slug: rt.slug },
       update: {
+        ...rest,
+        isActive: true,
         amenities: {
           set: roomTypeAmenities.map(a => ({ id: a.id }))
         }

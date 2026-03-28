@@ -184,7 +184,7 @@ export function ReceptionistDashboard({
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-brand-blue hover:bg-brand-blue/5 rounded-xl h-9 px-4 font-bold text-[10px] uppercase tracking-wider"
+                      className="text-brand-blue hover:bg-brand-blue/5 rounded-xl h-9 px-4 font-bold text-[9px] uppercase tracking-wider"
                       onClick={() => setSelectedRes(res)}
                     >
                       {isEs ? "Detalles" : "Details"}
@@ -242,7 +242,7 @@ export function ReceptionistDashboard({
                       <p className="font-bold text-gray-900 dark:text-gray-100 text-sm">{res.guest.fullName}</p>
                       <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">{res.roomType.name} · {res.numberOfGuests}p</p>
                     </div>
-                    <span className={`text-[10px] font-bold uppercase px-2 py-1 rounded-lg ${statusBadge(res.status)}`}>
+                    <span className={`text-[9px] font-bold uppercase px-2 py-1 rounded-lg ${statusBadge(res.status)}`}>
                       {res.status}
                     </span>
                   </Link>
@@ -275,7 +275,7 @@ export function ReceptionistDashboard({
                       <p className="font-bold text-gray-900 dark:text-gray-100 text-sm">{res.guest.fullName}</p>
                       <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">{res.roomType.name}</p>
                     </div>
-                    <span className={`text-[10px] font-bold uppercase px-2 py-1 rounded-lg ${statusBadge(res.status)}`}>
+                    <span className={`text-[9px] font-bold uppercase px-2 py-1 rounded-lg ${statusBadge(res.status)}`}>
                       {res.status}
                     </span>
                   </Link>
@@ -337,12 +337,12 @@ export function ReceptionistDashboard({
           </DialogHeader>
           <div className="bg-brand-blue p-8 text-white relative overflow-hidden">
             <div className="relative z-10">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200 mb-1">
+              <p className="text-[9px] font-bold uppercase tracking-widest text-blue-200 mb-1">
                 {isEs ? "Detalles de la Reserva" : "Reservation Details"}
               </p>
               <h3 className="text-2xl font-serif font-bold">{selectedRes?.guest.fullName}</h3>
               <div className="flex items-center gap-2 mt-4">
-                <span className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full bg-white dark:bg-slate-900/20 text-white backdrop-blur-sm border border-white dark:border-slate-900/10`}>
+                <span className={`text-[9px] font-bold uppercase px-3 py-1 rounded-full bg-white dark:bg-slate-900/20 text-white backdrop-blur-sm border border-white dark:border-slate-900/10`}>
                    {selectedRes?.status}
                 </span>
                 <span className="text-xs font-bold text-blue-100 italic">
@@ -357,14 +357,14 @@ export function ReceptionistDashboard({
           <div className="p-8 space-y-8">
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-1">
-                <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{isEs ? "Habitación" : "Room Type"}</p>
+                <p className="text-[9px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{isEs ? "Habitación" : "Room Type"}</p>
                 <p className="text-sm font-bold text-slate-950 dark:text-slate-50 flex items-center gap-2">
                   < Bed className="w-4 h-4 text-brand-blue" />
                   {selectedRes?.roomType.name}
                 </p>
               </div>
               <div className="space-y-1">
-                <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{isEs ? "Huéspedes" : "Guests"}</p>
+                <p className="text-[9px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{isEs ? "Huéspedes" : "Guests"}</p>
                 <p className="text-sm font-bold text-slate-950 dark:text-slate-50 flex items-center gap-2">
                   <User className="w-4 h-4 text-brand-blue" />
                   {selectedRes?.numberOfGuests} {isEs ? "Personas" : "People"}
@@ -374,14 +374,14 @@ export function ReceptionistDashboard({
 
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-1">
-                <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{isEs ? "Entrada" : "Check-in"}</p>
+                <p className="text-[9px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{isEs ? "Entrada" : "Check-in"}</p>
                 <p className="text-sm font-bold text-slate-950 dark:text-slate-50 flex items-center gap-2">
                   <CalendarDays className="w-4 h-4 text-brand-blue" />
                   {selectedRes && format(new Date(selectedRes.checkIn), "PPP", { locale: isEs ? es : undefined })}
                 </p>
               </div>
               <div className="space-y-1">
-                <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{isEs ? "Salida" : "Check-out"}</p>
+                <p className="text-[9px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{isEs ? "Salida" : "Check-out"}</p>
                 <p className="text-sm font-bold text-slate-950 dark:text-slate-50 flex items-center gap-2">
                   <CalendarDays className="w-4 h-4 text-brand-blue" />
                   {selectedRes && format(new Date(selectedRes.checkOut), "PPP", { locale: isEs ? es : undefined })}
@@ -391,7 +391,7 @@ export function ReceptionistDashboard({
 
             <div className="pt-6 border-t border-gray-100 dark:border-slate-800 flex items-center justify-between">
               <div>
-                <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{isEs ? "Total a Pagar" : "Total Price"}</p>
+                <p className="text-[9px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{isEs ? "Total a Pagar" : "Total Price"}</p>
                 <p className="text-2xl font-bold text-brand-blue">{selectedRes && formatPrice(selectedRes.totalPrice)}</p>
               </div>
               <div className="flex gap-3">

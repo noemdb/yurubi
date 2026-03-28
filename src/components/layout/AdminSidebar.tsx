@@ -24,6 +24,8 @@ interface AdminSidebarProps {
   userRole: string;
   logoutLabel: string;
   onSignOut: () => void;
+  isMobileOpen?: boolean;
+  onClose?: () => void;
 }
 
 export function AdminSidebar({ 
@@ -32,7 +34,9 @@ export function AdminSidebar({
   userName, 
   userRole,
   logoutLabel,
-  onSignOut 
+  onSignOut,
+  isMobileOpen,
+  onClose 
 }: AdminSidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -51,19 +55,29 @@ export function AdminSidebar({
   };
 
   return (
-    <aside 
-      className={cn(
-        "hidden lg:flex flex-col bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700 shadow-sm dark:shadow-none transition-all duration-300 relative",
-        isCollapsed ? "w-[60px]" : "w-64"
+    <>
+      {/* Mobile Backdrop */}
+      {isMobileOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] transition-opacity duration-300"
+          onClick={onClose}
+        />
       )}
-    >
-      {/* Toggle Button */}
-      <button 
-        onClick={toggleSidebar}
-        className="absolute -right-3 top-20 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-full p-1 shadow-md dark:shadow-none hover:bg-gray-50 dark:hover:bg-slate-800/50 z-50 text-gray-500 dark:text-gray-400"
+
+      <aside 
+        className={cn(
+          "fixed lg:static inset-y-0 left-0 flex flex-col bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700 shadow-2xl lg:shadow-sm dark:shadow-none transition-all duration-300 z-[100]",
+          isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
+          isCollapsed ? "lg:w-[60px]" : "w-64"
+        )}
       >
-        {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
-      </button>
+        {/* Toggle Button (Desktop Only) */}
+        <button 
+          onClick={toggleSidebar}
+          className="hidden lg:block absolute -right-3 top-20 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-full p-1 shadow-md dark:shadow-none hover:bg-gray-50 dark:hover:bg-slate-800/50 z-50 text-gray-500 dark:text-gray-400"
+        >
+          {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+        </button>
 
       {/* Logo Section */}
       <div className={cn(
@@ -143,6 +157,7 @@ export function AdminSidebar({
           </button>
         </form>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

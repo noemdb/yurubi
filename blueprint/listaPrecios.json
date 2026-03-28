@@ -1,0 +1,50 @@
+[
+  {
+    "tipo_habitacion": "MATRIMONIAL",
+    "precio_sin_iva": 38.79,
+    "iva": 6.21,
+    "precio_con_iva": 45
+  },
+  {
+    "tipo_habitacion": "DOBLE",
+    "precio_sin_iva": 38.79,
+    "iva": 6.21,
+    "precio_con_iva": 45
+  },
+  {
+    "tipo_habitacion": "TRIPLE",
+    "precio_sin_iva": 51.72,
+    "iva": 8.28,
+    "precio_con_iva": 60
+  },
+  {
+    "tipo_habitacion": "CUADRUPLE",
+    "precio_sin_iva": 60.34,
+    "iva": 9.66,
+    "precio_con_iva": 70
+  },
+  {
+    "tipo_habitacion": "QUINTUPLE",
+    "precio_sin_iva": 73.28,
+    "iva": 11.72,
+    "precio_con_iva": 85
+  },
+  {
+    "tipo_habitacion": "SEXTUPLE",
+    "precio_sin_iva": 85.34,
+    "iva": 13.66,
+    "precio_con_iva": 99
+  },
+  {
+    "tipo_habitacion": "SUITE MAT. GRANDE",
+    "precio_sin_iva": 56.03,
+    "iva": 8.97,
+    "precio_con_iva": 65
+  },
+  {
+    "tipo_habitacion": "CAMA ADICIONAL",
+    "precio_sin_iva": 12.60,
+    "iva": 2.40,
+    "precio_con_iva": 15
+  }
+]

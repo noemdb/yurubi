@@ -51,6 +51,8 @@ export function RoomTypesManager({
   // CRUD Dialog State
   const [isOpen, setIsOpen] = useState(false);
   const [editingType, setEditingType] = useState<any>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
@@ -71,6 +73,8 @@ export function RoomTypesManager({
   }, [roomTypes, search]);
 
   const handleOpen = (type?: any) => {
+    setSelectedImage(null);
+    setImagePreview(null);
     if (type) {
       setEditingType(type);
       setFormData({
@@ -81,6 +85,10 @@ export function RoomTypesManager({
         description: type.description || "",
         amenities: type.amenities?.map((a: any) => a.name) || []
       });
+      // Set existing image as preview if available
+      if (type.images && type.images.length > 0) {
+        setImagePreview(type.images[0]);
+      }
     } else {
       setEditingType(null);
       setFormData({
@@ -95,6 +103,18 @@ export function RoomTypesManager({
     setIsOpen(true);
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSave = async () => {
     if (!formData.name || !formData.slug || formData.basePrice <= 0) {
       toast({ title: isEs ? "Campos obligatorios faltantes" : "Missing required fields", variant: "destructive" });
@@ -103,11 +123,22 @@ export function RoomTypesManager({
 
     startTransition(async () => {
       try {
+        const data = new FormData();
+        data.append("name", formData.name);
+        data.append("slug", formData.slug);
+        data.append("description", formData.description);
+        data.append("basePrice", formData.basePrice.toString());
+        data.append("maxOccupancy", formData.maxOccupancy.toString());
+        formData.amenities.forEach(a => data.append("amenities", a));
+        if (selectedImage) {
+          data.append("image", selectedImage);
+        }
+
         if (editingType) {
-          await updateRoomType(editingType.id, formData);
+          await updateRoomType(editingType.id, data);
           toast({ title: isEs ? "Categoría actualizada" : "Category updated" });
         } else {
-          await createRoomType(formData);
+          await createRoomType(data);
           toast({ title: isEs ? "Categoría creada" : "Category created" });
         }
         setIsOpen(false);
@@ -187,8 +218,16 @@ export function RoomTypesManager({
 
             <div className="space-y-6">
               <div className="flex items-start gap-4 pr-16">
-                <div className="w-12 h-12 rounded-2xl bg-brand-blue/5 dark:bg-brand-blue/10 flex items-center justify-center text-brand-blue font-bold text-xs uppercase shrink-0 shadow-inner">
-                  {type.slug.slice(0, 2)}
+                <div className="w-16 h-16 rounded-2xl bg-gray-50 dark:bg-slate-800 flex items-center justify-center text-brand-blue font-bold text-xs uppercase shrink-0 shadow-inner overflow-hidden border border-gray-100 dark:border-slate-800">
+                  {type.images && type.images.length > 0 ? (
+                    <img 
+                      src={type.images[0]} 
+                      alt={type.name} 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="opacity-40">{type.slug.slice(0, 2)}</span>
+                  )}
                 </div>
                 <div>
                   <h4 className="font-bold text-gray-900 dark:text-gray-100 text-base leading-tight mb-1">{type.name}</h4>
@@ -263,6 +302,48 @@ export function RoomTypesManager({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 py-2">
             <div className="space-y-6">
+              {/* Image Upload Field */}
+              <div className="space-y-2">
+                <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] ml-2">
+                  {isEs ? "Imagen de Portada" : "Cover Image"}
+                </Label>
+                <div className="relative group">
+                  <div className="aspect-[16/9] w-full rounded-2xl bg-gray-50 dark:bg-slate-800/50 border-2 border-dashed border-gray-100 dark:border-slate-800 flex items-center justify-center overflow-hidden transition-all group-hover:border-brand-blue/30">
+                    {imagePreview ? (
+                      <img 
+                        src={imagePreview} 
+                        alt="Preview" 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="text-center space-y-2">
+                        <Plus className="w-8 h-8 text-gray-200 mx-auto" />
+                        <p className="text-[10px] font-bold text-gray-300 uppercase tracking-widest">
+                          {isEs ? "Subir Imagen" : "Upload Image"}
+                        </p>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <Button 
+                        type="button"
+                        variant="ghost" 
+                        className="text-white border-white hover:bg-white/20 rounded-xl font-bold text-xs"
+                        onClick={() => document.getElementById('category-image')?.click()}
+                      >
+                        {imagePreview ? (isEs ? "Cambiar Imagen" : "Change Image") : (isEs ? "Seleccionar" : "Select")}
+                      </Button>
+                    </div>
+                  </div>
+                  <input 
+                    id="category-image"
+                    type="file" 
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleImageChange}
+                  />
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] ml-2">{isEs ? "Nombre del Tipo" : "Type Name"}</Label>
                 <Input 

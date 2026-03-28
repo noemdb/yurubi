@@ -22,7 +22,7 @@ export async function RoomsPreview({ locale }: { locale: string }) {
   if (!rooms.length) return null;
 
   return (
-    <section className="py-8 bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
+    <section className="py-8 bg-muted/50 border-t border-border">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
           <div className="max-w-2xl">
@@ -30,7 +30,7 @@ export async function RoomsPreview({ locale }: { locale: string }) {
               {t("title")}
             </h2>
             <p className="text-section-subtitle mb-6">{t("subtitle")}</p>
-            <p className="text-gray-500 dark:text-gray-400 mb-2 italic">
+            <p className="text-muted-foreground mb-2 italic">
               {t("interestInfo")}
             </p>
           </div>
@@ -49,16 +49,16 @@ export async function RoomsPreview({ locale }: { locale: string }) {
           {rooms.map((room) => (
             <div
               key={room.id}
-              className="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-800 group h-full flex flex-col"
+              className="bg-card rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-border/60 group h-full flex flex-col"
             >
-              <div className="aspect-[4/3] relative bg-gray-200 overflow-hidden">
+              <div className="aspect-[4/3] relative bg-muted overflow-hidden">
                 <SmartImage
                   src={`/images/rooms/${room.slug}/01.jpg`}
                   alt={room.name}
                   fallbackText={room.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute top-4 right-4 bg-white/90 dark:bg-gray-950/90 backdrop-blur-md px-4 py-2 rounded-full shadow-sm z-10">
+                <div className="absolute top-4 right-4 bg-background/90 backdrop-blur-md px-4 py-2 rounded-full shadow-sm z-10">
                   <span className="text-card-price">
                     {formatPrice(room.basePrice)}
                   </span>
@@ -75,19 +75,19 @@ export async function RoomsPreview({ locale }: { locale: string }) {
                   {room.description}
                 </p>
 
-                <div className="flex items-center gap-4 text-sm text-gray-400 mb-8 mt-auto">
-                  <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 px-4 py-2 rounded-full">
+                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8 mt-auto">
+                  <div className="flex items-center gap-2 bg-muted px-4 py-2 rounded-full">
                     <Users className="h-4 w-4 text-brand-blue" />
                     <span>{room.maxOccupancy} max</span>
                   </div>
-                  <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 px-4 py-2 rounded-full">
+                  <div className="flex items-center gap-2 bg-muted px-4 py-2 rounded-full">
                     <Wifi className="h-4 w-4 text-brand-green" />
                     <span>Wi-Fi</span>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mt-auto">
-                  <Button asChild variant="outline" className="text-cta-sm rounded-full border-gray-200 dark:border-gray-700 hover:border-brand-blue dark:hover:border-brand-blue hover:bg-brand-blue/5 transition-colors h-12">
+                  <Button asChild variant="outline" className="text-cta-sm rounded-full border-border hover:border-brand-blue dark:hover:border-brand-blue hover:bg-brand-blue/5 transition-colors h-12">
                     <Link href={`/${locale}/habitaciones/${room.slug}`}>
                       {locale === 'es' ? 'Detalles' : 'Details'}
                     </Link>

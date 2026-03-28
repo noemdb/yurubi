@@ -42,11 +42,11 @@ export function DashboardIndicators({
         <div className="flex items-center gap-4">
           <div className="flex-1 text-center p-3 bg-brand-blue/5 dark:bg-brand-blue/10 rounded-xl border border-brand-blue/10 dark:border-brand-blue/20">
             <p className="text-xl font-serif font-bold text-brand-blue">{rooms.assigned}</p>
-            <p className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-0.5">{isEs ? "Asignadas" : "Assigned"}</p>
+            <p className="text-[8px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-0.5">{isEs ? "Asignadas" : "Assigned"}</p>
           </div>
           <div className="flex-1 text-center p-3 bg-brand-green/5 rounded-xl border border-brand-green/10">
             <p className="text-xl font-serif font-bold text-brand-green">{rooms.available}</p>
-            <p className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-0.5">{isEs ? "Disponibles" : "Available"}</p>
+            <p className="text-[8px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-0.5">{isEs ? "Disponibles" : "Available"}</p>
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@ export function DashboardIndicators({
             </div>
           ))}
           {categories.length > 4 && (
-            <Link href="/dashboard/habitaciones/categorias" className="text-[10px] text-brand-blue font-bold uppercase hover:underline block text-center mt-2">
+            <Link href="/dashboard/habitaciones/categorias" className="text-[9px] text-brand-blue font-bold uppercase hover:underline block text-center mt-2">
               {isEs ? "Ver todas" : "View all"}
             </Link>
           )}
@@ -84,16 +84,16 @@ export function DashboardIndicators({
              <Tags className="w-4 h-4 text-brand-green" />
              {isEs ? "Promociones" : "Promotions"}
            </h3>
-           <span className="bg-brand-green/10 text-brand-green text-[10px] font-bold px-2 py-0.5 rounded-full">
+           <span className="bg-brand-green/10 text-brand-green text-[9px] font-bold px-2 py-0.5 rounded-full">
              {promotions.active} {isEs ? "Activas" : "Active"}
            </span>
         </div>
         
-        <p className="text-[11px] text-gray-500 dark:text-gray-400 mb-3">
+        <p className="text-[9px] text-gray-500 dark:text-gray-400 mb-3">
           {isEs ? "Impulsa tus ventas con ofertas especiales." : "Boost your sales with special offers."}
         </p>
 
-        <Link href="/dashboard/promociones" className="flex items-center gap-1 text-[10px] font-bold text-brand-blue uppercase group-hover:underline">
+        <Link href="/dashboard/promociones" className="flex items-center gap-1 text-[9px] font-bold text-brand-blue uppercase group-hover:underline">
           {isEs ? "Gestionar promociones" : "Manage promotions"} <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
         </Link>
 
@@ -111,21 +111,21 @@ export function DashboardIndicators({
           <div className="flex flex-col items-center">
             <Clock className="w-3.5 h-3.5 text-amber-500 mb-1" />
             <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{reviews.PENDING}</span>
-            <span className="text-[8px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-tighter text-center">{isEs ? "Pendientes" : "Pending"}</span>
+            <span className="text-[7px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-tighter text-center">{isEs ? "Pendientes" : "Pending"}</span>
           </div>
           <div className="flex flex-col items-center">
             <CheckCircle2 className="w-3.5 h-3.5 text-brand-green mb-1" />
             <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{reviews.APPROVED}</span>
-            <span className="text-[8px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-tighter text-center">{isEs ? "Aprobadas" : "Approved"}</span>
+            <span className="text-[7px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-tighter text-center">{isEs ? "Aprobadas" : "Approved"}</span>
           </div>
           <div className="flex flex-col items-center">
             <XCircle className="w-3.5 h-3.5 text-red-500 mb-1" />
             <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{reviews.REJECTED}</span>
-            <span className="text-[8px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-tighter text-center">{isEs ? "Rechazadas" : "Rejected"}</span>
+            <span className="text-[7px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-tighter text-center">{isEs ? "Rechazadas" : "Rejected"}</span>
           </div>
         </div>
 
-        <Link href="/dashboard/resenas" className="block text-center text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase hover:text-brand-blue transition-colors mt-4">
+        <Link href="/dashboard/resenas" className="block text-center text-[9px] font-bold text-gray-400 dark:text-gray-500 uppercase hover:text-brand-blue transition-colors mt-4">
           {isEs ? "Ver todas las reseñas" : "View all reviews"}
         </Link>
       </div>

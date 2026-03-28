@@ -67,7 +67,7 @@ export async function PromotionsSection({ locale }: { locale: string }) {
                         <div className="text-4xl font-bold text-brand-green leading-none">
                           {promo.discountType === 'PERCENT' ? `${promo.value}%` : `${CURRENCY_SYMBOL}${promo.value}`}
                         </div>
-                        <span className="text-[10px] text-white/40 font-bold uppercase tracking-[0.2em] mt-1 block">
+                        <span className="text-[9px] text-white/40 font-bold uppercase tracking-[0.2em] mt-1 block">
                           {t("discount")}
                         </span>
                       </div>
