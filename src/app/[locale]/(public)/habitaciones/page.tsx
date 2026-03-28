@@ -51,7 +51,7 @@ export default async function RoomsPage({ params }: PageProps) {
               {/* Image Section */}
               <div className="aspect-[4/3] relative bg-gray-200 overflow-hidden shrink-0">
                 <SmartImage
-                  src={`/images/rooms/${room.slug}/01.jpg`}
+                  src={room.images?.[0] || "/images/hero/IMG-20260316-WA0024.jpg"}
                   alt={room.name}
                   fallbackText={room.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"

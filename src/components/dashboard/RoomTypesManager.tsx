@@ -23,6 +23,7 @@ import {
 } from "@/lib/actions/rooms";
 import { useToast } from "@/hooks/use-toast";
 import { formatPrice } from "@/lib/utils";
+import { useUploadThing } from "@/lib/uploadthing";
 import {
   Dialog,
   DialogContent,
@@ -46,6 +47,7 @@ export function RoomTypesManager({
   const { toast } = useToast();
   const isEs = locale === "es";
   const [isPending, startTransition] = useTransition();
+  const { startUpload, isUploading } = useUploadThing("imageUploader");
   const [search, setSearch] = useState("");
 
   // CRUD Dialog State
@@ -121,31 +123,49 @@ export function RoomTypesManager({
       return;
     }
 
-    startTransition(async () => {
-      try {
-        const data = new FormData();
-        data.append("name", formData.name);
-        data.append("slug", formData.slug);
-        data.append("description", formData.description);
-        data.append("basePrice", formData.basePrice.toString());
-        data.append("maxOccupancy", formData.maxOccupancy.toString());
-        formData.amenities.forEach(a => data.append("amenities", a));
-        if (selectedImage) {
-          data.append("image", selectedImage);
-        }
-
-        if (editingType) {
-          await updateRoomType(editingType.id, data);
-          toast({ title: isEs ? "Categoría actualizada" : "Category updated" });
+    try {
+      // 1. Subir a UploadThing si hay una nueva imagen
+      let finalImageUrl: string | null = null;
+      if (selectedImage) {
+        const uploadRes = await startUpload([selectedImage]);
+        if (uploadRes && uploadRes.length > 0) {
+          finalImageUrl = uploadRes[0]?.ufsUrl || uploadRes[0]?.url || null;
         } else {
-          await createRoomType(data);
-          toast({ title: isEs ? "Categoría creada" : "Category created" });
+          toast({ title: "Error", description: "Failed to upload image", variant: "destructive" });
+          return;
         }
-        setIsOpen(false);
-      } catch (e: any) {
-        toast({ title: "Error", description: e.message, variant: "destructive" });
       }
-    });
+
+      // 2. Ejecutar Action en el Servidor
+      startTransition(async () => {
+        try {
+          const data = new FormData();
+          data.append("name", formData.name);
+          data.append("slug", formData.slug);
+          data.append("description", formData.description);
+          data.append("basePrice", formData.basePrice.toString());
+          data.append("maxOccupancy", formData.maxOccupancy.toString());
+          formData.amenities.forEach(a => data.append("amenities", a));
+          
+          if (finalImageUrl) {
+            data.append("imageUrl", finalImageUrl);
+          }
+
+          if (editingType) {
+            await updateRoomType(editingType.id, data);
+            toast({ title: isEs ? "Categoría actualizada" : "Category updated" });
+          } else {
+            await createRoomType(data);
+            toast({ title: isEs ? "Categoría creada" : "Category created" });
+          }
+          setIsOpen(false);
+        } catch (e: any) {
+          toast({ title: "Error", description: e.message, variant: "destructive" });
+        }
+      });
+    } catch (err: any) {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    }
   };
 
   const handleDelete = async () => {
@@ -424,16 +444,16 @@ export function RoomTypesManager({
               variant="ghost" 
               className="rounded-2xl font-bold h-14 px-8 text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
               onClick={() => setIsOpen(false)}
-              disabled={isPending}
+              disabled={isPending || isUploading}
             >
               {isEs ? "Descartar" : "Discard"}
             </Button>
             <Button 
               className="bg-gray-900 hover:bg-black text-white rounded-[2rem] h-14 px-12 font-bold shadow-2xl dark:shadow-none shadow-gray-200 transition-all active:scale-95 text-xs uppercase tracking-widest"
               onClick={handleSave}
-              disabled={isPending}
+              disabled={isPending || isUploading}
             >
-              {isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              {(isPending || isUploading) && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
               {isEs ? "Guardar Categoría" : "Save Category"}
             </Button>
           </DialogFooter>

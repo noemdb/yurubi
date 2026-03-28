@@ -94,7 +94,7 @@ export default async function RoomDetailsPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-12 h-[500px]">
           <div className="lg:col-span-2 bg-gray-200 rounded-3xl overflow-hidden h-full relative">
             <SmartImage
-              src={`/images/rooms/${room.slug}/01.jpg`}
+              src={room.images?.[0] || "/images/hero/IMG-20260316-WA0024.jpg"}
               alt={room.name}
               fallbackText={room.name}
               className="w-full h-full object-cover"
@@ -105,7 +105,7 @@ export default async function RoomDetailsPage({ params }: PageProps) {
           <div className="hidden lg:grid grid-rows-2 gap-4 h-full">
             <div className="bg-gray-200 rounded-3xl overflow-hidden h-full">
               <SmartImage
-                src={`/images/rooms/${room.slug}/02.jpg`}
+                src={room.images?.[1] || room.images?.[0] || "/images/hero/IMG-20260316-WA0024.jpg"}
                 alt="Detail 1"
                 fallbackText=""
                 className="w-full h-full object-cover"
@@ -115,7 +115,7 @@ export default async function RoomDetailsPage({ params }: PageProps) {
             </div>
             <div className="bg-gray-200 rounded-3xl overflow-hidden h-full relative group">
               <SmartImage
-                src={`/images/rooms/${room.slug}/03.jpg`}
+                src={room.images?.[2] || room.images?.[0] || "/images/hero/IMG-20260316-WA0024.jpg"}
                 alt="Detail 2"
                 fallbackText=""
                 className="w-full h-full object-cover"

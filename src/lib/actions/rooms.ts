@@ -81,8 +81,6 @@ export async function deleteRoom(id: string) {
   return { success: true };
 }
 
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
 
 export async function createRoomType(formData: FormData) {
   const session = await auth();
@@ -94,22 +92,11 @@ export async function createRoomType(formData: FormData) {
   const basePrice = parseFloat(formData.get("basePrice") as string);
   const maxOccupancy = parseInt(formData.get("maxOccupancy") as string);
   const amenities = formData.getAll("amenities") as string[];
-  const imageFile = formData.get("image") as File | null;
+  const imageUrl = formData.get("imageUrl") as string | null;
 
   let imageUrls: string[] = [];
-
-  if (imageFile && imageFile.size > 0) {
-    const buffer = Buffer.from(await imageFile.arrayBuffer());
-    const publicDir = path.join(process.cwd(), "public");
-    const relativePath = `/images/rooms/${slug}/01.jpg`;
-    const fullPath = path.join(publicDir, relativePath);
-
-    // Create directory if it doesn't exist
-    await mkdir(path.dirname(fullPath), { recursive: true });
-    
-    // Save the file
-    await writeFile(fullPath, buffer);
-    imageUrls = [relativePath];
+  if (imageUrl) {
+    imageUrls = [imageUrl];
   }
 
   await prisma.roomType.create({
@@ -143,23 +130,13 @@ export async function updateRoomType(id: string, formData: FormData) {
   const basePrice = parseFloat(formData.get("basePrice") as string);
   const maxOccupancy = parseInt(formData.get("maxOccupancy") as string);
   const amenities = formData.getAll("amenities") as string[];
-  const imageFile = formData.get("image") as File | null;
+  const imageUrl = formData.get("imageUrl") as string | null;
 
   const currentRoomType = await prisma.roomType.findUnique({ where: { id } });
   let imageUrls = currentRoomType?.images || [];
 
-  if (imageFile && imageFile.size > 0) {
-    const buffer = Buffer.from(await imageFile.arrayBuffer());
-    const publicDir = path.join(process.cwd(), "public");
-    const relativePath = `/images/rooms/${slug}/01.jpg`;
-    const fullPath = path.join(publicDir, relativePath);
-
-    // Create directory if it doesn't exist
-    await mkdir(path.dirname(fullPath), { recursive: true });
-    
-    // Save the file
-    await writeFile(fullPath, buffer);
-    imageUrls = [relativePath];
+  if (imageUrl) {
+    imageUrls = [imageUrl];
   }
 
   await prisma.roomType.update({

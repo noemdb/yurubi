@@ -28,6 +28,7 @@ export default async function LoginPage({ params }: PageProps) {
             src="/images/hero/IMG-20260316-WA0024.jpg"
             alt="Hotel Río Yurubí"
             fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover opacity-60"
             priority
           />
@@ -43,6 +44,7 @@ export default async function LoginPage({ params }: PageProps) {
                 alt="Logo Hotel Río Yurubí"
                 width={120}
                 height={120}
+                style={{ width: "120px", height: "auto" }}
                 className="rounded-xl shadow-lg"
                 unoptimized
               />
@@ -77,6 +79,7 @@ export default async function LoginPage({ params }: PageProps) {
                 alt="Logo Hotel Río Yurubí"
                 width={80}
                 height={80}
+                style={{ width: "80px", height: "auto" }}
                 className="rounded-xl shadow-md border border-gray-100"
                 unoptimized
               />
