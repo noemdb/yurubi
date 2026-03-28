@@ -11,15 +11,30 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
-      <div className="container mx-auto px-4 lg:px-8">
+    <footer className="relative bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800 overflow-hidden">
+      
+      {/* Decorative River Pattern Background */}
+      <div 
+        className="absolute inset-0 z-[1] opacity-[0.03] pointer-events-none bg-[url('/images/logo/partials/rio.png')] bg-[length:400px_auto] bg-repeat"
+        aria-hidden="true"
+      />
+
+      {/* Large Floating River Shapes for asymmetrical balance */}
+      <div className="absolute -left-32 -bottom-20 md:w-[600px] w-96 z-[1] opacity-[0.04] pointer-events-none -rotate-12 transform-gpu">
+        <img src="/images/logo/partials/rio.png" alt="" aria-hidden="true" className="w-full h-auto" />
+      </div>
+      <div className="absolute -right-32 top-10 md:w-[800px] w-[500px] z-[1] opacity-[0.03] pointer-events-none rotate-[30deg] transform-gpu">
+        <img src="/images/logo/partials/rio.png" alt="" aria-hidden="true" className="w-full h-auto" />
+      </div>
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand & Description */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="relative w-12 h-12 overflow-hidden rounded-xl border border-gray-700 shadow-2xl">
                 <Image 
-                  src="/images/logo/logo.jpg" 
+                  src="/images/logo/logo.png" 
                   alt="Hotel Río Yurubí Logo" 
                   fill 
                   className="object-cover"
@@ -37,7 +52,7 @@ export function Footer() {
               Tu refugio natural en el corazón de Yaracuy. Disfruta de la tranquilidad del Parque Nacional Yurubí con la mejor atención y comodidad.
             </p>
             <div className="flex gap-4 pt-2">
-              <a
+              {/* <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
@@ -54,7 +69,7 @@ export function Footer() {
                 title="Facebook"
               >
                 <Facebook className="h-5 w-5" />
-              </a>
+              </a> */}
             </div>
           </div>
 
@@ -80,11 +95,11 @@ export function Footer() {
                   {tNav("restaurant")}
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/reservar" className="hover:text-brand-green text-brand-green-100 transition-colors">
                   {tNav("bookNow")}
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href="/promociones" className="hover:text-white transition-colors">
                   {tNav("promotions")}

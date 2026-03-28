@@ -37,7 +37,7 @@ export function GalleryGrid({
 
   return (
     <section className="space-y-12">
-      <div className="flex flex-wrap items-center justify-center gap-4">
+      {/* <div className="flex flex-wrap items-center justify-center gap-4">
         {categories.map((cat) => (
           <motion.button
             key={cat.id}
@@ -54,7 +54,7 @@ export function GalleryGrid({
             {isEs ? cat.label : cat.id.charAt(0).toUpperCase() + cat.id.slice(1)}
           </motion.button>
         ))}
-      </div>
+      </div> */}
 
       <motion.div 
         layout

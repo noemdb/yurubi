@@ -1,35 +1,22 @@
 // src/app/fonts.ts
-// Instanciar fuentes UNA SOLA VEZ aquí y exportar.
-// Importar en layout.tsx raíz — nunca re-importar en componentes.
+// ÚNICA fuente de verdad tipográfica del proyecto.
+// Importar SOLO desde este archivo — nunca re-importar next/font en componentes.
 
-import { Playfair_Display, Lora, Nunito } from "next/font/google";
+import { Inter } from "next/font/google";
 
-// ── Display / Marca / H1–H2 ──────────────────────────────────
-export const playfairDisplay = Playfair_Display({
+export const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  preload: true,
-});
-
-// ── Cuerpo de texto / H3 / Narrativa ────────────────────────
-export const lora = Lora({
-  subsets: ["latin"],
-  variable: "--font-body",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  preload: true,
-});
-
-// ── UI funcional / CTA / Microcopy ──────────────────────────
-export const nunito = Nunito({
-  subsets: ["latin"],
-  variable: "--font-ui",
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-sans",    // CSS custom property inyectada en <html>
+  display: "swap",            // Equivalente al font-display: swap del CSS original
+  weight: ["300", "400", "500", "600", "700"], // Los 5 pesos del CSS original
   style: ["normal"],
-  preload: false, // No crítica para LCP
+  preload: true,              // Crítica para LCP — Inter está en hero y cuerpo
+  fallback: [
+    "-apple-system",          // Fallback del CSS original preservado
+    "BlinkMacSystemFont",
+    "Segoe UI",
+    "Roboto",
+    "sans-serif",
+  ],
+  adjustFontFallback: true,   // next/font ajusta métricas del fallback para evitar CLS
 });

@@ -1,10 +1,11 @@
 // src/app/[locale]/layout.tsx
 // Next.js 16: params es async — siempre await antes de usar (ADR-008)
 import type { Metadata } from "next";
-import { playfairDisplay, lora, nunito } from "@/app/fonts";
+import { inter } from "@/app/fonts";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -33,13 +34,15 @@ export default async function RootLayout({
   return (
     <html 
       lang={locale} 
-      className={`${playfairDisplay.variable} ${lora.variable} ${nunito.variable}`} 
+      className={inter.variable} 
       suppressHydrationWarning
     >
-      <body suppressHydrationWarning className="font-body">
+      <body suppressHydrationWarning className="font-sans antialiased bg-white dark:bg-gray-950 text-neutral-900 dark:text-neutral-50 transition-colors duration-300">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-          <Toaster />
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            {children}
+            <Toaster />
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

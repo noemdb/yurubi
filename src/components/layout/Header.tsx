@@ -7,6 +7,7 @@ import { Link, usePathname } from "@/routing";
 import { Menu, X, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -31,7 +32,7 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300">
+    <header className="sticky top-0 z-50 w-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm transition-all duration-300">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Brand */}
@@ -40,7 +41,7 @@ export function Header() {
               href="/"
               className="flex items-center gap-3 group"
             >
-              <span className="font-serif text-xl font-bold text-gray-900 tracking-tight group-hover:text-brand-green transition-colors">
+              <span className="font-serif text-xl font-bold text-gray-900 dark:text-gray-50 tracking-tight group-hover:text-brand-green transition-colors">
                 Hotel Río Yurubí
               </span>
             </Link>
@@ -57,7 +58,7 @@ export function Header() {
                   "text-sm font-medium transition-colors hover:text-brand-blue",
                   pathname === item.href
                     ? "text-brand-blue font-semibold"
-                    : "text-gray-600"
+                    : "text-gray-600 dark:text-gray-300"
                 )}
               >
                 {item.name}
@@ -67,6 +68,7 @@ export function Header() {
 
           {/* Actions (Language + Booking CTA) */}
           <div className="hidden lg:flex items-center gap-4">
+            <ThemeToggle />
             <LanguageSwitcher />
             <Button 
               className="bg-[#25D366] hover:bg-[#25D366]/90 text-white rounded-full px-6 gap-2"
@@ -82,6 +84,7 @@ export function Header() {
 
           {/* Mobile menu button */}
           <div className="flex lg:hidden items-center gap-4">
+            <ThemeToggle />
             <LanguageSwitcher />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -100,7 +103,7 @@ export function Header() {
 
       {/* Mobile Menu Panel */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-20 left-0 w-full bg-white shadow-lg border-b border-gray-100 animate-in slide-in-from-top-2">
+        <div className="lg:hidden absolute top-20 left-0 w-full bg-white dark:bg-gray-950 shadow-lg border-b border-gray-100 dark:border-gray-800 animate-in slide-in-from-top-2">
           <div className="px-4 pt-2 pb-6 space-y-1">
             {navigation.map((item) => (
               <Link
@@ -110,8 +113,8 @@ export function Header() {
                 className={cn(
                   "block px-3 py-3 rounded-md text-base font-medium",
                   pathname === item.href
-                    ? "bg-brand-blue/5 text-brand-blue"
-                    : "text-gray-700 hover:bg-gray-50 hover:text-brand-blue"
+                    ? "bg-brand-blue/5 text-brand-blue dark:bg-brand-blue/10"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-brand-blue dark:hover:text-brand-blue"
                 )}
               >
                 {item.name}

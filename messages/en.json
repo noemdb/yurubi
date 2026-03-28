@@ -142,8 +142,10 @@
     "name": "Name",
     "email": "Email",
     "message": "Message",
-    "send": "Send Direct Message",
-    "whatsapp": "Immediate Support via WhatsApp",
+    "send": "Send via Email",
+    "sendDirect": "Send Message",
+    "whatsapp": "Contact via WhatsApp",
+    "whatsapp2": "Contact us via Whatsapp",
     "successMessage": "Message received! We will be in touch very soon.",
     "motivatingText": "We want you to live the Yurubí experience. If you have questions about our rates, special services, or just want to say hello, we are ready to assist you with our characteristic warmth."
   },

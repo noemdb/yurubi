@@ -71,7 +71,7 @@ export default async function RoomsPage({ params }: PageProps) {
               </div>
 
               {/* Content Section */}
-              <div className="p-8 flex flex-col flex-grow">
+              <div className="p-4 flex flex-col flex-grow">
                 <div className="mb-6">
                   <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">
                     {room.name}
@@ -81,7 +81,7 @@ export default async function RoomsPage({ params }: PageProps) {
                   </p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-8 mt-auto">
+                <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-4 mt-auto">
                   <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-xl border border-gray-100">
                     <Users className="h-4 w-4 text-brand-blue" />
                     <span>{room.maxOccupancy} max</span>
@@ -93,7 +93,7 @@ export default async function RoomsPage({ params }: PageProps) {
                 </div>
 
                 {/* Footer del card */}
-                <div className="mt-auto grid grid-cols-2 gap-4 pt-6 border-t border-gray-50">
+                <div className="mt-auto grid grid-cols-2 gap-4 pt-2 border-t border-gray-50">
                   <Button asChild variant="outline" className="rounded-full h-12 border-gray-200 hover:border-brand-blue hover:bg-brand-blue/5 text-gray-600 transition-all">
                     <Link href={`/${locale}/habitaciones/${room.slug}`}>
                       {t("viewDetails")}

@@ -27,39 +27,44 @@
     --radius: 0.5rem;
 
     /* ── VARIABLES TIPOGRÁFICAS ── */
-    --font-display: "Playfair Display", Georgia, Cambria, "Times New Roman", serif;
-    --font-body:    "Lora", Georgia, Cambria, "Times New Roman", serif;
-    --font-ui:      "Nunito", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-    /* Escala de tamaños (en rem) */
-    --text-display-2xl: 3.75rem;  /* 60px — H1 desktop max */
-    --text-display-xl:  3rem;     /* 48px — H1 desktop min */
-    --text-heading-lg:  2.5rem;   /* 40px — H2 desktop max */
-    --text-heading-md:  2rem;     /* 32px — H2 desktop min */
-    --text-heading-sm:  1.625rem; /* 26px — H3 desktop max */
-    --text-heading-xs:  1.375rem; /* 22px — H3 desktop min */
-    --text-body-lg:     1.125rem; /* 18px — Body large */
-    --text-body-md:     1rem;     /* 16px — Body base */
-    --text-body-sm:     0.875rem; /* 14px — Body small */
-    --text-ui-md:       1rem;     /* 16px — Buttons */
-    --text-ui-sm:       0.875rem; /* 14px — Labels */
-    --text-ui-xs:       0.75rem;  /* 12px — Captions */
+    /* Aliases semánticos (todos apuntan a --font-sans) */
+    --font-display: var(--font-sans);
+    --font-body:    var(--font-sans);
+    --font-ui:      var(--font-sans);
+
+    /* Escala de tamaños */
+    --text-display-2xl: 3.75rem;  /* 60px */
+    --text-display-xl:  3rem;     /* 48px */
+    --text-heading-xl:  2.5rem;   /* 40px */
+    --text-heading-lg:  2.25rem;  /* 36px */
+    --text-heading-md:  1.75rem;  /* 28px */
+    --text-heading-sm:  1.5rem;   /* 24px */
+    --text-heading-xs:  1.25rem;  /* 20px */
+    --text-body-lg:     1.125rem; /* 18px */
+    --text-body-md:     1rem;     /* 16px */
+    --text-body-sm:     0.875rem; /* 14px */
+    --text-ui-lg:       1rem;     /* 16px */
+    --text-ui-sm:       0.875rem; /* 14px */
+    --text-caption:     0.75rem;  /* 12px */
+    --text-overline:    0.6875rem;/* 11px */
+    --text-kpi-lg:      3rem;     /* 48px */
+    --text-kpi-md:      2.5rem;   /* 40px */
 
     /* Line heights */
-    --leading-display:  1.1;
-    --leading-heading:  1.2;
-    --leading-subhead:  1.3;
-    --leading-body:     1.5;
-    --leading-ui:       1.1;
-    --leading-caption:  1.4;
+    --leading-display: 1.1;
+    --leading-heading: 1.2;
+    --leading-body:    1.5;
+    --leading-ui:      1.0;
+    --leading-caption: 1.4;
 
     /* Letter spacing */
-    --tracking-display:  -0.01em;
-    --tracking-heading:  -0.005em;
-    --tracking-body:      0em;
-    --tracking-ui:        0.01em;
-    --tracking-caption:   0.02em;
-    --tracking-overline:  0.08em;
+    --tracking-display: -0.02em;
+    --tracking-heading: -0.01em;
+    --tracking-body:     0em;
+    --tracking-ui:       0.01em;
+    --tracking-overline: 0.08em;
   }
 
   .dark {
@@ -94,8 +99,9 @@
   }
 
   body {
-    font-family: var(--font-body);
+    font-family: var(--font-sans);
     font-size: var(--text-body-md);
+    font-weight: 400;
     line-height: var(--leading-body);
     letter-spacing: var(--tracking-body);
     @apply bg-background text-foreground antialiased;
@@ -103,193 +109,238 @@
     scroll-behavior: smooth;
   }
 
-  /* Headings base */
-  h1, h2 {
-    font-family: var(--font-display);
-    font-weight: 400;
+  /* Headings — Inter Bold/SemiBold con tracking negativo */
+  h1 {
+    font-family: var(--font-sans);
+    font-weight: 700;
     letter-spacing: var(--tracking-display);
     line-height: var(--leading-display);
   }
 
-  h3, h4 {
-    font-family: var(--font-body);
-    font-weight: 500;
-    letter-spacing: var(--tracking-body);
-    line-height: var(--leading-subhead);
+  h2, h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: var(--tracking-heading);
+    line-height: var(--leading-heading);
   }
 
-  /* Botones y elementos UI heredan font-ui por defecto */
+  h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.3;
+  }
+
+  /* Elementos UI heredan font-sans (ya es el default, explícito para claridad) */
   button, input, select, textarea, label {
-    font-family: var(--font-ui);
+    font-family: var(--font-sans);
   }
 }
 
 @layer components {
   /* ── DISPLAY / HERO ─────────────────────────────────────────── */
+
   .text-hero {
-    @apply font-display text-display-xl md:text-display-2xl
-           font-semibold leading-none tracking-tight text-white;
+    @apply font-sans text-display-xl md:text-display-2xl
+           font-bold leading-none tracking-tighter text-white;
   }
 
   .text-hero-subtitle {
-    @apply font-body text-body-lg md:text-heading-xs
-           font-normal leading-relaxed tracking-wide text-white/90;
+    @apply font-sans text-body-lg md:text-heading-xs
+           font-light leading-loose tracking-normal text-white/85;
   }
 
   /* ── HEADINGS DE SECCIÓN (Landing Page) ─────────────────────── */
+
   .text-section-title {
-    @apply font-display text-heading-md md:text-heading-lg
-           font-normal leading-tight tracking-tight text-neutral-900;
+    @apply font-sans text-heading-lg md:text-heading-xl
+           font-semibold leading-tight tracking-tight text-neutral-900;
   }
 
   .text-section-subtitle {
-    @apply font-body text-body-lg
-           font-normal leading-relaxed tracking-wide text-neutral-600;
+    @apply font-sans text-body-lg
+           font-normal leading-relaxed tracking-normal text-neutral-500;
   }
 
   /* ── HEADINGS DE CARDS ──────────────────────────────────────── */
+
   .text-card-title {
-    @apply font-body text-heading-xs
-           font-medium leading-snug tracking-normal text-neutral-900;
+    @apply font-sans text-heading-sm
+           font-semibold leading-snug tracking-tight text-neutral-900;
   }
 
   .text-card-body {
-    @apply font-body text-body-md
-           font-normal leading-relaxed tracking-normal text-neutral-700;
+    @apply font-sans text-body-md
+           font-normal leading-relaxed tracking-normal text-neutral-600;
   }
 
   .text-card-price {
-    @apply font-display text-heading-sm
-           font-semibold leading-none tracking-tight text-brand-blue;
+    @apply font-sans text-heading-md
+           font-bold leading-none tracking-tight text-brand-blue;
   }
 
   /* ── CUERPO DE TEXTO GENERAL ────────────────────────────────── */
+
   .text-prose {
-    @apply font-body text-body-md
-           font-normal leading-relaxed tracking-normal text-neutral-800;
+    @apply font-sans text-body-md
+           font-normal leading-relaxed tracking-normal text-neutral-700;
   }
 
   .text-prose-lg {
-    @apply font-body text-body-lg
-           font-normal leading-relaxed tracking-wide text-neutral-800;
+    @apply font-sans text-body-lg
+           font-normal leading-loose tracking-normal text-neutral-700;
   }
 
   /* ── BOTONES Y CTA ───────────────────────────────────────────── */
+
   .text-cta {
-    @apply font-ui text-ui-md
+    @apply font-sans text-ui-lg
            font-semibold leading-none tracking-wide;
   }
 
   .text-cta-sm {
-    @apply font-ui text-ui-sm
+    @apply font-sans text-ui-md
            font-semibold leading-none tracking-wide;
   }
 
   /* ── FORMULARIOS Y UI FUNCIONAL ─────────────────────────────── */
+
   .text-label {
-    @apply font-ui text-ui-sm
+    @apply font-sans text-ui-sm
            font-medium leading-snug tracking-wide text-neutral-700;
   }
 
   .text-input {
-    @apply font-ui text-body-md
+    @apply font-sans text-body-md
            font-normal leading-relaxed tracking-normal text-neutral-900;
   }
 
   .text-placeholder {
-    @apply font-ui text-body-md
+    @apply font-sans text-body-md
            font-normal tracking-normal text-neutral-400;
   }
 
   .text-helper {
-    @apply font-ui text-ui-xs
+    @apply font-sans text-caption
            font-normal leading-normal tracking-wide text-neutral-500;
   }
 
   .text-error {
-    @apply font-ui text-ui-xs
-           font-normal leading-normal tracking-wide text-red-600;
+    @apply font-sans text-caption
+           font-medium leading-normal tracking-wide text-red-600;
+  }
+
+  .text-success {
+    @apply font-sans text-caption
+           font-medium leading-normal tracking-wide text-green-600;
   }
 
   /* ── DASHBOARD / PANEL INTERNO ──────────────────────────────── */
+
   .text-dashboard-title {
-    @apply font-body text-heading-xs md:text-heading-sm
-           font-semibold leading-snug tracking-normal text-neutral-900;
+    @apply font-sans text-heading-sm md:text-heading-md
+           font-semibold leading-snug tracking-tight text-neutral-900;
   }
 
   .text-kpi-value {
-    @apply font-display text-display-xl
-           font-semibold leading-none tracking-tight text-neutral-900;
+    @apply font-sans text-kpi-md md:text-kpi-lg
+           font-bold leading-none tracking-tighter text-neutral-900;
   }
 
   .text-kpi-label {
-    @apply font-ui text-ui-sm
-           font-medium leading-snug tracking-wide text-neutral-500 uppercase;
+    @apply font-sans text-caption
+           font-semibold leading-snug tracking-widest text-neutral-500 uppercase;
   }
 
   .text-table-header {
-    @apply font-ui text-ui-xs
-           font-semibold leading-normal tracking-widest text-neutral-500 uppercase;
+    @apply font-sans text-caption
+           font-semibold leading-normal tracking-wider text-neutral-500 uppercase;
   }
 
   .text-table-cell {
-    @apply font-ui text-body-sm
+    @apply font-sans text-body-sm
            font-normal leading-relaxed tracking-normal text-neutral-800;
   }
 
   .text-badge {
-    @apply font-ui text-ui-xs
+    @apply font-sans text-caption
            font-semibold leading-none tracking-wide uppercase;
   }
 
   /* ── MICROCOPY Y CAPTIONS ───────────────────────────────────── */
-  .text-caption {
-    @apply font-ui text-ui-xs
-           font-normal leading-normal tracking-widest text-neutral-500;
+
+  .text-caption-text {
+    @apply font-sans text-caption
+           font-normal leading-normal tracking-wide text-neutral-500;
   }
 
   .text-overline {
-    @apply font-ui text-overline
-           font-bold leading-normal tracking-widest text-neutral-400 uppercase;
+    @apply font-sans text-overline
+           font-semibold leading-normal tracking-widest text-neutral-400 uppercase;
   }
 
   /* ── REVIEWS / TESTIMONIOS ───────────────────────────────────── */
+
   .text-review-quote {
-    @apply font-body text-body-lg italic
-           font-normal leading-relaxed tracking-wide text-neutral-700;
+    @apply font-sans text-body-lg
+           font-light leading-loose tracking-normal text-neutral-700;
   }
 
   .text-review-author {
-    @apply font-ui text-ui-sm
+    @apply font-sans text-ui-sm
            font-semibold leading-snug tracking-wide text-neutral-900;
   }
 
   /* ── NAVEGACIÓN ──────────────────────────────────────────────── */
+
   .text-nav-link {
-    @apply font-ui text-body-sm
-           font-medium leading-none tracking-wide text-neutral-700
+    @apply font-sans text-body-sm
+           font-medium leading-none tracking-normal text-neutral-700
            hover:text-brand-blue transition-colors;
   }
 
   .text-nav-cta {
-    @apply font-ui text-body-sm
+    @apply font-sans text-body-sm
            font-semibold leading-none tracking-wide;
   }
 
   /* ── PROMOCIONES / PRECIOS ───────────────────────────────────── */
+
   .text-promo-title {
-    @apply font-display text-heading-xs md:text-heading-sm
-           font-normal leading-tight tracking-tight text-neutral-900;
+    @apply font-sans text-heading-sm md:text-heading-md
+           font-semibold leading-tight tracking-tight text-neutral-900;
   }
 
   .text-price-original {
-    @apply font-ui text-body-sm
+    @apply font-sans text-body-sm
            font-normal leading-none tracking-normal text-neutral-400 line-through;
   }
 
   .text-price-discount {
-    @apply font-display text-heading-sm
-           font-semibold leading-none tracking-tight text-green-600;
+    @apply font-sans text-heading-sm
+           font-bold leading-none tracking-tight text-green-600;
+  }
+
+  /* ── ESTADOS DE RESERVA (badges específicos del proyecto) ────── */
+
+  .text-status-pending {
+    @apply text-badge text-yellow-700;
+  }
+
+  .text-status-confirmed {
+    @apply text-badge text-green-700;
+  }
+
+  .text-status-rejected {
+    @apply text-badge text-red-700;
+  }
+
+  .text-status-cancelled {
+    @apply text-badge text-neutral-500;
+  }
+
+  .text-status-completed {
+    @apply text-badge text-blue-700;
   }
 }
 

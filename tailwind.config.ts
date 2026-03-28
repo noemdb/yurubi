@@ -79,36 +79,40 @@ const config: Config = {
       },
       // ── TIPOGRAFÍA ──────────────────────────────────────────────
       fontFamily: {
-        // Mapeo de tokens a variables CSS inyectadas por next/font
-        display: ["var(--font-display)", "Georgia", "Cambria", "serif"],
-        body:    ["var(--font-body)", "Georgia", "Cambria", "serif"],
-        ui:      ["var(--font-ui)", "ui-sans-serif", "system-ui", "sans-serif"],
-        // Aliases para compatibilidad semántica
-        sans:    ["var(--font-ui)", "ui-sans-serif", "system-ui", "sans-serif"],
-        serif:   ["var(--font-body)", "Georgia", "Cambria", "serif"],
+        // Sistema mono-familiar: Inter en todos los contextos
+        sans:    ["var(--font-sans)", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+        // Aliases semánticos — todos apuntan a Inter
+        display: ["var(--font-sans)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        body:    ["var(--font-sans)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        ui:      ["var(--font-sans)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
       },
 
-      // ── ESCALA TIPOGRÁFICA EXTENDIDA ─────────────────────────────
-      // Tailwind base cubre text-xs hasta text-9xl.
-      // Se añaden aliases semánticos para consistencia en el proyecto.
+      // ── ESCALA TIPOGRÁFICA SEMÁNTICA ─────────────────────────────
       fontSize: {
-        // Display scale (H1 / Hero)
-        "display-2xl": ["3.75rem", { lineHeight: "1.1", letterSpacing: "-0.01em" }],  // 60px
-        "display-xl":  ["3rem",    { lineHeight: "1.1", letterSpacing: "-0.01em" }],  // 48px
-        // Heading scale
-        "heading-lg":  ["2.5rem",  { lineHeight: "1.2", letterSpacing: "-0.005em" }], // 40px
-        "heading-md":  ["2rem",    { lineHeight: "1.2", letterSpacing: "-0.005em" }], // 32px
-        "heading-sm":  ["1.625rem",{ lineHeight: "1.3", letterSpacing: "0" }],        // 26px
-        "heading-xs":  ["1.375rem",{ lineHeight: "1.3", letterSpacing: "0" }],        // 22px
-        // Body scale
-        "body-lg":     ["1.125rem",{ lineHeight: "1.5", letterSpacing: "0.005em" }],  // 18px
-        "body-md":     ["1rem",    { lineHeight: "1.5", letterSpacing: "0" }],        // 16px
-        "body-sm":     ["0.875rem",{ lineHeight: "1.5", letterSpacing: "0" }],        // 14px
-        // UI scale
-        "ui-md":       ["1rem",    { lineHeight: "1.1", letterSpacing: "0.01em" }],   // 16px (buttons)
-        "ui-sm":       ["0.875rem",{ lineHeight: "1.3", letterSpacing: "0.01em" }],   // 14px (labels)
-        "ui-xs":       ["0.75rem", { lineHeight: "1.4", letterSpacing: "0.02em" }],   // 12px (captions)
-        "overline":    ["0.75rem", { lineHeight: "1.4", letterSpacing: "0.08em" }],   // 12px (overlines)
+        // Display / Hero
+        "display-2xl": ["3.75rem", { lineHeight: "1.1",  letterSpacing: "-0.02em", fontWeight: "700" }], // 60px
+        "display-xl":  ["3rem",    { lineHeight: "1.1",  letterSpacing: "-0.02em", fontWeight: "700" }], // 48px
+        // Headings
+        "heading-xl":  ["2.5rem",  { lineHeight: "1.15", letterSpacing: "-0.01em", fontWeight: "600" }], // 40px
+        "heading-lg":  ["2.25rem", { lineHeight: "1.15", letterSpacing: "-0.01em", fontWeight: "600" }], // 36px
+        "heading-md":  ["1.75rem", { lineHeight: "1.25", letterSpacing: "-0.005em",fontWeight: "600" }], // 28px
+        "heading-sm":  ["1.5rem",  { lineHeight: "1.25", letterSpacing: "-0.005em",fontWeight: "600" }], // 24px
+        "heading-xs":  ["1.25rem", { lineHeight: "1.3",  letterSpacing: "0",       fontWeight: "500" }], // 20px
+        // Body
+        "body-lg":     ["1.125rem",{ lineHeight: "1.6",  letterSpacing: "0" }],  // 18px
+        "body-md":     ["1rem",    { lineHeight: "1.5",  letterSpacing: "0" }],  // 16px
+        "body-sm":     ["0.875rem",{ lineHeight: "1.45", letterSpacing: "0" }],  // 14px
+        // UI / Funcional
+        "ui-lg":       ["1rem",    { lineHeight: "1",    letterSpacing: "0.01em" }], // 16px buttons
+        "ui-md":       ["0.9375rem",{lineHeight: "1",    letterSpacing: "0.01em" }], // 15px buttons sm
+        "ui-sm":       ["0.875rem",{ lineHeight: "1.3",  letterSpacing: "0.005em"}], // 14px labels
+        "ui-xs":       ["0.8125rem",{lineHeight: "1.3",  letterSpacing: "0.005em"}], // 13px labels sm
+        // Micro
+        "caption":     ["0.75rem", { lineHeight: "1.4",  letterSpacing: "0.01em" }], // 12px
+        "overline":    ["0.6875rem",{ lineHeight: "1.4", letterSpacing: "0.08em" }],  // 11px
+        // KPI (dashboard)
+        "kpi-lg":      ["3rem",    { lineHeight: "1",    letterSpacing: "-0.02em", fontWeight: "700" }], // 48px
+        "kpi-md":      ["2.5rem",  { lineHeight: "1",    letterSpacing: "-0.02em", fontWeight: "700" }], // 40px
       },
     },
   },

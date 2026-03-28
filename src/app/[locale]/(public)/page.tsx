@@ -79,8 +79,35 @@ export default async function HomePage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(hotelJsonLd) }}
       />
-      <div className="flex flex-col min-h-screen">
-        <PromotionBanner locale={locale} />
+      <div className="flex flex-col min-h-screen relative overflow-hidden">
+        
+        {/* Floating Brand Elements (Disaggregated Logo Parallax Decorators) */}
+        <div className="absolute inset-0 z-[0] pointer-events-none overflow-hidden mix-blend-multiply">
+          {/* 1. Base repeating river pattern */}
+          <div 
+            className="absolute inset-0 opacity-[0.02] bg-[url('/images/logo/partials/rio.png')] bg-[length:350px_auto] bg-repeat"
+            style={{ backgroundAttachment: "fixed" }}
+            aria-hidden="true"
+          />
+          
+          {/* 2. Floating Stars (Starts) */}
+          <div className="absolute top-[10%] right-[2%] md:right-[8%] w-48 md:w-80 opacity-[0.08] motion-safe:animate-[pulse_6s_ease-in-out_infinite]">
+            <img src="/images/logo/partials/starts.png" alt="" aria-hidden="true" className="w-full h-auto drop-shadow-2xl" />
+          </div>
+
+          {/* 3. Floating Text Accent (Vertical) */}
+          <div className="absolute top-[40%] left-[-20%] md:left-[-10%] w-[600px] md:w-[900px] opacity-[0.03] -rotate-90 transform-gpu">
+            <img src="/images/logo/partials/text.png" alt="" aria-hidden="true" className="w-full h-auto" />
+          </div>
+
+          {/* 4. Giant River Emblem near bottom */}
+          <div className="absolute bottom-[10%] right-[-20%] md:right-[-10%] w-[600px] md:w-[1000px] opacity-[0.03] rotate-12 transform-gpu">
+            <img src="/images/logo/partials/rio.png" alt="" aria-hidden="true" className="w-full h-auto" />
+          </div>
+        </div>
+
+        <div className="relative z-10 flex flex-col min-h-screen">
+          <PromotionBanner locale={locale} />
         
         <SectionReveal>
           <Hero locale={locale} />
@@ -104,13 +131,13 @@ export default async function HomePage({ params }: PageProps) {
 
         {/* Gallery Section */}
         <SectionReveal>
-          <section className="py-24 bg-gray-50/50">
+          <section className="py-8 bg-gray-50/50 dark:bg-gray-950/50 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-4 lg:px-8">
               <div className="text-center max-w-3xl mx-auto mb-16">
-                <h2 className="font-serif text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+                <h2 className="font-serif text-3xl md:text-5xl font-bold text-gray-900 dark:text-gray-50 mb-6">
                   {locale === 'es' ? 'Nuestra Galería Visual' : 'Our Visual Gallery'}
                 </h2>
-                <p className="text-gray-500 text-lg leading-relaxed">
+                <p className="text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
                   {locale === 'es' 
                     ? 'Cada rincón del Hotel Río Yurubí ha sido diseñado para conectar con la naturaleza y ofrecerte una experiencia estética inigualable. Explora nuestro paraíso.' 
                     : 'Every corner of Hotel Río Yurubí has been designed to connect with nature and offer you an unparalleled aesthetic experience. Explore our paradise.'}
@@ -158,7 +185,8 @@ export default async function HomePage({ params }: PageProps) {
           <Contact />
         </SectionReveal>
       </div>
-
+      {/* Closing the new z-10 relative wrapper */}
+      </div>
     </>
   );
 }

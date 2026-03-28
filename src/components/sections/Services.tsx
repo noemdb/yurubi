@@ -59,7 +59,7 @@ export function Services() {
 
 
   return (
-    <section className="py-32 bg-white relative overflow-hidden">
+    <section className="py-8 bg-white dark:bg-gray-950 relative overflow-hidden border-t border-gray-200 dark:border-gray-800">
       {/* Decorative background element */}
       <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-brand-green/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-96 h-96 bg-brand-blue/5 rounded-full blur-3xl pointer-events-none" />
@@ -91,9 +91,9 @@ export function Services() {
               key={service.id}
               variants={itemVariants}
               whileHover={{ y: -10, transition: { duration: 0.2 } }}
-              className="p-10 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all group cursor-default"
+              className="p-10 rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all group cursor-default"
             >
-              <div className="mb-8 inline-flex p-5 bg-gray-50 rounded-2xl shadow-inner group-hover:scale-110 group-hover:bg-brand-green/10 transition-all duration-300">
+              <div className="mb-8 inline-flex p-5 bg-gray-50 dark:bg-gray-800 rounded-2xl shadow-inner group-hover:scale-110 group-hover:bg-brand-green/10 transition-all duration-300">
                 {service.icon}
               </div>
               <h3 className="text-card-title mb-4">

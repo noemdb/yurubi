@@ -42,13 +42,13 @@ export async function ServiceHighlights({ locale }: { locale: string }) {
   ];
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-8 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-section-title mb-6 italic text-brand-blue-900">
+          <h2 className="text-section-title mb-6 italic text-brand-blue-900 dark:text-brand-blue-100">
             {isEs ? "Mucho más que descanso" : "More than just rest"}
           </h2>
-          <p className="text-section-subtitle font-medium text-gray-600">
+          <p className="text-section-subtitle font-medium text-gray-600 dark:text-gray-400">
             {isEs 
               ? "Transformamos tu estadía en una experiencia sensorial completa. Descubre los rincones diseñados para tu placer." 
               : "We transform your stay into a complete sensory experience. Discover the corners designed for your pleasure."}
@@ -57,7 +57,7 @@ export async function ServiceHighlights({ locale }: { locale: string }) {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {highlights.map((item) => (
-            <div key={item.id} className="group relative bg-gray-50 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col">
+            <div key={item.id} className="group relative bg-gray-50 dark:bg-gray-900 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 dark:border-gray-800 flex flex-col">
               <div className="aspect-[4/3] overflow-hidden relative">
                 <SmartImage 
                   src={item.image} 
@@ -66,14 +66,14 @@ export async function ServiceHighlights({ locale }: { locale: string }) {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent" />
-                <div className="absolute top-6 left-6 bg-white p-3 rounded-2xl shadow-lg ring-1 ring-black/5">
+                <div className="absolute top-6 left-6 bg-white dark:bg-gray-950 p-3 rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/10">
                   {item.icon}
                 </div>
               </div>
               
               <div className="p-8 flex flex-col flex-grow">
-                <h3 className="text-card-title mb-4">{item.title}</h3>
-                <p className="text-gray-500 mb-8 leading-relaxed">
+                <h3 className="text-card-title dark:text-gray-50 mb-4">{item.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
                   {item.desc}
                 </p>
                 <Link 

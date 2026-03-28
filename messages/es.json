@@ -142,8 +142,10 @@
     "name": "Nombre",
     "email": "Email",
     "message": "Mensaje",
-    "send": "Enviar Mensaje Directo",
-    "whatsapp": "Atención Inmediata vía WhatsApp",
+    "send": "Enviar por Email",
+    "sendDirect": "Enviar Mensaje",
+    "whatsapp": "Contactar por WhatsApp",
+    "whatsapp2": "Contáctanos por WhatsApp",
     "successMessage": "¡Mensaje recibido! Nos pondremos en contacto contigo muy pronto.",
     "motivatingText": "Queremos que vivas la experiencia Yurubí. Si tienes dudas sobre nuestras tarifas, servicios especiales o simplemente quieres saludarnos, estamos listos para atenderte con la calidez que nos caracteriza."
   },

@@ -52,29 +52,29 @@ export function Contact() {
   }
 
   return (
-    <section className="py-24 bg-gray-50 border-t border-gray-100">
+    <section className="py-8 bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-6">
               {t("title")}
             </h2>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
               {t("subtitle")}
             </p>
             <div className="space-y-6">
-              <p className="text-gray-500 text-lg leading-relaxed">
+              <p className="text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
                 {t("motivatingText")}
               </p>
               
               <div className="flex flex-col gap-4 pt-4">
-                <div className="flex items-center gap-4 text-gray-600">
+                <div className="flex items-center gap-4 text-gray-600 dark:text-gray-300">
                   <div className="bg-brand-blue/10 p-3 rounded-xl text-brand-blue">
                     <Mail className="w-5 h-5" />
                   </div>
                   <span>hotelrioyurubi@gmail.com</span>
                 </div>
-                <div className="flex items-center gap-4 text-gray-600">
+                <div className="flex items-center gap-4 text-gray-600 dark:text-gray-300">
                   <div className="bg-brand-green/10 p-3 rounded-xl text-brand-green">
                     <MessageSquare className="w-5 h-5" />
                   </div>
@@ -84,7 +84,7 @@ export function Contact() {
             </div>
           </div>
 
-          <div className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-xl shadow-brand-blue/5 border border-brand-blue/10">
+          <div className="bg-white dark:bg-gray-900 p-8 md:p-12 rounded-[2.5rem] shadow-xl shadow-brand-blue/5 border border-brand-blue/10 dark:border-gray-800">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -93,9 +93,9 @@ export function Contact() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("name")}</FormLabel>
+                        <FormLabel className="dark:text-gray-200">{t("name")}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Juan Pérez" {...field} className="rounded-xl h-12" />
+                          <Input placeholder="Juan Pérez" {...field} className="rounded-xl h-12 dark:bg-gray-800 dark:border-gray-700 dark:text-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -106,9 +106,9 @@ export function Contact() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("email")}</FormLabel>
+                        <FormLabel className="dark:text-gray-200">{t("email")}</FormLabel>
                         <FormControl>
-                          <Input placeholder="juan@ejemplo.com" {...field} className="rounded-xl h-12" />
+                          <Input placeholder="juan@ejemplo.com" {...field} className="rounded-xl h-12 dark:bg-gray-800 dark:border-gray-700 dark:text-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -121,11 +121,11 @@ export function Contact() {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t("message")}</FormLabel>
+                      <FormLabel className="dark:text-gray-200">{t("message")}</FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Escribe tu mensaje aquí..."
-                          className="h-32 resize-none rounded-xl"
+                          className="h-32 resize-none rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                           {...field}
                         />
                       </FormControl>
@@ -145,7 +145,7 @@ export function Contact() {
                     ) : (
                       <Mail className="mr-2 h-4 w-4" />
                     )}
-                    {t("send")}
+                    {t("sendDirect")}
                   </Button>
                   
                   <Button 

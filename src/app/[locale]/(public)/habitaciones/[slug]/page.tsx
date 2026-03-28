@@ -50,7 +50,7 @@ export default async function RoomDetailsPage({ params }: PageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 py-4">
       <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
         
         {/* Header (Back Link + Title) */}
@@ -144,7 +144,7 @@ export default async function RoomDetailsPage({ params }: PageProps) {
             </section>
 
             <section>
-              <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6 border-b border-gray-100 pb-2">
+              <h2 className="text-2xl font-serif font-bold text-gray-900 mb-2 border-b border-gray-100 pb-2">
                 {isEs ? "Amenidades de la Habitación" : "Room Amenities"}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -160,7 +160,7 @@ export default async function RoomDetailsPage({ params }: PageProps) {
 
           {/* Sticky Sidebar CTA */}
           <div className="lg:col-span-1">
-            <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 sticky top-28">
+            <div className="bg-white p-2 rounded-3xl shadow-lg border border-gray-100 sticky top-28">
                <h3 className="font-bold text-xl text-gray-900 mb-6 text-center">
                  {isEs ? "Asegura tu estadía" : "Secure your stay"}
                </h3>
