@@ -15,7 +15,8 @@ import {
   BarChart2,
   ScrollText,
   LayoutGrid,
-  Building
+  Building,
+  BookOpen
 } from "lucide-react";
 import { auth, signOut } from "@/auth";
 import { redirect } from "@/routing";
@@ -58,6 +59,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
     { icon: <ScrollText className="w-5 h-5" />, label: isEs ? "Bitácora" : "Audit Log", path: "/dashboard/bitacora" },
     { icon: <MessageSquare className="w-5 h-5" />, label: t("reviews"), path: "/dashboard/resenas" },
     { icon: <Settings className="w-5 h-5" />, label: t("settings"), path: "/dashboard/configuracion" },
+    { icon: <BookOpen className="w-5 h-5" />, label: isEs ? "Manual de Usuario" : "User Manual", path: "/dashboard/admin/manual" },
   ];
 
   const receptionistNav = [
@@ -67,6 +69,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
     { icon: <Users className="w-5 h-5" />, label: isEs ? "Huéspedes" : "Guests", path: "/dashboard/huespedes" },
     { icon: <LayoutGrid className="w-5 h-5" />, label: isEs ? "Estado Habitaciones" : "Room Status", path: "/dashboard/recepcionista/habitaciones" },
     { icon: <Calendar className="w-5 h-5" />, label: isEs ? "Calendario" : "Calendar", path: "/dashboard/calendario" },
+    { icon: <BookOpen className="w-5 h-5" />, label: isEs ? "Manual de Usuario" : "User Manual", path: "/dashboard/recepcionista/manual" },
   ];
 
   const ownerNav = [

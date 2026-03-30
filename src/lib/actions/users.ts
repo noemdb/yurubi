@@ -144,3 +144,45 @@ export async function toggleUserStatus(id: string, active: boolean) {
   revalidatePath("/[locale]/(admin)/dashboard/users", "page");
   return user;
 }
+
+const ChangePasswordSchema = z.object({
+  password: z
+    .string()
+    .min(8, { message: "La contraseña debe tener al menos 8 caracteres" })
+    .regex(/[A-Z]/, { message: "Debe incluir al menos una letra mayúscula" })
+    .regex(/[a-z]/, { message: "Debe incluir al menos una letra minúscula" })
+    .regex(/[0-9]/, { message: "Debe incluir al menos un número" }),
+  confirmPassword: z.string(),
+}).refine((d) => d.password === d.confirmPassword, {
+  message: "Las contraseñas no coinciden",
+  path: ["confirmPassword"],
+});
+
+export async function changeUserPassword(id: string, data: { password: string; confirmPassword: string }) {
+  const session = await ensureAdmin();
+
+  const validated = ChangePasswordSchema.safeParse(data);
+  if (!validated.success) {
+    return { error: validated.error.flatten().fieldErrors };
+  }
+
+  const hashedPassword = await bcrypt.hash(validated.data.password, 12);
+
+  await prisma.user.update({
+    where: { id },
+    data: { password: hashedPassword },
+  });
+
+  await prisma.auditLog.create({
+    data: {
+      entity: "USER",
+      entityId: id,
+      action: "UPDATE",
+      performedById: session.user?.id,
+      changes: { field: "password", note: "Password changed by admin" },
+    },
+  });
+
+  revalidatePath("/[locale]/(admin)/dashboard/users", "page");
+  return { success: true };
+}

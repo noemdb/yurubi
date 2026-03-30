@@ -12,7 +12,10 @@ import {
   Edit2, 
   CheckCircle2, 
   XCircle,
-  AlertCircle
+  AlertCircle,
+  KeyRound,
+  Eye,
+  EyeOff
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -41,7 +44,7 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { createUser, deleteUser, toggleUserStatus, updateUser } from "@/lib/actions/users";
+import { createUser, deleteUser, toggleUserStatus, updateUser, changeUserPassword } from "@/lib/actions/users";
 import { cn } from "@/lib/utils";
 
 interface UserData {
@@ -65,7 +68,16 @@ export function UsersTable({ initialData, locale }: { initialData: UserData[]; l
   const [isNewUserOpen, setIsNewUserOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
+
+  // Password visibility
+  const [showNewPwd, setShowNewPwd] = useState(false);
+  const [showConfirmPwd, setShowConfirmPwd] = useState(false);
+
+  // Change-password form
+  const [pwdData, setPwdData] = useState({ password: "", confirmPassword: "" });
+  const [pwdErrors, setPwdErrors] = useState<Record<string, string[]>>({});
 
   const [formData, setFormData] = useState({
     name: "",
@@ -140,6 +152,38 @@ export function UsersTable({ initialData, locale }: { initialData: UserData[]; l
         setIsDeleteOpen(false);
       } catch (error: any) {
         toast({ title: "Error", description: error.message, variant: "destructive" });
+      }
+    });
+  };
+
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedUser) return;
+    setPwdErrors({});
+
+    // Client-side quick match check
+    if (pwdData.password !== pwdData.confirmPassword) {
+      setPwdErrors({ confirmPassword: [isEs ? "Las contraseñas no coinciden" : "Passwords do not match"] });
+      return;
+    }
+
+    startTransition(async () => {
+      try {
+        const result = await changeUserPassword(selectedUser.id, pwdData);
+        if (result?.error) {
+          setPwdErrors(result.error as Record<string, string[]>);
+          return;
+        }
+        toast({
+          title: isEs ? "Contraseña actualizada" : "Password updated",
+          description: isEs
+            ? `La contraseña de ${selectedUser.name} fue cambiada exitosamente.`
+            : `${selectedUser.name}'s password was changed successfully.`,
+        });
+        setIsChangePasswordOpen(false);
+        setPwdData({ password: "", confirmPassword: "" });
+      } catch {
+        toast({ title: "Error", variant: "destructive" });
       }
     });
   };
@@ -260,7 +304,7 @@ export function UsersTable({ initialData, locale }: { initialData: UserData[]; l
                         <MoreVertical className="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-brand-blue transition-colors" />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="rounded-2xl border-gray-100 dark:border-slate-800 shadow-xl dark:shadow-none p-1.5 w-48">
+                    <DropdownMenuContent align="end" className="rounded-2xl border-gray-100 dark:border-slate-800 shadow-xl dark:shadow-none p-1.5 w-52">
                       <DropdownMenuItem 
                         className="rounded-xl text-xs font-bold gap-2 cursor-pointer focus:bg-gray-50 dark:focus:bg-slate-800"
                         onClick={() => {
@@ -271,6 +315,20 @@ export function UsersTable({ initialData, locale }: { initialData: UserData[]; l
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                         {isEs ? "Editar Perfil" : "Edit Profile"}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className="rounded-xl text-xs font-bold gap-2 cursor-pointer focus:bg-gray-50 dark:focus:bg-slate-800"
+                        onClick={() => {
+                          setSelectedUser(user);
+                          setPwdData({ password: "", confirmPassword: "" });
+                          setPwdErrors({});
+                          setShowNewPwd(false);
+                          setShowConfirmPwd(false);
+                          setIsChangePasswordOpen(true);
+                        }}
+                      >
+                        <KeyRound className="w-3.5 h-3.5" />
+                        {isEs ? "Cambiar Contraseña" : "Change Password"}
                       </DropdownMenuItem>
                       <DropdownMenuSeparator className="my-1.5 border-gray-100 dark:border-slate-800" />
                       <DropdownMenuItem 
@@ -487,6 +545,108 @@ export function UsersTable({ initialData, locale }: { initialData: UserData[]; l
                 className="w-full h-12 rounded-2xl bg-gray-900 hover:bg-black text-white font-bold text-sm shadow-xl dark:shadow-none shadow-gray-200 transition-all active:scale-95"
               >
                 {isEs ? "Guardar Cambios" : "Save Changes"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Change Password Dialog */}
+      <Dialog open={isChangePasswordOpen} onOpenChange={setIsChangePasswordOpen}>
+        <DialogContent className="rounded-[2.5rem] border-gray-100 dark:border-slate-800 shadow-2xl dark:shadow-none p-8 sm:max-w-[420px]">
+          <DialogHeader>
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-500 dark:text-amber-400 mb-2 mx-auto">
+              <KeyRound className="w-6 h-6" />
+            </div>
+            <DialogTitle className="text-center text-2xl font-serif font-bold text-gray-900 dark:text-gray-100">
+              {isEs ? "Cambiar Contraseña" : "Change Password"}
+            </DialogTitle>
+            <DialogDescription className="text-center text-gray-400 dark:text-gray-500 font-medium pt-1">
+              {isEs
+                ? `Asigna una nueva contraseña para ${selectedUser?.name ?? "este usuario"}.`
+                : `Set a new password for ${selectedUser?.name ?? "this user"}.`}
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleChangePassword} className="space-y-5 pt-4">
+            {/* New password */}
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest px-1">
+                {isEs ? "Nueva Contraseña" : "New Password"}
+              </label>
+              <div className="relative">
+                <Input
+                  type={showNewPwd ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={pwdData.password}
+                  onChange={(e) => setPwdData({ ...pwdData, password: e.target.value })}
+                  className={cn(
+                    "h-12 pr-12 rounded-2xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white transition-all text-sm font-bold shadow-none",
+                    pwdErrors.password && "border-red-500 bg-red-50 focus:bg-red-50"
+                  )}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowNewPwd((v) => !v)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 transition-colors"
+                >
+                  {showNewPwd ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+              {pwdErrors.password && (
+                <p className="text-[10px] text-red-500 font-bold px-1 mt-1">{pwdErrors.password[0]}</p>
+              )}
+              <p className="text-[10px] text-gray-400 dark:text-gray-500 px-1">
+                {isEs
+                  ? "Mín. 8 caracteres · mayúscula · minúscula · número"
+                  : "Min. 8 chars · uppercase · lowercase · number"}
+              </p>
+            </div>
+
+            {/* Confirm password */}
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest px-1">
+                {isEs ? "Confirmar Contraseña" : "Confirm Password"}
+              </label>
+              <div className="relative">
+                <Input
+                  type={showConfirmPwd ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={pwdData.confirmPassword}
+                  onChange={(e) => setPwdData({ ...pwdData, confirmPassword: e.target.value })}
+                  className={cn(
+                    "h-12 pr-12 rounded-2xl border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50 focus:bg-white transition-all text-sm font-bold shadow-none",
+                    pwdErrors.confirmPassword && "border-red-500 bg-red-50 focus:bg-red-50"
+                  )}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPwd((v) => !v)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 transition-colors"
+                >
+                  {showConfirmPwd ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+              {pwdErrors.confirmPassword && (
+                <p className="text-[10px] text-red-500 font-bold px-1 mt-1">{pwdErrors.confirmPassword[0]}</p>
+              )}
+            </div>
+
+            <DialogFooter className="pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsChangePasswordOpen(false)}
+                className="flex-1 h-12 rounded-2xl border-gray-100 dark:border-slate-800 font-bold text-sm"
+              >
+                {isEs ? "Cancelar" : "Cancel"}
+              </Button>
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="flex-1 h-12 rounded-2xl bg-gray-900 hover:bg-black text-white font-bold text-sm shadow-xl dark:shadow-none shadow-gray-200 transition-all active:scale-95"
+              >
+                {isEs ? "Guardar" : "Save"}
               </Button>
             </DialogFooter>
           </form>
