@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Inicio",
+    "about": "Nosotros",
     "rooms": "Habitaciones",
     "restaurant": "Restaurante",
     "pool": "Piscina",
@@ -88,17 +89,23 @@
     "title": "Piscina",
     "subtitle": "Refréscate rodeado de naturaleza",
     "schedule": "Horario",
-    "scheduleValue": "6:00 AM – 8:00 PM",
+    "scheduleValue": "10:00 AM – 8:00 PM",
     "rules": "Normas",
     "price": "Precio de acceso"
   },
   "meetingRoom": {
-    "title": "Sala de Reuniones",
-    "subtitle": "El espacio ideal para tus eventos corporativos",
-    "capacity": "Capacidad: 30 personas",
-    "schedule": "Horario: 6:00 AM – 12:00 PM",
-    "price": "$250 USD / día",
-    "equipment": "Equipamiento",
+    "title": "Eventos y Negocios",
+    "subtitle": "Disponemos de salones versátiles perfectos para reuniones corporativas, conferencias o celebraciones sociales.",
+    "capacity": "Capacidad: 15 a 350 personas",
+    "schedule": "Horario Flexible",
+    "price": "Desde $250 USD / día",
+    "equipment": "Infraestructura y Tecnología",
+    "corporateTitle": "Excelencia Corporativa",
+    "corporateDesc": "Espacios diseñados para la productividad: desde salas de juntas íntimas hasta grandes auditorios para convenciones.",
+    "socialTitle": "Celebraciones Inolvidables",
+    "socialDesc": "El escenario perfecto para bodas, aniversarios y eventos sociales con el respaldo de nuestra trayectoria.",
+    "cateringTitle": "Gastronomía para Eventos",
+    "cateringDesc": "Coffee breaks, almuerzos ejecutivos y banquetes de gala personalizados para sus invitados.",
     "requestQuote": "Solicitar Cotización",
     "contactName": "Nombre del contacto",
     "company": "Empresa (opcional)",
@@ -218,5 +225,30 @@
     "no": "No",
     "back": "Volver",
     "next": "Siguiente"
+  },
+  "about": {
+    "title": "Un refugio con historia en el corazón del Parque Yurubí",
+    "description": "Desde 1957, el Hotel Río Yurubí ha sido el punto de encuentro entre la tradición yaracuyana y la hospitalidad contemporánea. Nacimos junto al río que nos da nombre y a pocos pasos del Parque Nacional Yurubí, un lugar donde la frescura de la montaña y el confort urbano conviven en perfecta armonía.",
+    "subtitle1": "Tradición",
+    "content1": "Durante casi siete décadas, hemos mantenido nuestras puertas abiertas bajo el cuidado de una familia que ha hecho de la hotelería su vocación. Gracias a este legado, nuestros huéspedes disfrutan de un servicio cálido, honesto y constante.",
+    "subtitle2": "Arquitectura",
+    "content2": "Nuestros espacios conservan la estética original que enamora a quienes buscan autenticidad. La madera, la piedra y los pisos de granito crean una atmósfera pensada para que cada momento se viva sin prisa. Aquí, cada rincón cuenta una historia... y te invita a crear la tuya.",
+    "subtitle3": "Hospitalidad para cada tipo de viaje",
+    "content3": "Ya sea para descansar, trabajar o celebrar, encontrarás instalaciones diseñadas para tu bienestar.",
+    "subtitle4": "Compromiso con nuestra tierra",
+    "content4": "El Hotel Río Yurubí forma parte del tejido social de San Felipe. Somos una referencia histórica para la comunidad y un aliado activo en el desarrollo del estado.",
+    "cta": "Descubre un clásico que se renueva para ti.",
+    "stats": {
+      "years": "Años de Historia",
+      "rooms": "Habitaciones",
+      "capacity": "Capacidad"
+    },
+    "hospitality": {
+      "rooms": "Habitaciones amplias y silenciosas que ofrecen un descanso profundo y reparador.",
+      "restaurant": "Un restaurante de trayectoria local que te conecta con los sabores auténticos de Yaracuy.",
+      "recreation": "Piscina, bar y un lounge de inspiración africana, creados para pausar el día y reconectar contigo mismo.",
+      "eventsTitle": "Eventos y Negocios",
+      "events": "Disponemos de salones versátiles con capacidad desde 15 hasta 350 personas, perfectos para reuniones corporativas, conferencias o celebraciones sociales."
+    }
   }
 }

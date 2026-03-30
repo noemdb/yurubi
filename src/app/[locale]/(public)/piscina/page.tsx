@@ -143,7 +143,8 @@ export default async function PoolPage({ params }: PageProps) {
               <p className="text-gray-600 leading-relaxed text-sm md:text-base">{t("scheduleValue")}</p>
             </div>
             <p className="text-brand-blue font-medium mt-8 flex items-center gap-2 text-sm">
-              Abierto todos los días <span className="h-1 w-1 rounded-full bg-brand-blue animate-pulse" />
+              {isEs ? "Abierto todos los días (con excepción de los lunes)" : "Open every day (except Mondays)"}
+              <span className="h-1 w-1 rounded-full bg-brand-blue animate-pulse" />
             </p>
           </div>
 
@@ -157,7 +158,7 @@ export default async function PoolPage({ params }: PageProps) {
             </div>
             <div className="mt-8 p-3 bg-white/50 rounded-xl border border-brand-green/10 flex justify-between items-center">
               <p className="text-[10px] text-gray-500 uppercase tracking-widest">Visitantes Externos</p>
-              <p className="text-brand-green font-bold text-lg">$15 USD</p>
+              <p className="text-brand-green font-bold text-lg">USD 7.5 </p>
             </div>
           </div>
 

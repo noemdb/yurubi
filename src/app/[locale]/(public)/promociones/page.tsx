@@ -6,6 +6,7 @@ import { Tag, Calendar, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/utils";
+import { WhatsAppBookingButton } from "@/components/public/WhatsAppBookingButton";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -124,9 +125,16 @@ export default async function PromotionsPage({ params }: PageProps) {
                   <div className="mt-auto">
                     <Button asChild size="lg" className="bg-brand-green hover:bg-brand-green-600 w-full sm:w-auto text-base">
                       {/* Enviar al flujo de reservas indicando que miren tarifas promocionales */}
-                      <Link href={`/${locale}/reservar`} className="flex items-center gap-2">
+                      {/* <Link href={`/${locale}/reservar`} className="flex items-center gap-2">
                         {t("bookNow")} <ExternalLink className="h-4 w-4" />
-                      </Link>
+                      </Link> */}
+                      <WhatsAppBookingButton
+                        roomName={isEs ? promo.title : promo.titleEn || promo.title}
+                        roomId={promo.id}
+                        locale={locale}
+                        className="w-full text-cta-sm h-12 px-6 border border-[#25D366]/50 text-white hover:bg-[#25D366]/10 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(37,211,102,0.1)]"
+                      />
+
                     </Button>
                   </div>
                 </div>

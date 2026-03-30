@@ -19,6 +19,7 @@ export function Header() {
 
   const navigation = [
     { name: t("home"), href: "/" },
+    { name: t("about"), href: "/nosotros" },
     { name: t("rooms"), href: "/habitaciones" },
     { name: t("restaurant"), href: "/restaurante" },
     { name: t("pool"), href: "/piscina" },

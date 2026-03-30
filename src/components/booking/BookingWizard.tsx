@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { Step1Search } from "./Step1Search";
 import { Step2RoomSelection } from "./Step2RoomSelection";
-import { Step3Checkout, type CheckoutFormData } from "./Step3Checkout";
+import { Step3Guest, type GuestFormData } from "./Step3Guest";
+import { Step4Payment, type PaymentFormData } from "./Step4Payment";
+import { Step5Summary } from "./Step5Summary";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { processReservation } from "@/lib/actions/booking";
@@ -16,6 +18,11 @@ export type BookingData = {
   roomTypeId?: string;
   roomTypeName?: string;
   price?: number;
+  originalPrice?: number;
+  promotionName?: string;
+  guest?: GuestFormData;
+  paymentMethod?: "TRANSFERENCIA" | "ZELLE" | "EFECTIVO";
+  notes?: string;
 };
 
 export function BookingWizard({ 
@@ -35,9 +42,9 @@ export function BookingWizard({
 
   const isEs = locale === "es";
 
-  const handleCheckoutSuccess = async (formData: CheckoutFormData) => {
+  const handleCheckoutSuccess = async () => {
     try {
-      if (!data.checkIn || !data.checkOut || !data.guests || !data.roomTypeId) {
+      if (!data.checkIn || !data.checkOut || !data.guests || !data.roomTypeId || !data.guest || !data.paymentMethod) {
         throw new Error("Missing reservation data");
       }
       
@@ -46,9 +53,9 @@ export function BookingWizard({
         checkIn: data.checkIn,
         checkOut: data.checkOut,
         numberOfGuests: data.guests,
-        guest: formData.guest,
-        paymentMethod: formData.paymentMethod,
-        notes: formData.notes,
+        guest: data.guest,
+        paymentMethod: data.paymentMethod,
+        notes: data.notes,
         language: locale as "es" | "en",
       });
       
@@ -76,22 +83,24 @@ export function BookingWizard({
   return (
     <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-10 relative">
       {/* Stepper Header */}
-      <div className="flex items-center justify-between mx-auto max-w-2xl mb-8 pb-8 border-b border-gray-100">
-        {[1, 2, 3].map((s) => (
+      <div className="flex items-center justify-between mx-auto max-w-4xl mb-8 pb-8 border-b border-gray-100">
+        {[1, 2, 3, 4, 5].map((s) => (
           <div key={s} className="flex flex-col items-center flex-1 relative">
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center text-ui-bold mb-3 transition-colors z-10 ${
-              step === s ? "bg-brand-blue text-white ring-4 ring-brand-blue/20" : 
+            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-ui-bold mb-3 transition-colors z-10 ${
+              step === s ? "bg-brand-blue text-white ring-4 ring-brand-blue/20 shadow-lg" : 
               step > s ? "bg-brand-green text-white" : "bg-gray-100 text-gray-400"
             }`}>
               {s}
             </div>
-            <span className={`text-badge text-center uppercase ${step === s ? "text-brand-blue" : "text-gray-400"}`}>
+            <span className={`text-[10px] md:text-badge text-center uppercase ${step === s ? "text-brand-blue font-bold" : "text-gray-400"}`}>
               {s === 1 ? (isEs ? "Búsqueda" : "Search") : 
                s === 2 ? (isEs ? "Habitación" : "Room") : 
-               (isEs ? "Huésped y Pago" : "Checkout")}
+               s === 3 ? (isEs ? "Huésped" : "Guest") : 
+               s === 4 ? (isEs ? "Pago" : "Payment") : 
+               (isEs ? "Resumen" : "Summary")}
             </span>
-            {s < 3 && (
-              <div className={`absolute top-6 left-[60%] w-[80%] h-[2px] -z-0 ${step > s ? "bg-brand-green" : "bg-gray-100"}`} />
+            {s < 5 && (
+              <div className={`absolute top-5 md:top-6 left-[60%] w-[80%] h-[2px] -z-0 hidden md:block ${step > s ? "bg-brand-green" : "bg-gray-100"}`} />
             )}
           </div>
         ))}
@@ -114,18 +123,49 @@ export function BookingWizard({
             rooms={availableRooms} 
             locale={locale} 
             onSelect={(room) => {
-              setData({ ...data, roomTypeId: room.id, price: room.basePrice, roomTypeName: room.name });
+              setData({ 
+                ...data, 
+                roomTypeId: room.id, 
+                price: room.basePrice, 
+                roomTypeName: room.name,
+                originalPrice: room.originalPrice,
+                promotionName: room.appliedPromotion 
+                  ? (locale === 'es' ? room.appliedPromotion.title : room.appliedPromotion.titleEn || room.appliedPromotion.title) 
+                  : undefined
+              });
               setStep(3);
             }} 
             onBack={() => setStep(1)} 
           />
         )}
         {step === 3 && (
-          <Step3Checkout 
+          <Step3Guest 
+            initialData={data.guest}
+            locale={locale} 
+            onNext={(guest) => {
+              setData({ ...data, guest });
+              setStep(4);
+            }} 
+            onBack={() => setStep(2)} 
+          />
+        )}
+        {step === 4 && (
+          <Step4Payment 
+            initialData={data.paymentMethod ? { paymentMethod: data.paymentMethod as any, notes: data.notes } : undefined}
+            locale={locale} 
+            onNext={(paymentData) => {
+              setData({ ...data, ...paymentData });
+              setStep(5);
+            }} 
+            onBack={() => setStep(3)} 
+          />
+        )}
+        {step === 5 && (
+          <Step5Summary 
             bookingData={data} 
             locale={locale} 
-            onBack={() => setStep(2)} 
-            onSuccess={(formData) => handleCheckoutSuccess(formData)} 
+            onBack={() => setStep(4)} 
+            onSuccess={() => handleCheckoutSuccess()} 
           />
         )}
       </div>

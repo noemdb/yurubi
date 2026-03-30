@@ -129,11 +129,11 @@ export function Footer() {
                   {tNav("gallery")}
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/opiniones" className="hover:text-white transition-colors">
                   {tNav("reviews")}
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 

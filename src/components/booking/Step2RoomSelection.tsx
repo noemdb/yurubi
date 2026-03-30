@@ -44,41 +44,56 @@ export function Step2RoomSelection({
         </Button>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="flex flex-col gap-4">
         {rooms.map(room => (
-          <div key={room.id} className="border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all flex flex-col bg-white group cursor-pointer" onClick={() => onSelect(room)}>
-            <div className="aspect-video bg-gray-100 relative overflow-hidden">
+          <div key={room.id} className="border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-row bg-white group cursor-pointer items-stretch h-32 md:h-36" onClick={() => onSelect(room)}>
+            <div className="w-[35%] md:w-1/4 bg-gray-100 relative overflow-hidden shrink-0">
                {room.images?.[0] ? (
                  <img src={room.images[0]} alt={room.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
                ) : (
                  <div className="w-full h-full bg-brand-blue-50 flex items-center justify-center">
-                   <span className="text-brand-blue-200 font-serif text-xl">{room.name}</span>
+                   <span className="text-brand-blue-200 font-serif text-xs md:text-sm px-2 text-center">{room.name}</span>
                  </div>
                )}
-               <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm text-badge text-gray-700 flex items-center gap-1.5 border border-gray-100/50">
-                 <span className="w-2 h-2 rounded-full bg-brand-green animate-pulse" />
+               <div className="absolute top-2 right-2 bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full shadow-sm text-[10px] font-bold text-gray-700 flex items-center gap-1 border border-gray-100/50">
+                 <span className="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse" />
                  {room.availableCount} {isEs ? "disp." : "avail."}
                </div>
+               
+               {room.appliedPromotion && (
+                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-brand-blue/95 to-brand-blue/70 backdrop-blur-md p-1.5 flex items-center justify-between border-t border-white/20">
+                    <span className="text-[9px] font-bold tracking-widest uppercase text-white drop-shadow-sm flex flex-col">
+                      <span className="text-[8px] text-brand-green-300 opacity-90">{isEs ? "Oferta" : "Offer"}</span>
+                      <span className="truncate max-w-[100px]">{isEs ? room.appliedPromotion.title : room.appliedPromotion.titleEn || room.appliedPromotion.title}</span>
+                    </span>
+                 </div>
+               )}
             </div>
             
-            <div className="p-6 flex flex-col flex-grow">
-               <div className="flex justify-between items-start mb-3">
-                 <h3 className="text-card-title pr-2">{room.name}</h3>
-                 <div className="text-right shrink-0 bg-brand-green-50 px-3 py-1.5 rounded-xl border border-brand-green-100">
-                   <div className="text-card-price text-brand-green leading-none">{formatPrice(room.basePrice)}</div>
+            <div className="p-3 md:p-5 flex flex-col flex-grow justify-between min-w-0">
+               <div className="flex justify-between items-start gap-2">
+                 <div className="pr-2 min-w-0 flex-1">
+                    <h3 className="text-sm md:text-base font-bold text-gray-900 font-serif truncate">{room.name}</h3>
+                    <p className="text-xs text-gray-500 line-clamp-2 mt-1 mb-1 hidden md:block">
+                      {room.description}
+                    </p>
+                 </div>
+                 <div className="text-right shrink-0">
+                   {room.appliedPromotion && (
+                     <span className="text-[10px] font-bold text-gray-400 line-through decoration-brand-green/30 decoration-2 -mb-0.5 block">
+                       {formatPrice(room.originalPrice)}
+                     </span>
+                   )}
+                   <span className="text-base md:text-lg font-bold text-brand-green leading-none tracking-tight">{formatPrice(room.basePrice)}</span>
                  </div>
                </div>
                
-               <p className="text-card-body line-clamp-2 mb-6">
-                 {room.description}
-               </p>
-               
-               <div className="mt-auto">
+               <div className="flex justify-end items-center mt-auto">
                  <Button 
                    onClick={(e) => { e.stopPropagation(); onSelect(room); }} 
-                   className="text-cta w-full bg-brand-blue hover:bg-brand-blue-600 h-12 rounded-xl shadow-sm transition-transform active:scale-[0.98]"
+                   className="text-xs bg-brand-blue hover:bg-brand-blue-600 h-8 md:h-10 px-4 md:px-6 rounded-xl shadow-sm transition-transform active:scale-[0.98]"
                  >
-                   {isEs ? "Seleccionar" : "Select Room"}
+                   {isEs ? "Seleccionar" : "Select"}
                  </Button>
                </div>
             </div>

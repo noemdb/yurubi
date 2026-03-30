@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Home",
+    "about": "About Us",
     "rooms": "Rooms",
     "restaurant": "Restaurant",
     "pool": "Pool",
@@ -93,12 +94,18 @@
     "price": "Access fee"
   },
   "meetingRoom": {
-    "title": "Meeting Room",
-    "subtitle": "The ideal space for your corporate events",
-    "capacity": "Capacity: 30 people",
-    "schedule": "Schedule: 6:00 AM – 12:00 PM",
-    "price": "$250 USD / day",
-    "equipment": "Equipment",
+    "title": "Events & Business",
+    "subtitle": "We offer versatile halls perfect for corporate meetings, conferences, or social celebrations.",
+    "capacity": "Capacity: 15 to 350 people",
+    "schedule": "Flexible Schedule",
+    "price": "From $250 USD / day",
+    "equipment": "Infrastructure & Technology",
+    "corporateTitle": "Corporate Excellence",
+    "corporateDesc": "Spaces designed for productivity: from intimate boardrooms to grand auditoriums for conventions.",
+    "socialTitle": "Unforgettable Celebrations",
+    "socialDesc": "The perfect stage for weddings, anniversaries, and social events with our historical expertise.",
+    "cateringTitle": "Event Gastronomy",
+    "cateringDesc": "Coffee breaks, executive lunches, and personalized gala banquets for your guests.",
     "requestQuote": "Request Quote",
     "contactName": "Contact name",
     "company": "Company (optional)",
@@ -204,5 +211,30 @@
     "no": "No",
     "back": "Back",
     "next": "Next"
+  },
+  "about": {
+    "title": "A retreat with history in the heart of Yurubí Park",
+    "description": "Since 1957, Hotel Río Yurubí has been the meeting point between Yaracuy's tradition and contemporary hospitality. We were born next to the river that gives us our name, steps away from Yurubí National Park, a place where mountain freshness and urban comfort coexist in perfect harmony.",
+    "subtitle1": "Tradition",
+    "content1": "For almost seven decades, we have kept our doors open under the care of a family that has made hospitality their vocation. Thanks to this legacy, our guests enjoy a warm, honest, and consistent service.",
+    "subtitle2": "Architecture",
+    "content2": "Our spaces preserve the original aesthetics that captivate those seeking authenticity. Wood, stone, and granite floors create an atmosphere designed for every moment to be lived unhurriedly. Here, every corner tells a story... and invites you to create your own.",
+    "subtitle3": "Hospitality for every type of trip",
+    "content3": "Whether to rest, work, or celebrate, you will find facilities designed for your well-being.",
+    "subtitle4": "Commitment to our land",
+    "content4": "Hotel Río Yurubí is part of San Felipe's social fabric. We are a historical reference for the community and an active ally in the state's development.",
+    "cta": "Discover a classic that renews itself for you.",
+    "stats": {
+      "years": "Years of History",
+      "rooms": "Rooms",
+      "capacity": "Capacity"
+    },
+    "hospitality": {
+      "rooms": "Spacious and silent rooms offering deep and restorative rest.",
+      "restaurant": "A restaurant with local trajectory that connects you with the authentic flavors of Yaracuy.",
+      "recreation": "Pool, bar, and an African-inspired lounge, created to pause the day and reconnect with yourself.",
+      "eventsTitle": "Events & Business",
+      "events": "We offer versatile halls with capacity for 15 to 350 people, perfect for corporate meetings, conferences, or social celebrations."
+    }
   }
 }

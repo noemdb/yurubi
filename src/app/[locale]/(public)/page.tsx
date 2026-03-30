@@ -1,5 +1,6 @@
 // src/app/[locale]/(public)/page.tsx
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Hero } from "@/components/sections/Hero";
 import { RoomsPreview } from "@/components/sections/RoomsPreview";
 import { Services } from "@/components/sections/Services";
@@ -75,7 +76,8 @@ export default async function HomePage({ params }: PageProps) {
 
   return (
     <>
-      <script
+      <Script
+        id="hotel-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(hotelJsonLd) }}
       />

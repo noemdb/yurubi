@@ -306,12 +306,13 @@ export function RoomsTable({
                       </div>
                     </div>
                   </td>
-                  <td className="py-3.5 px-6 text-right">
-                      <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
+                  <td className="py-4 px-6 text-right">
+                      <div className="flex items-center justify-end gap-2 transition-all">
                         <Button 
-                          variant="ghost" 
+                          variant="outline" 
                           size="icon" 
-                          className="rounded-lg h-8 w-8 text-gray-400 dark:text-gray-500 hover:text-brand-blue hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-gray-100 dark:hover:border-slate-700 shadow-none"
+                          className="rounded-xl h-10 w-10 text-brand-blue bg-brand-blue-50/50 hover:bg-brand-blue hover:text-white border-brand-blue/20 hover:border-brand-blue shadow-sm transition-all active:scale-90"
+                          title={isEs ? "Editar habitación" : "Edit room"}
                           onClick={() => {
                             setEditingRoom(room);
                             setRoomFormData({
@@ -326,9 +327,10 @@ export function RoomsTable({
                           <Edit2 className="w-4 h-4" />
                         </Button>
                         <Button 
-                          variant="ghost" 
+                          variant="outline" 
                           size="icon" 
-                          className="rounded-lg h-8 w-8 text-gray-400 dark:text-gray-500 hover:text-red-500 hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-gray-100 dark:hover:border-slate-700 shadow-none"
+                          className="rounded-xl h-10 w-10 text-red-500 bg-red-50/50 hover:bg-red-500 hover:text-white border-red-500/20 hover:border-red-500 shadow-sm transition-all active:scale-90"
+                          title={isEs ? "Eliminar habitación" : "Delete room"}
                           onClick={() => setRoomToDelete(room)}
                           disabled={isPending}
                         >

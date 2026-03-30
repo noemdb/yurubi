@@ -7,11 +7,13 @@ interface SectionRevealProps {
   children: ReactNode;
   delay?: number;
   width?: "full" | "auto";
+  className?: string;
 }
 
-export function SectionReveal({ children, delay = 0, width = "full" }: SectionRevealProps) {
+export function SectionReveal({ children, delay = 0, width = "full", className }: SectionRevealProps) {
   return (
     <motion.div
+      className={className}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
