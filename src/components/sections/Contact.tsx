@@ -19,8 +19,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+import { sendContactEmail } from "@/actions/contact";
 
-// Schema local de contacto (solo UI, sin server action requerido por ahora)
 const contactSchema = z.object({
   name: z.string().min(2, "Nombre requerido"),
   email: z.string().email("Email inválido"),
@@ -39,16 +39,30 @@ export function Contact() {
 
   async function onSubmit(values: z.infer<typeof contactSchema>) {
     setIsSubmitting(true);
-    // Simular envío de email o Server Action call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    toast({
-      title: t("successMessage"),
-      variant: "default",
-    });
-    
-    form.reset();
-    setIsSubmitting(false);
+    try {
+      const result = await sendContactEmail(values);
+      if (result.success) {
+        toast({
+          title: t("successMessage"),
+          variant: "default",
+        });
+        form.reset();
+      } else {
+        toast({
+          title: "Error al enviar el mensaje",
+          description: result.error ?? "Por favor intenta de nuevo.",
+          variant: "destructive",
+        });
+      }
+    } catch {
+      toast({
+        title: "Error inesperado",
+        description: "No se pudo enviar el mensaje. Intenta de nuevo.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (

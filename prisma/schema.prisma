@@ -395,3 +395,49 @@ model AuditLog {
   @@index([timestamp])
   @@map("audit_logs")
 }
+
+// ═══════════════════════════════════════════════════════════════
+// ANALÍTICAS DE VISITANTES
+// ═══════════════════════════════════════════════════════════════
+
+model PageView {
+  id          String   @id @default(cuid())
+  sessionId   String
+  path        String          // ruta visitada ej. "/", "/habitaciones"
+  referrer    String?         // URL de origen
+  country     String?         // país aproximado
+  city        String?         // ciudad aproximada
+  device      String?         // "mobile" | "tablet" | "desktop"
+  browser     String?
+  os          String?
+  duration    Int?            // segundos en página
+  isOrganic   Boolean @default(false) // sin referrer o referrer es buscador
+  createdAt   DateTime @default(now())
+
+  @@index([path])
+  @@index([sessionId])
+  @@index([createdAt])
+  @@map("page_views")
+}
+
+model VisitorSession {
+  id          String   @id @default(cuid())
+  fingerprint String?  @unique  // hash anónimo (NO datos personales)
+  country     String?
+  city        String?
+  device      String?
+  browser     String?
+  os          String?
+  referrer    String?
+  isOrganic   Boolean @default(false)
+  pagesViewed Int     @default(1)
+  duration    Int     @default(0)  // segundos totales
+  bounced     Boolean @default(true)
+  firstSeen   DateTime @default(now())
+  lastSeen    DateTime @default(now())
+
+  @@index([firstSeen])
+  @@index([country])
+  @@index([isOrganic])
+  @@map("visitor_sessions")
+}

@@ -10,9 +10,9 @@ export async function sendEmail({
   subject: string;
   react: React.ReactElement;
 }) {
-  if (!process.env.RESEND_API_KEY) {
-    console.warn("RESEND_API_KEY is not set. Email won't be sent.");
-    return { success: false, error: "Missing API Key" };
+  if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL) {
+    console.warn("Email configuration is incomplete. Email won't be sent.");
+    return { success: false, error: "Missing Email Configuration" };
   }
 
   // Instantiate lazily so a missing key doesn't crash the module on import
@@ -20,8 +20,9 @@ export async function sendEmail({
 
   try {
     const { data, error } = await resend.emails.send({
-      from: "Hotel Río Yurubí <reservas@hotelrioyurubi.com>",
+      from: process.env.RESEND_FROM_EMAIL,
       to: Array.isArray(to) ? to : [to],
+      cc: process.env.RESEND_CC_EMAIL,
       subject,
       react,
     });

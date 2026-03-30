@@ -16,7 +16,8 @@ import {
   ScrollText,
   LayoutGrid,
   Building,
-  BookOpen
+  BookOpen,
+  Activity
 } from "lucide-react";
 import { auth, signOut } from "@/auth";
 import { redirect } from "@/routing";
@@ -48,6 +49,7 @@ export default async function DashboardLayout({ children, params }: DashboardLay
   const adminNav = [
     { icon: <LayoutDashboard className="w-5 h-5" />, label: t("title"), path: "/dashboard" },
     { icon: <BarChart2 className="w-5 h-5" />, label: isEs ? "Reportes" : "Reports", path: "/dashboard/reportes" },
+    { icon: <Activity className="w-5 h-5" />, label: isEs ? "Visitantes" : "Visitors", path: "/dashboard/visitantes" },
     { icon: <Calendar className="w-5 h-5" />, label: isEs ? "Calendario" : "Calendar", path: "/dashboard/calendario" },
     { icon: <CalendarCheck className="w-5 h-5" />, label: t("reservations"), path: "/dashboard/reservas" },
     { icon: <Users className="w-5 h-5" />, label: isEs ? "Gestión de Usuarios" : "User Management", path: "/dashboard/users" },
