@@ -24,7 +24,7 @@ export default async function RestaurantPage({ params }: PageProps) {
 
   const features = isEs
     ? [
-        "Desayuno tipo buffet diario",
+        "Desayuno tipo buffet",
         "Menú ejecutivo de almuerzo",
         "Cena a la carta",
         "Especialidades criollas e internacionales",
