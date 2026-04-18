@@ -91,9 +91,9 @@ export function Services() {
               key={service.id}
               variants={itemVariants}
               whileHover={{ y: -10, transition: { duration: 0.2 } }}
-              className="p-10 rounded-xl bg-card border border-border/60 shadow-sm hover:shadow-xl transition-all group cursor-default"
+              className="p-10 rounded-lg bg-card border border-border/60 shadow-sm hover:shadow-xl transition-all group cursor-default"
             >
-              <div className="mb-8 inline-flex p-5 bg-muted rounded-lg shadow-inner group-hover:scale-110 group-hover:bg-brand-green/10 transition-all duration-300">
+              <div className="mb-8 inline-flex p-5 bg-muted rounded-md shadow-inner group-hover:scale-110 group-hover:bg-brand-green/10 transition-all duration-300">
                 {service.icon}
               </div>
               <h3 className="text-card-title mb-4">

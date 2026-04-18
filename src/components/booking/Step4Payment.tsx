@@ -49,23 +49,24 @@ export function Step4Payment({
           {isEs ? "Método de Pago Preferido" : "Preferred Payment Method"}
         </h2>
         <Button variant="ghost" onClick={onBack} className="text-brand-blue dark:text-brand-blue-400 rounded-xl h-10 px-4 hover:bg-brand-blue-50 dark:hover:bg-brand-blue-900/20">
+        <Button variant="ghost" onClick={onBack} className="text-brand-blue dark:text-brand-blue-400 rounded-lg h-10 px-4 hover:bg-brand-blue-50 dark:hover:bg-brand-blue-900/20">
           &larr; {isEs ? "Atrás" : "Back"}
         </Button>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="bg-gray-50 dark:bg-gray-800/50 p-6 md:p-8 rounded-3xl border border-gray-100 dark:border-gray-800 space-y-6">
+          <div className="bg-gray-50 dark:bg-gray-800/50 p-6 md:p-8 rounded-lg border border-gray-100 dark:border-gray-800 space-y-6">
              <FormField control={form.control} name="paymentMethod" render={({ field }) => (
                 <FormItem>
                   <FormLabel>{isEs ? "Seleccione un Método" : "Select a Method"}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger className="h-12 rounded-xl bg-white dark:bg-gray-900 text-slate-950 dark:text-white font-bold border-gray-200 dark:border-gray-700">
+                      <SelectTrigger className="h-12 rounded-lg bg-white dark:bg-gray-900 text-slate-950 dark:text-white font-bold border-gray-200 dark:border-gray-700">
                         <SelectValue placeholder={isEs ? "Selecciona..." : "Select..."} />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="rounded-xl border-gray-100 dark:border-gray-800">
+                    <SelectContent className="rounded-lg border-gray-100 dark:border-gray-800">
                       <SelectItem value="TRANSFERENCIA">Transferencia Bancaria Nacional</SelectItem>
                       <SelectItem value="ZELLE">Zelle (USD)</SelectItem>
                       <SelectItem value="EFECTIVO">Efectivo (Pago en Recepción)</SelectItem>
@@ -81,7 +82,7 @@ export function Step4Payment({
                   <FormControl>
                     <Textarea 
                       placeholder={isEs ? "¿Alguna petición especial, alergia o requerimiento?" : "Any special requests?"} 
-                      className="resize-none h-24 rounded-xl bg-white dark:bg-gray-900 text-slate-950 dark:text-white font-bold border-gray-200 dark:border-gray-700" 
+                      className="resize-none h-24 rounded-lg bg-white dark:bg-gray-900 text-slate-950 dark:text-white font-bold border-gray-200 dark:border-gray-700" 
                       {...field} 
                     />
                   </FormControl>
@@ -90,7 +91,7 @@ export function Step4Payment({
               )} />
           </div>
 
-          <Button type="submit" className="text-cta w-full h-16 bg-brand-blue hover:bg-brand-blue-600 rounded-2xl shadow-md transition-transform active:scale-[0.99] mt-8">
+          <Button type="submit" className="text-cta w-full h-16 bg-brand-blue hover:bg-brand-blue-600 rounded-lg shadow-md transition-transform active:scale-[0.99] mt-8">
             {isEs ? "Ver Resumen Final" : "View Final Summary"}
           </Button>
         </form>

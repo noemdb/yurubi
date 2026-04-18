@@ -124,7 +124,7 @@ export function AboutSection({ locale }: AboutSectionProps) {
             </SectionReveal>
             
             <SectionReveal delay={0.2}>
-              <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl group border border-gray-100 dark:border-gray-800">
+              <div className="relative aspect-[16/10] rounded-[1.25rem] overflow-hidden shadow-2xl group border border-gray-100 dark:border-gray-800">
                 <Image
                   src="/images/galery/05.jpg"
                   alt="Hotel Río Yurubí History"
@@ -143,7 +143,7 @@ export function AboutSection({ locale }: AboutSectionProps) {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <SectionReveal className="order-2 lg:order-1" delay={0.2}>
-              <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl group border border-gray-200 dark:border-gray-800">
+              <div className="relative aspect-[16/10] rounded-[1.25rem] overflow-hidden shadow-2xl group border border-gray-200 dark:border-gray-800">
                 <Image
                   src="/images/galery/02.jpg"
                   alt="Hotel Río Yurubí Architecture"
@@ -193,8 +193,8 @@ export function AboutSection({ locale }: AboutSectionProps) {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {hospitality.map((item, idx) => (
               <SectionReveal key={idx} delay={idx * 0.1}>
-                <div className="p-10 rounded-[2.5rem] bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:border-brand-blue/20 transition-all duration-500 group h-full flex flex-col items-center text-center">
-                  <div className={`w-20 h-20 rounded-[1.5rem] flex items-center justify-center mb-8 transition-all duration-500 transform group-hover:rotate-6 ${
+                <div className="p-10 rounded-[1.25rem] bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:border-brand-blue/20 transition-all duration-500 group h-full flex flex-col items-center text-center">
+                  <div className={`w-20 h-20 rounded-xl flex items-center justify-center mb-8 transition-all duration-500 transform group-hover:rotate-6 ${
                     item.color === 'blue' 
                       ? 'bg-brand-blue/10 text-brand-blue group-hover:bg-brand-blue group-hover:text-white' 
                       : 'bg-brand-green/10 text-brand-green group-hover:bg-brand-green group-hover:text-white'

@@ -40,13 +40,14 @@ export function Step2RoomSelection({
           </p>
         </div>
         <Button variant="ghost" onClick={onBack} className="text-brand-blue dark:text-brand-blue-400 hover:bg-brand-blue-50 dark:hover:bg-brand-blue-900/20 rounded-xl">
+        <Button variant="ghost" onClick={onBack} className="text-brand-blue dark:text-brand-blue-400 hover:bg-brand-blue-50 dark:hover:bg-brand-blue-900/20 rounded-md">
           &larr; {isEs ? "Modificar Búsqueda" : "Modify Search"}
         </Button>
       </div>
       
       <div className="flex flex-col gap-4">
         {rooms.map(room => (
-          <div key={room.id} className="border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-row bg-white dark:bg-gray-900 group cursor-pointer items-stretch h-32 md:h-36" onClick={() => onSelect(room)}>
+          <div key={room.id} className="border border-gray-100 dark:border-gray-800 rounded-md overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-row bg-white dark:bg-gray-900 group cursor-pointer items-stretch h-32 md:h-36" onClick={() => onSelect(room)}>
             <div className="w-[35%] md:w-1/4 bg-gray-100 dark:bg-gray-800 relative overflow-hidden shrink-0">
                {room.images?.[0] ? (
                  <img src={room.images[0]} alt={room.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
@@ -91,7 +92,7 @@ export function Step2RoomSelection({
                <div className="flex justify-end items-center mt-auto">
                  <Button 
                    onClick={(e) => { e.stopPropagation(); onSelect(room); }} 
-                   className="text-xs bg-brand-blue hover:bg-brand-blue-600 h-8 md:h-10 px-4 md:px-6 rounded-xl shadow-sm transition-transform active:scale-[0.98]"
+                   className="text-xs bg-brand-blue hover:bg-brand-blue-600 h-8 md:h-10 px-4 md:px-6 rounded-md shadow-sm transition-transform active:scale-[0.98]"
                  >
                    {isEs ? "Seleccionar" : "Select"}
                  </Button>

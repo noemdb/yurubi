@@ -36,7 +36,7 @@ export function ReviewsCarousel({ reviews, locale }: { reviews: Review[], locale
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="absolute inset-0 flex items-center justify-center p-4"
           >
-            <div className="max-w-3xl w-full bg-white p-12 md:p-16 rounded-[4rem] border border-gray-100 shadow-2xl relative overflow-hidden group">
+            <div className="max-w-3xl w-full bg-white p-12 md:p-16 rounded-[2rem] border border-gray-100 shadow-2xl relative overflow-hidden group">
               <Quote className="absolute -left-4 -top-4 w-32 h-32 text-brand-green/10" />
               
               <div className="flex gap-1 mb-8">
@@ -56,7 +56,7 @@ export function ReviewsCarousel({ reviews, locale }: { reviews: Review[], locale
               </blockquote>
 
               <div className="flex items-center gap-6 pt-10 border-t border-gray-50">
-                <div className="w-16 h-16 rounded-3xl bg-brand-blue/10 flex items-center justify-center text-brand-blue font-bold text-2xl">
+                <div className="w-16 h-16 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue font-bold text-2xl">
                   {currentReview.guestName.charAt(0)}
                 </div>
                 <div>

@@ -81,7 +81,7 @@ export function BookingWizard({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 md:p-10 relative">
+    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 md:p-10 relative">
       {/* Stepper Header */}
       <div className="flex items-center justify-between mx-auto max-w-4xl mb-8 pb-8 border-b border-gray-100 dark:border-gray-800">
         {[1, 2, 3, 4, 5].map((s) => (

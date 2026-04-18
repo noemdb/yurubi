@@ -87,7 +87,7 @@ export function Step1Search({
         </p>
       </div>
 
-      <div className="space-y-6 bg-gray-50 dark:bg-gray-800/50 p-6 rounded-3xl border border-gray-100 dark:border-gray-700">
+      <div className="space-y-6 bg-gray-50 dark:bg-gray-800/50 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
         {/* Date Picker */}
         <div className="space-y-2">
           <label className="text-label ml-1">
@@ -99,7 +99,7 @@ export function Step1Search({
                 id="date"
                 variant={"outline"}
                 className={cn(
-                  "text-slate-950 dark:text-white w-full justify-start text-left font-bold h-14 rounded-2xl border-gray-200 dark:border-gray-700 shadow-sm bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800",
+                  "text-slate-950 dark:text-white w-full justify-start text-left font-bold h-14 rounded-lg border-gray-200 dark:border-gray-700 shadow-sm bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800",
                   !date && "text-muted-foreground"
                 )}
               >
@@ -120,7 +120,7 @@ export function Step1Search({
                 )}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 rounded-2xl shadow-xl border-gray-100 dark:border-gray-800" align="center">
+            <PopoverContent className="w-auto p-0 rounded-lg shadow-xl border-gray-100 dark:border-gray-800" align="center">
               <Calendar
                 initialFocus
                 mode="range"
@@ -142,7 +142,7 @@ export function Step1Search({
             {isEs ? "Huéspedes" : "Guests"}
           </label>
           <Select value={guests} onValueChange={setGuests}>
-            <SelectTrigger className="text-slate-950 dark:text-white h-14 rounded-2xl border-gray-200 dark:border-gray-700 shadow-sm bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 font-bold">
+            <SelectTrigger className="text-slate-950 dark:text-white h-14 rounded-lg border-gray-200 dark:border-gray-700 shadow-sm bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 font-bold">
               <div className="flex items-center gap-3">
                 <Users className="w-5 h-5 text-brand-blue" />
                 <SelectValue placeholder={isEs ? "Número de huéspedes" : "Number of guests"} />
@@ -162,7 +162,7 @@ export function Step1Search({
       <Button 
         onClick={handleSearch} 
         disabled={isSearching} 
-        className="text-cta w-full h-16 bg-brand-green hover:bg-brand-green-600 rounded-2xl shadow-md transition-all active:scale-[0.98]"
+        className="text-cta w-full h-16 bg-brand-green hover:bg-brand-green-600 rounded-lg shadow-md transition-all active:scale-[0.98]"
       >
         {isSearching ? <Loader2 className="w-6 h-6 animate-spin mx-auto" /> : (isEs ? "Buscar Disponibilidad" : "Search Availability")}
       </Button>

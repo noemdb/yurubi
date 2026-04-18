@@ -54,12 +54,12 @@ export function Step3Guest({
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="bg-gray-50 dark:bg-gray-800/50 p-6 md:p-8 rounded-3xl border border-gray-100 dark:border-gray-800 space-y-6">
+          <div className="bg-gray-50 dark:bg-gray-800/50 p-6 md:p-8 rounded-xl border border-gray-100 dark:border-gray-800 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FormField control={form.control} name="fullName" render={({ field }) => (
                 <FormItem className="md:col-span-2">
                   <FormLabel className="text-label">{isEs ? "Nombre Completo" : "Full Name"}</FormLabel>
-                  <FormControl><Input placeholder="Juan Pérez" className="h-12 rounded-xl bg-white dark:bg-gray-900 text-slate-950 dark:text-white focus:bg-white dark:focus:bg-gray-800/50 font-bold" {...field} /></FormControl>
+                  <FormControl><Input placeholder="Juan Pérez" className="h-12 rounded-lg bg-white dark:bg-gray-900 text-slate-950 dark:text-white focus:bg-white dark:focus:bg-gray-800/50 font-bold" {...field} /></FormControl>
                   <FormMessage className="text-error" />
                 </FormItem>
               )} />
@@ -69,14 +69,14 @@ export function Step3Guest({
               <FormField control={form.control} name="email" render={({ field }) => (
                 <FormItem>
                   <FormLabel>{isEs ? "Correo Electrónico" : "Email Address"}</FormLabel>
-                  <FormControl><Input type="email" placeholder="correo@ejemplo.com" className="h-12 rounded-xl bg-white dark:bg-gray-900 text-slate-950 dark:text-white focus:bg-white dark:focus:bg-gray-800/50 font-bold" {...field} /></FormControl>
+                  <FormControl><Input type="email" placeholder="correo@ejemplo.com" className="h-12 rounded-lg bg-white dark:bg-gray-900 text-slate-950 dark:text-white focus:bg-white dark:focus:bg-gray-800/50 font-bold" {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
               )} />
               <FormField control={form.control} name="phone" render={({ field }) => (
                 <FormItem>
                   <FormLabel>{isEs ? "Teléfono Móvil" : "Phone Number"}</FormLabel>
-                  <FormControl><Input placeholder="+58 412 0000000" className="h-12 rounded-xl bg-white dark:bg-gray-900 text-slate-950 dark:text-white focus:bg-white dark:focus:bg-gray-800/50 font-bold" {...field} /></FormControl>
+                  <FormControl><Input placeholder="+58 412 0000000" className="h-12 rounded-lg bg-white dark:bg-gray-900 text-slate-950 dark:text-white focus:bg-white dark:focus:bg-gray-800/50 font-bold" {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
               )} />
@@ -86,14 +86,14 @@ export function Step3Guest({
               <FormField control={form.control} name="idDocument" render={({ field }) => (
                 <FormItem>
                   <FormLabel>{isEs ? "Cédula / Pasaporte" : "ID Document / Passport"}</FormLabel>
-                  <FormControl><Input placeholder="V-12345678" className="h-12 rounded-xl bg-white dark:bg-gray-900 text-slate-950 dark:text-white focus:bg-white dark:focus:bg-gray-800/50 font-bold" {...field} /></FormControl>
+                  <FormControl><Input placeholder="V-12345678" className="h-12 rounded-lg bg-white dark:bg-gray-900 text-slate-950 dark:text-white focus:bg-white dark:focus:bg-gray-800/50 font-bold" {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
               )} />
               <FormField control={form.control} name="origin" render={({ field }) => (
                 <FormItem>
                   <FormLabel>{isEs ? "Ciudad / País de Origen" : "City / Country of Origin"}</FormLabel>
-                  <FormControl><Input placeholder="Caracas, Venezuela" className="h-12 rounded-xl bg-white dark:bg-gray-900 text-slate-950 dark:text-white focus:bg-white dark:focus:bg-gray-800/50 font-bold" {...field} /></FormControl>
+                  <FormControl><Input placeholder="Caracas, Venezuela" className="h-12 rounded-lg bg-white dark:bg-gray-900 text-slate-950 dark:text-white focus:bg-white dark:focus:bg-gray-800/50 font-bold" {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
               )} />
@@ -110,7 +110,7 @@ export function Step3Guest({
             </div>
           </div>
 
-          <Button type="submit" className="text-cta w-full h-16 bg-brand-blue hover:bg-brand-blue-600 rounded-2xl shadow-md transition-transform active:scale-[0.99] mt-8">
+          <Button type="submit" className="text-cta w-full h-16 bg-brand-blue hover:bg-brand-blue-600 rounded-lg shadow-md transition-transform active:scale-[0.99] mt-8">
             {isEs ? "Continuar al Pago" : "Continue to Payment"}
           </Button>
         </form>

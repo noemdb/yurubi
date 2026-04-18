@@ -83,13 +83,13 @@ export function Contact() {
               
               <div className="flex flex-col gap-4 pt-4">
                 <div className="flex items-center gap-4 text-muted-foreground dark:text-gray-400">
-                  <div className="bg-brand-blue/10 p-3 rounded-md text-brand-blue">
+                  <div className="bg-brand-blue/10 p-3 rounded text-brand-blue">
                     <Mail className="w-5 h-5" />
                   </div>
                   <span>hotelrioyurubi@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-4 text-muted-foreground dark:text-gray-400">
-                  <div className="bg-brand-green/10 p-3 rounded-md text-brand-green">
+                  <div className="bg-brand-green/10 p-3 rounded text-brand-green">
                     <MessageSquare className="w-5 h-5" />
                   </div>
                   <span>+58 254 231.07.98</span>
@@ -98,7 +98,7 @@ export function Contact() {
             </div>
           </div>
 
-          <div className="bg-card dark:bg-gray-900 p-8 md:p-12 rounded-2xl shadow-xl shadow-brand-blue/5 dark:shadow-brand-blue/10 border border-border/60 dark:border-gray-800">
+          <div className="bg-card dark:bg-gray-900 p-8 md:p-12 rounded-lg shadow-xl shadow-brand-blue/5 dark:shadow-brand-blue/10 border border-border/60 dark:border-gray-800">
             {/* Formulario de contacto deshabilitado temporalmente:
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -110,7 +110,7 @@ export function Contact() {
                       <FormItem>
                         <FormLabel>{t("name")}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Juan Pérez" {...field} className="rounded-xl h-12" />
+                          <Input placeholder="Juan Pérez" {...field} className="rounded-lg h-12" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -123,7 +123,7 @@ export function Contact() {
                       <FormItem>
                         <FormLabel>{t("email")}</FormLabel>
                         <FormControl>
-                          <Input placeholder="juan@ejemplo.com" {...field} className="rounded-xl h-12" />
+                          <Input placeholder="juan@ejemplo.com" {...field} className="rounded-lg h-12" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -140,7 +140,7 @@ export function Contact() {
                       <FormControl>
                         <Textarea
                           placeholder="Escribe tu mensaje aquí..."
-                          className="h-32 resize-none rounded-xl"
+                          className="h-32 resize-none rounded-lg"
                           {...field}
                         />
                       </FormControl>
@@ -178,7 +178,7 @@ export function Contact() {
             */}
 
             <div className="flex flex-col items-center justify-center text-center py-4 md:py-8 space-y-6">
-              <div className="bg-[#25D366]/10 p-5 rounded-2xl text-[#25D366] mb-2 animate-pulse">
+              <div className="bg-[#25D366]/10 p-5 rounded-lg text-[#25D366] mb-2 animate-pulse">
                 <MessageSquare className="w-12 h-12" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-foreground dark:text-white">
@@ -189,7 +189,7 @@ export function Contact() {
               </p>
               <Button 
                 type="button" 
-                className="text-cta w-full sm:w-auto h-14 px-10 mt-6 bg-[#25D366] hover:bg-[#25D366]/90 text-white shadow-lg shadow-[#25D366]/20 transition-all hover:-translate-y-1 hover:scale-105 rounded-xl"
+                className="text-cta w-full sm:w-auto h-14 px-10 mt-6 bg-[#25D366] hover:bg-[#25D366]/90 text-white shadow-lg shadow-[#25D366]/20 transition-all hover:-translate-y-1 hover:scale-105 rounded-lg"
                 onClick={() => window.open("https://wa.me/584267224991", "_blank")}
               >
                 <MessageSquare className="mr-2 h-5 w-5 fill-current" />
