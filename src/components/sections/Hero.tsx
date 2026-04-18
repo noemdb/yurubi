@@ -96,7 +96,7 @@ export function Hero({ locale }: { locale: string }) {
               alt="Hotel Río Yurubí Logo"
               width={140}
               height={140}
-              className="relative rounded-2xl shadow-2xl border-2 border-white/20"
+              className="relative rounded-lg shadow-2xl border-2 border-white/20"
               priority
               unoptimized
               sizes="140px"
@@ -134,7 +134,7 @@ export function Hero({ locale }: { locale: string }) {
               asChild
               size="lg"
               variant="ghost"
-              className="w-full sm:w-auto text-cta h-16 px-10 rounded-full border border-white/30 text-white hover:bg-white/10 hover:border-white backdrop-blur-md transition-all transform hover:scale-105 active:scale-95"
+              className="w-full sm:w-auto text-cta h-16 px-10 rounded-2xl border border-white/30 text-white hover:bg-white/10 hover:border-white backdrop-blur-md transition-all transform hover:scale-105 active:scale-95"
             >
               <Link href={`/${locale}/habitaciones`}>{t("ctaSecondary")}</Link>
             </Button>
@@ -142,7 +142,7 @@ export function Hero({ locale }: { locale: string }) {
             <Button
               type="button"
               variant="ghost"
-              className="w-full sm:w-auto text-cta h-16 px-10 border border-[#25D366]/50 text-white hover:bg-[#25D366]/20 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(37,211,102,0.15)]"
+              className="w-full sm:w-auto text-cta h-16 px-10 border border-[#25D366]/50 text-white hover:bg-[#25D366]/20 hover:border-[#25D366] rounded-2xl backdrop-blur-md transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(37,211,102,0.15)]"
               onClick={() => window.open("https://wa.me/584267224991", "_blank")}
             >
               <MessageSquare className="mr-3 h-6 w-6 text-[#25D366] fill-[#25D366]/10" />

@@ -64,8 +64,8 @@ export default async function MeetingRoomPage({ params }: PageProps) {
               </h2>
               <p className="text-gray-600 text-base mb-6 leading-relaxed font-light">
                 {isEs
-                  ? "Desde una reunión ejecutiva de alta gerencia hasta el banquete de gala más sofisticado. En el Hotel Río Yurubí, transformamos nuestros espacios para que se adapten exactamente a la visión de su evento."
-                  : "From a top-management executive meeting to the most sophisticated gala banquet. At Hotel Río Yurubí, we transform our spaces to fit exactly the vision of your event."}
+                  ? "Descubra un entorno donde el prestigio corporativo y la belleza excepcional convergen armónicamente. Nuestra versatilidad nos permite transformar radicalmente nuestros espacios para dar vida a la visión de su evento, adaptándonos con precisión desde una confidencial reunión ejecutiva de alta gerencia, hasta el banquete de gala más sofisticado y memorable. Elevamos sus estándares reuniendo confort, servicio de primera línea y atención al detalle en cada metro cuadrado."
+                  : "Discover an environment where corporate prestige and exceptional beauty converge harmoniously. Our versatility allows us to radically transform our spaces to bring your event's vision to life, adapting with precision from a confidential top-management executive meeting to the most sophisticated and memorable gala banquet. We elevate your standards by combining comfort, top-tier service, and attention to detail in every square meter."}
               </p>
               
               <div className="grid grid-cols-2 gap-4 py-4 border-y border-gray-100 mb-6">
@@ -80,13 +80,48 @@ export default async function MeetingRoomPage({ params }: PageProps) {
               </div>
             </div>
 
-            <div className="lg:col-span-12 xl:col-span-6">
-              <div className="aspect-[16/9] rounded-[1.5rem] overflow-hidden shadow-lg ring-1 ring-black/5">
+            <div className="lg:col-span-12 xl:col-span-6 flex flex-col gap-4 mt-8 lg:mt-0">
+              {/* Sala 1 - Destacada */}
+              <div className="w-full aspect-[3/2] rounded-xl overflow-hidden shadow-2xl ring-1 ring-black/5 group relative">
                 <SmartImage
-                  src="/images/meeting-room/01.jpg"
-                  alt="Evento Corporativo"
-                  className="w-full h-full object-cover"
+                  src="/images/meeting-room/01.png"
+                  alt="Primera Sala de Conferencias"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
+                <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-black/10 rounded-xl" />
+              </div>
+
+              {/* Grid Inferior - Salas 2 y 3 */}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Sala 2 */}
+                <div className="relative aspect-[3/2] rounded-xl overflow-hidden shadow-xl ring-1 ring-black/5 group transition-all duration-500 hover:-translate-y-1 cursor-pointer">
+                  <SmartImage
+                    src="/images/meeting-room/02.png"
+                    alt="Segunda Sala y Eventos Especiales"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-black/10 rounded-xl" />
+                  <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md px-2.5 py-1.5 rounded-lg shadow-sm border border-white/20">
+                    <span className="text-[9px] font-bold text-brand-blue uppercase tracking-widest leading-none">
+                      {isEs ? "Eventos Especiales" : "Special Events"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Sala 3 - Piscina */}
+                <div className="relative aspect-[3/2] rounded-xl overflow-hidden shadow-xl ring-1 ring-black/5 group transition-all duration-500 hover:-translate-y-1 cursor-pointer">
+                  <SmartImage
+                    src="/images/meeting-room/03.png"
+                    alt="Festejos y Área de Piscina"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-black/10 rounded-xl" />
+                  <div className="absolute bottom-3 right-3 sm:right-auto sm:left-3 bg-brand-green/95 backdrop-blur-md px-2.5 py-1.5 rounded-lg shadow-sm border border-brand-green/20">
+                    <span className="text-[9px] font-bold text-white uppercase tracking-widest leading-none">
+                      {isEs ? "Festejos Piscina" : "Poolside Events"}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -112,7 +147,9 @@ export default async function MeetingRoomPage({ params }: PageProps) {
                   </div>
                   <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">{t("corporateTitle")}</h3>
                   <p className="text-gray-500 text-sm font-light leading-relaxed mb-4 italic">
-                    {t("corporateDesc")}
+                    {isEs
+                      ? "Impulse el crecimiento y sinergia de su equipo en un entorno diseñado sin distracciones, ideal para elevar el enfoque empresarial y fomentar nuevas y productivas oportunidades."
+                      : "Boost your team's growth and synergy in an environment designed without distractions, ideal for elevating business focus and fostering new productive opportunities."}
                   </p>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2">
                     {[
@@ -140,7 +177,9 @@ export default async function MeetingRoomPage({ params }: PageProps) {
                   </div>
                   <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">{t("socialTitle")}</h3>
                   <p className="text-gray-500 text-sm font-light leading-relaxed mb-4 italic">
-                    {t("socialDesc")}
+                    {isEs
+                      ? "Celebre amor, vida y logros rodeado de encanto. Convertimos sus sueños en realidades tangibles creando atmósferas mágicas repletas de destellos y recuerdos inolvidables."
+                      : "Celebrate love, life, and achievements surrounded by charm. We turn your dreams into tangible realities by creating magical atmospheres full of sparkles and unforgettable memories."}
                   </p>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2">
                     {[
@@ -170,10 +209,15 @@ export default async function MeetingRoomPage({ params }: PageProps) {
                   <MonitorPlay className="w-32 h-32" />
                </div>
                <div className="relative z-10">
-                  <h3 className="text-lg font-serif font-bold mb-4 flex items-center gap-3">
+                  <h3 className="text-lg font-serif font-bold mb-2 flex items-center gap-3">
                     <div className="w-5 h-0.5 bg-brand-green rounded-full" />
                     {t("equipment")}
                   </h3>
+                  <p className="text-white/70 text-xs font-light mb-5 leading-relaxed">
+                    {isEs 
+                      ? "Disponemos de la más moderna infraestructura audiovisual, conexiones estables y climatización inteligente para garantizar que cada presentación sea un rotundo éxito sin interrupciones."
+                      : "We have the most modern audiovisual infrastructure, stable connections, and smart climate control to ensure that every presentation is a resounding success without interruptions."}
+                  </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {[
                       { icon: MonitorPlay, text: isEs ? "Video Beam HD" : "HD Video Beam" },
@@ -200,7 +244,9 @@ export default async function MeetingRoomPage({ params }: PageProps) {
                     {t("cateringTitle")}
                   </h3>
                   <p className="text-gray-600 font-light text-sm mb-4 leading-relaxed">
-                    {t("cateringDesc")}
+                    {isEs 
+                      ? "Nuestra oferta gastronómica premium está meticulosamente diseñada para complementar la grandeza de sus eventos. Contamos con un equipo culinario experto dispuesto a apaciguar los paladares más exigentes, ofreciendo desde estaciones dinámicas y confortables pausas ejecutivas para café, hasta exquisitos banquetes a múltiples tiempos que deleitarán a cada invitado."
+                      : "Our premium gastronomic offering is meticulously designed to complement the grandeur of your events. We have an expert culinary team ready to appease the most demanding palates, offering everything from dynamic stations and comfortable executive coffee breaks to exquisite multi-course banquets that will delight every guest."}
                   </p>
                </div>
                <div className="flex flex-wrap gap-2">
@@ -223,7 +269,11 @@ export default async function MeetingRoomPage({ params }: PageProps) {
       <section className="py-8 container mx-auto px-4 max-w-4xl text-center">
          <div className="bg-white rounded-[2.5rem] shadow-lg p-8 md:p-12 border border-gray-100 relative">
             <h2 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 mb-2">{t("requestQuote")}</h2>
-            <p className="text-gray-400 mb-8 italic text-xs">{isEs ? "Garantice el éxito de su próximo encuentro" : "Ensure the success of your next meeting"}</p>
+            <p className="text-gray-500 mb-8 italic text-sm max-w-lg mx-auto leading-relaxed">
+              {isEs 
+                ? "Garantice hoy el rotundo éxito de su próximo encuentro ejecutivo, banquete o celebración privada. Nuestro equipo de asesores logísticos le guiará paso a paso para planificar y modelar su evento perfecto." 
+                : "Ensure the resounding success of your next executive meeting, banquet, or private celebration today. Our team of logistics advisors will guide you step by step to plan and model your perfect event."}
+            </p>
             
             <div className="max-w-xs mx-auto space-y-4">
               <WhatsAppBookingButton

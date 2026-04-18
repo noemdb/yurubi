@@ -83,13 +83,13 @@ export function Contact() {
               
               <div className="flex flex-col gap-4 pt-4">
                 <div className="flex items-center gap-4 text-muted-foreground">
-                  <div className="bg-brand-blue/10 p-3 rounded-xl text-brand-blue">
+                  <div className="bg-brand-blue/10 p-3 rounded-md text-brand-blue">
                     <Mail className="w-5 h-5" />
                   </div>
                   <span>hotelrioyurubi@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-4 text-muted-foreground">
-                  <div className="bg-brand-green/10 p-3 rounded-xl text-brand-green">
+                  <div className="bg-brand-green/10 p-3 rounded-md text-brand-green">
                     <MessageSquare className="w-5 h-5" />
                   </div>
                   <span>+58 254 231.07.98</span>
@@ -98,7 +98,8 @@ export function Contact() {
             </div>
           </div>
 
-          <div className="bg-card p-8 md:p-12 rounded-[2.5rem] shadow-xl shadow-brand-blue/5 border border-border/60">
+          <div className="bg-card p-8 md:p-12 rounded-2xl shadow-xl shadow-brand-blue/5 border border-border/60">
+            {/* Formulario de contacto deshabilitado temporalmente:
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -174,6 +175,27 @@ export function Contact() {
                 </div>
               </form>
             </Form>
+            */}
+
+            <div className="flex flex-col items-center justify-center text-center py-4 md:py-8 space-y-6">
+              <div className="bg-[#25D366]/10 p-5 rounded-2xl text-[#25D366] mb-2 animate-pulse">
+                <MessageSquare className="w-12 h-12" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-foreground">
+                Asistencia Directa
+              </h3>
+              <p className="text-muted-foreground max-w-md text-lg">
+                Para brindarte una atención más rápida y personalizada, estamos gestionando todas las consultas directamente a través de WhatsApp.
+              </p>
+              <Button 
+                type="button" 
+                className="text-cta w-full sm:w-auto h-14 px-10 mt-6 bg-[#25D366] hover:bg-[#25D366]/90 text-white shadow-lg shadow-[#25D366]/20 transition-all hover:-translate-y-1 hover:scale-105 rounded-xl"
+                onClick={() => window.open("https://wa.me/584267224991", "_blank")}
+              >
+                <MessageSquare className="mr-2 h-5 w-5 fill-current" />
+                {t("whatsapp")}
+              </Button>
+            </div>
           </div>
         </div>
       </div>

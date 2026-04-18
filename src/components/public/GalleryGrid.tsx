@@ -69,7 +69,7 @@ export function GalleryGrid({
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4 }}
-              className="group relative h-96 rounded-[3rem] overflow-hidden cursor-pointer bg-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500"
+              className="group relative h-96 rounded-3xl overflow-hidden cursor-pointer bg-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500"
             >
               <Image
                 src={img.src}

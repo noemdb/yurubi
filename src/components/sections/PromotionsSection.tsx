@@ -31,7 +31,7 @@ export async function PromotionsSection({ locale }: { locale: string }) {
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           <div className="lg:w-5/12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-green/10 text-brand-green font-bold text-xs mb-8 border border-brand-green/20 uppercase tracking-[0.2em]">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-green/10 text-brand-green font-bold text-xs mb-8 border border-brand-green/20 uppercase tracking-[0.2em]">
               <Sparkles className="w-4 h-4" />
               {isEs ? "Oportunidades Imperdibles" : "Unmissable Offers"}
             </div>
@@ -41,7 +41,7 @@ export async function PromotionsSection({ locale }: { locale: string }) {
             <p className="text-lg md:text-xl text-brand-blue-100/80 mb-10 max-w-xl leading-relaxed font-medium">
               {t("subtitle")}
             </p>
-            <Button asChild size="lg" className="bg-brand-green hover:bg-brand-green-600 text-brand-blue-900 font-bold h-16 px-10 rounded-2xl shadow-2xl shadow-brand-green/20 transition-all hover:scale-105 active:scale-95">
+            <Button asChild size="lg" className="bg-brand-green hover:bg-brand-green-600 text-brand-blue-900 font-bold h-16 px-10 rounded-lg shadow-2xl shadow-brand-green/20 transition-all hover:scale-105 active:scale-95">
               <Link href={`/${locale}/promociones`} className="flex items-center gap-3">
                 {t("viewMore")} <ArrowRight className="w-5 h-5" />
               </Link>
@@ -52,14 +52,14 @@ export async function PromotionsSection({ locale }: { locale: string }) {
             {promotions.map((promo) => (
               <div 
                 key={promo.id} 
-                className="group relative bg-white/[0.03] backdrop-blur-xl border border-white/10 p-10 rounded-[3rem] hover:bg-white/[0.07] transition-all duration-500 hover:-translate-y-2 flex flex-col h-full"
+                className="group relative bg-white/[0.03] backdrop-blur-xl border border-white/10 p-10 rounded-3xl hover:bg-white/[0.07] transition-all duration-500 hover:-translate-y-2 flex flex-col h-full"
               >
                 {/* Decorative glow */}
-                <div className="absolute -inset-0.5 bg-gradient-to-tr from-brand-green/20 to-transparent rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+                <div className="absolute -inset-0.5 bg-gradient-to-tr from-brand-green/20 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
                 
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex justify-between items-start mb-8">
-                    <div className="bg-brand-green/20 p-4 rounded-2xl text-brand-green border border-brand-green/20">
+                    <div className="bg-brand-green/20 p-4 rounded-lg text-brand-green border border-brand-green/20">
                       <Tag className="w-6 h-6" />
                     </div>
                     {promo.value && (

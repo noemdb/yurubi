@@ -57,7 +57,7 @@ export async function ServiceHighlights({ locale }: { locale: string }) {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {highlights.map((item) => (
-            <div key={item.id} className="group relative bg-card rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-border/60 flex flex-col">
+            <div key={item.id} className="group relative bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-border/60 flex flex-col">
               <div className="aspect-[4/3] overflow-hidden relative">
                 <SmartImage 
                   src={item.image} 
@@ -66,7 +66,7 @@ export async function ServiceHighlights({ locale }: { locale: string }) {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute top-6 left-6 bg-background p-3 rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/10">
+                <div className="absolute top-6 left-6 bg-background p-3 rounded-lg shadow-lg ring-1 ring-black/5 dark:ring-white/10">
                   {item.icon}
                 </div>
               </div>
