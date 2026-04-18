@@ -17,9 +17,9 @@ export function Location() {
   const mapUrl = `https://maps.google.com/maps?q=Hotel+Rio+Yurubi+San+Felipe&z=17&t=m&output=embed`;
 
   return (
-    <section className="py-8 bg-background relative overflow-hidden border-t border-border">
+    <section className="py-8 bg-background dark:bg-gray-950 relative overflow-hidden border-t border-border dark:border-gray-800 transition-colors duration-300">
       {/* Decorative background element */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-blue/5 rounded-l-[5rem] -z-10 transition-all duration-1000" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-blue/5 dark:bg-brand-blue/10 rounded-l-[5rem] -z-10 transition-all duration-1000" />
       
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
@@ -38,19 +38,19 @@ export function Location() {
               <p className="text-section-subtitle max-w-xl mb-4">
                 {t("subtitle")}
               </p>
-              <p className="text-muted-foreground italic text-sm">
+              <p className="text-muted-foreground dark:text-gray-400 italic text-sm">
                 {t("interestLocation")}
               </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex items-start gap-4 p-8 bg-card rounded-2xl border border-border/60 shadow-sm hover:shadow-xl transition-all group">
+              <div className="flex items-start gap-4 p-8 bg-card dark:bg-gray-900 rounded-2xl border border-border/60 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all group">
                 <div className="bg-brand-blue/10 p-4 rounded-lg text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors duration-500">
                   <MapPin className="h-6 w-6" />
                 </div>
                 <div>
                   <h3 className="text-card-title mb-2">Ubicación</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                  <p className="text-muted-foreground dark:text-gray-400 text-sm leading-relaxed mb-4">
                     {t("address")}
                   </p>
                   <a 
@@ -65,14 +65,14 @@ export function Location() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-8 bg-card rounded-2xl border border-border/60 shadow-sm hover:shadow-xl transition-all group">
+              <div className="flex items-start gap-4 p-8 bg-card dark:bg-gray-900 rounded-2xl border border-border/60 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all group">
                 <div className="bg-brand-green/10 p-4 rounded-lg text-brand-green group-hover:bg-brand-green group-hover:text-white transition-colors duration-500">
                   <Phone className="h-6 w-6" />
                 </div>
                 <div>
                   <h3 className="text-card-title mb-2">Contacto</h3>
-                  <p className="text-muted-foreground text-sm mb-1">+58 254 231.07.98</p>
-                  <p className="text-muted-foreground text-sm mb-4">hotelrioyurubi@gmail.com</p>
+                  <p className="text-muted-foreground dark:text-gray-400 text-sm mb-1">+58 254 231.07.98</p>
+                  <p className="text-muted-foreground dark:text-gray-400 text-sm mb-4">hotelrioyurubi@gmail.com</p>
                   <div className="flex items-center gap-2 text-brand-green font-bold text-sm">
                     <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75"></span>
@@ -90,7 +90,7 @@ export function Location() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="w-full lg:w-1/2 h-[600px] bg-muted rounded-3xl overflow-hidden shadow-2xl border-8 border-background relative group"
+            className="w-full lg:w-1/2 h-[600px] bg-muted dark:bg-gray-800 rounded-3xl overflow-hidden shadow-2xl border-8 border-background dark:border-gray-950 relative group"
           >
             <iframe 
               src={mapUrl}
@@ -105,7 +105,7 @@ export function Location() {
             />
             {/* Map Overlay Button */}
             <div className="absolute bottom-8 right-8 z-20">
-              <Button asChild size="lg" className="rounded-xl bg-card text-foreground hover:bg-brand-blue hover:text-white shadow-xl transition-all px-8 h-14">
+              <Button asChild size="lg" className="rounded-xl bg-card dark:bg-gray-900 text-foreground dark:text-white hover:bg-brand-blue hover:text-white shadow-xl transition-all px-8 h-14">
                 <a 
                   href={process.env.NEXT_PUBLIC_GOOGLE_MAPS_URL || `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}
                   target="_blank"

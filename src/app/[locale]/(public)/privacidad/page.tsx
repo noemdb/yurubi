@@ -18,7 +18,7 @@ export default async function PrivacyPolicyPage({ params }: PageProps) {
   const isEs = locale === "es";
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-16 transition-colors duration-300">
       <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
         <div className="mb-12">
           <Link
@@ -28,15 +28,15 @@ export default async function PrivacyPolicyPage({ params }: PageProps) {
             <ArrowLeft className="mr-2 h-4 w-4" />
             {isEs ? "Volver al Inicio" : "Back to Home"}
           </Link>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-4">
             {isEs ? "Políticas de Privacidad" : "Privacy Policy"}
           </h1>
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400">
             {isEs ? "Última actualización: Marzo 2026" : "Last updated: March 2026"}
           </p>
         </div>
 
-        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 prose prose-brand max-w-none prose-headings:font-serif prose-h2:text-2xl prose-h2:text-gray-900 prose-p:text-gray-600">
+        <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 dark:border-gray-800 prose prose-brand dark:prose-invert max-w-none prose-headings:font-serif prose-h2:text-2xl prose-h2:text-gray-900 dark:prose-h2:text-white prose-p:text-gray-600 dark:prose-p:text-gray-300">
           {isEs ? (
             <>
               <h2>1. Introducción</h2>

@@ -29,14 +29,14 @@ export default async function RoomsPage({ params }: PageProps) {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-16 transition-colors duration-300">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             {t("title")}
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             {t("subtitle")}
           </p>
         </div>
@@ -46,10 +46,10 @@ export default async function RoomsPage({ params }: PageProps) {
           {rooms.map((room) => (
             <div
               key={room.id}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col group h-full"
+              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm dark:shadow-none hover:shadow-2xl dark:hover:shadow-brand-blue/10 transition-all duration-500 border border-gray-100 dark:border-gray-700 flex flex-col group h-full"
             >
               {/* Image Section */}
-              <div className="aspect-[4/3] relative bg-gray-200 overflow-hidden shrink-0">
+              <div className="aspect-[4/3] relative bg-gray-200 dark:bg-gray-700 overflow-hidden shrink-0">
                 <SmartImage
                   src={room.images?.[0] || ""}
                   alt={room.name}
@@ -60,7 +60,7 @@ export default async function RoomsPage({ params }: PageProps) {
                 />
                 
                 {/* Price tag flotante - Glassmorphism sutil */}
-                <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-lg z-10 ring-1 ring-white/10 group-hover:scale-105 transition-transform duration-500">
+                <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-md shadow-lg z-10 ring-1 ring-white/10 group-hover:scale-105 transition-transform duration-500">
                   <span className="font-serif text-sm font-bold text-white drop-shadow-md">
                     {formatPrice(room.basePrice)}
                   </span>
@@ -73,28 +73,28 @@ export default async function RoomsPage({ params }: PageProps) {
               {/* Content Section */}
               <div className="p-4 flex flex-col flex-grow">
                 <div className="mb-6">
-                  <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue transition-colors">
+                  <h2 className="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-brand-blue transition-colors">
                     {room.name}
                   </h2>
-                  <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
                     {room.description}
                   </p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-4 mt-auto">
-                  <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
+                <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400 mb-4 mt-auto">
+                  <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-700/50 px-4 py-2 rounded-md border border-gray-100 dark:border-gray-700">
                     <Users className="h-4 w-4 text-brand-blue" />
                     <span>{room.maxOccupancy} max</span>
                   </div>
-                  <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
+                  <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-700/50 px-4 py-2 rounded-md border border-gray-100 dark:border-gray-700">
                     <Wifi className="h-4 w-4 text-brand-green" />
                     <span>Wi-Fi</span>
                   </div>
                 </div>
 
                 {/* Footer del card */}
-                <div className="mt-auto grid grid-cols-2 gap-4 pt-2 border-t border-gray-50">
-                  <Button asChild variant="outline" className="rounded-xl h-12 border-gray-200 hover:border-brand-blue hover:bg-brand-blue/5 text-gray-600 transition-all">
+                <div className="mt-auto grid grid-cols-2 gap-4 pt-4 border-t border-gray-50 dark:border-gray-700">
+                  <Button asChild variant="outline" className="rounded-lg h-12 border-gray-200 dark:border-gray-700 hover:border-brand-blue dark:hover:border-brand-blue hover:bg-brand-blue/5 dark:hover:bg-brand-blue/10 text-gray-600 dark:text-gray-300 transition-all">
                     <Link href={`/${locale}/habitaciones/${room.slug}`}>
                       {t("viewDetails")}
                     </Link>

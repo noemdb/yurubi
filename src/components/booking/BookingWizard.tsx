@@ -81,18 +81,18 @@ export function BookingWizard({
   };
 
   return (
-    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-10 relative">
+    <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 md:p-10 relative">
       {/* Stepper Header */}
-      <div className="flex items-center justify-between mx-auto max-w-4xl mb-8 pb-8 border-b border-gray-100">
+      <div className="flex items-center justify-between mx-auto max-w-4xl mb-8 pb-8 border-b border-gray-100 dark:border-gray-800">
         {[1, 2, 3, 4, 5].map((s) => (
           <div key={s} className="flex flex-col items-center flex-1 relative">
             <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-ui-bold mb-3 transition-colors z-10 ${
               step === s ? "bg-brand-blue text-white ring-4 ring-brand-blue/20 shadow-lg" : 
-              step > s ? "bg-brand-green text-white" : "bg-gray-100 text-gray-400"
+              step > s ? "bg-brand-green text-white" : "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500"
             }`}>
               {s}
             </div>
-            <span className={`text-[10px] md:text-badge text-center uppercase ${step === s ? "text-brand-blue font-bold" : "text-gray-400"}`}>
+            <span className={`text-[10px] md:text-badge text-center uppercase ${step === s ? "text-brand-blue font-bold" : "text-gray-400 dark:text-gray-500"}`}>
               {s === 1 ? (isEs ? "Búsqueda" : "Search") : 
                s === 2 ? (isEs ? "Habitación" : "Room") : 
                s === 3 ? (isEs ? "Huésped" : "Guest") : 
@@ -100,7 +100,7 @@ export function BookingWizard({
                (isEs ? "Resumen" : "Summary")}
             </span>
             {s < 5 && (
-              <div className={`absolute top-5 md:top-6 left-[60%] w-[80%] h-[2px] -z-0 hidden md:block ${step > s ? "bg-brand-green" : "bg-gray-100"}`} />
+              <div className={`absolute top-5 md:top-6 left-[60%] w-[80%] h-[2px] -z-0 hidden md:block ${step > s ? "bg-brand-green" : "bg-gray-100 dark:bg-gray-800"}`} />
             )}
           </div>
         ))}

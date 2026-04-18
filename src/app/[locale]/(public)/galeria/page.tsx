@@ -46,19 +46,19 @@ export default async function GalleryPage({ params }: PageProps) {
   const galleryImages = [...roomImages, ...placeholderImages];
 
   return (
-    <div className="min-h-screen bg-white pb-20">
+    <div className="min-h-screen bg-white dark:bg-gray-950 pb-20 transition-colors duration-300">
       {/* Header Section - Condensed & Premium */}
-      <div className="bg-gray-50 py-12 border-b border-gray-100 mb-12">
+      <div className="bg-gray-50 dark:bg-gray-900 py-12 border-b border-gray-100 dark:border-gray-800 mb-12">
         <div className="container mx-auto px-4 lg:px-8 text-center">
           <div className="flex items-center justify-center gap-3 mb-4 opacity-60">
             <span className="h-px w-8 bg-brand-green" />
-            <span className="text-gray-900 uppercase tracking-[0.2em] text-xs font-semibold">Visual Journey</span>
+            <span className="text-gray-900 dark:text-white uppercase tracking-[0.2em] text-xs font-semibold">Visual Journey</span>
             <span className="h-px w-8 bg-brand-green" />
           </div>
-          <h1 className="font-serif text-4xl md:text-6xl font-bold text-gray-900 mb-4 leading-tight">
+          <h1 className="font-serif text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
             {t("title")}
           </h1>
-          <p className="text-lg md:text-xl text-gray-500 font-light max-w-2xl mx-auto italic">
+          <p className="text-lg md:text-xl text-gray-500 dark:text-gray-400 font-light max-w-2xl mx-auto italic">
             {t("subtitle")}
           </p>
         </div>
@@ -69,7 +69,7 @@ export default async function GalleryPage({ params }: PageProps) {
           {galleryImages.map((img, idx) => (
             <div 
               key={idx} 
-              className="relative overflow-hidden group rounded-3xl bg-gray-100 break-inside-avoid shadow-sm transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
+              className="relative overflow-hidden group rounded-xl bg-gray-100 dark:bg-gray-800 break-inside-avoid shadow-sm transform transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
             >
               <SmartImage
                 src={img.src}
@@ -90,7 +90,7 @@ export default async function GalleryPage({ params }: PageProps) {
         </div>
 
         {/* Footer CTA Section */}
-        <div className="mt-20 text-center p-12 bg-brand-blue-900 rounded-[3rem] text-white">
+        <div className="mt-20 text-center p-12 bg-brand-blue-900 rounded-3xl text-white">
           <h2 className="text-3xl font-serif font-bold mb-4">
             {isEs ? "¿Listo para vivir la experiencia?" : "Ready to live the experience?"}
           </h2>

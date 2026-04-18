@@ -41,7 +41,7 @@ export default async function RestaurantPage({ params }: PageProps) {
       ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Hero Header Restaurante */}
       <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
         <SmartImage
@@ -73,10 +73,10 @@ export default async function RestaurantPage({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Texto y Features */}
             <div>
-              <h2 className="text-3xl font-serif font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-6">
                 {isEs ? "Un Santuario del Sabor" : "A Sanctuary of Flavor"}
               </h2>
-              <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed">
                 {isEs
                   ? "Elevamos la oferta gastronómica de Yaracuy fusionando de manera sublime el calor de la cocina criolla con técnicas de la más alta gastronomía internacional. Nuestro equipo de artesanos culinarios selecciona minuciosamente ingredientes frescos y locales de primera calidad para crear una experiencia en su paladar y platos memorables. Disfrute de nuestra impecable hospitalidad dentro de un ambiente maravillosamente relajado, climatizado y lleno de sofisticación."
                   : "We elevate the gastronomic offering of Yaracuy by sublimely fusing the warmth of Creole cuisine with techniques of the highest international gastronomy. Our team of culinary artisans carefully selects fresh, premium local ingredients to create an experience for your palate and memorable dishes. Enjoy our impeccable hospitality within a wonderfully relaxed, air-conditioned, and sophisticated environment."}
@@ -86,35 +86,35 @@ export default async function RestaurantPage({ params }: PageProps) {
                 {features.map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <CheckSquare className="w-5 h-5 text-brand-green shrink-0 mt-0.5" />
-                    <span className="text-gray-700">{feature}</span>
+                    <span className="text-gray-700 dark:text-gray-300">{feature}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="bg-gray-50/80 p-6 sm:p-8 rounded-xl border border-gray-100 mb-8 shadow-sm">
+              <div className="bg-gray-50/80 dark:bg-gray-800/50 p-6 sm:p-8 rounded-lg border border-gray-100 dark:border-gray-700 mb-8 shadow-sm">
                 <p className="text-[10px] uppercase font-bold tracking-widest text-brand-green mb-6">
                   {isEs ? "Información de Interés" : "Useful Information"}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-6 justify-between">
                   {/* Horario */}
                   <div className="flex items-start gap-4 group">
-                    <div className="bg-white p-3.5 rounded-lg shadow-sm text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors duration-500">
+                    <div className="bg-white dark:bg-gray-700 p-3.5 rounded-md shadow-sm text-brand-blue dark:text-brand-blue-300 group-hover:bg-brand-blue dark:group-hover:bg-brand-blue group-hover:text-white dark:group-hover:text-white transition-colors duration-500">
                       <Clock className="w-6 h-6" />
                     </div>
                     <div>
-                      <p className="font-bold text-gray-900 mb-0.5">{t("schedule")}</p>
-                      <p className="text-gray-600 font-medium">7:00 AM - 10:00 PM</p>
+                      <p className="font-bold text-gray-900 dark:text-gray-100 mb-0.5">{t("schedule")}</p>
+                      <p className="text-gray-600 dark:text-gray-300 font-medium">7:00 AM - 10:00 PM</p>
                       <p className="text-[10px] text-gray-400 italic mt-1">{isEs ? "Abierto todo el día" : "Open all day"}</p>
                     </div>
                   </div>
                   {/* Capacidad */}
                   <div className="flex items-start gap-4 group">
-                    <div className="bg-white p-3.5 rounded-lg shadow-sm text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors duration-500">
+                    <div className="bg-white dark:bg-gray-700 p-3.5 rounded-md shadow-sm text-brand-blue dark:text-brand-blue-300 group-hover:bg-brand-blue dark:group-hover:bg-brand-blue group-hover:text-white dark:group-hover:text-white transition-colors duration-500">
                       <Users className="w-6 h-6" />
                     </div>
                     <div>
-                      <p className="font-bold text-gray-900 mb-0.5">{t("capacity")}</p>
-                      <p className="text-gray-600 font-medium">80 {isEs ? "Comensales" : "Diners"}</p>
+                      <p className="font-bold text-gray-900 dark:text-gray-100 mb-0.5">{t("capacity")}</p>
+                      <p className="text-gray-600 dark:text-gray-300 font-medium">80 {isEs ? "Comensales" : "Diners"}</p>
                       <p className="text-[10px] text-gray-400 italic mt-1">{isEs ? "Atmósfera íntima y acogedora" : "Intimate and cozy atmosphere"}</p>
                     </div>
                   </div>
@@ -136,7 +136,7 @@ export default async function RestaurantPage({ params }: PageProps) {
                 roomName="reservaRestarurant"
                 roomId="reservaId"
                 locale={locale}
-                className="w-full text-cta-sm h-14 px-8 bg-brand-blue hover:bg-brand-blue-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full text-cta-sm h-14 px-8 bg-brand-blue hover:bg-brand-blue-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] active:scale-[0.98]"
               />
             </div>
 
@@ -145,7 +145,7 @@ export default async function RestaurantPage({ params }: PageProps) {
               <SmartImage
                 src="/images/restaurant/01.jpg"
                 alt="Plato del restaurante"
-                className="w-full h-[300px] object-cover rounded-xl shadow-lg transition-transform duration-700 hover:scale-105"
+                className="w-full h-[300px] object-cover rounded-lg shadow-lg transition-transform duration-700 hover:scale-105"
                 fallbackText=""
                 fallbackClassName="bg-brand-blue-50"
               />

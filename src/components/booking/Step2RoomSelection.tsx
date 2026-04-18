@@ -20,7 +20,7 @@ export function Step2RoomSelection({
   if (rooms.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-xl text-gray-500 mb-6">
+        <p className="text-xl text-gray-500 dark:text-gray-400 mb-6">
           {isEs ? "No hay habitaciones disponibles." : "No rooms available."}
         </p>
         <Button variant="outline" onClick={onBack}>{isEs ? "Volver" : "Back"}</Button>
@@ -39,15 +39,15 @@ export function Step2RoomSelection({
             {isEs ? "Selecciona la habitación ideal para tu estadía." : "Select the ideal room for your stay."}
           </p>
         </div>
-        <Button variant="ghost" onClick={onBack} className="text-brand-blue hover:bg-brand-blue-50 rounded-xl">
+        <Button variant="ghost" onClick={onBack} className="text-brand-blue dark:text-brand-blue-400 hover:bg-brand-blue-50 dark:hover:bg-brand-blue-900/20 rounded-xl">
           &larr; {isEs ? "Modificar Búsqueda" : "Modify Search"}
         </Button>
       </div>
       
       <div className="flex flex-col gap-4">
         {rooms.map(room => (
-          <div key={room.id} className="border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-row bg-white group cursor-pointer items-stretch h-32 md:h-36" onClick={() => onSelect(room)}>
-            <div className="w-[35%] md:w-1/4 bg-gray-100 relative overflow-hidden shrink-0">
+          <div key={room.id} className="border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-row bg-white dark:bg-gray-900 group cursor-pointer items-stretch h-32 md:h-36" onClick={() => onSelect(room)}>
+            <div className="w-[35%] md:w-1/4 bg-gray-100 dark:bg-gray-800 relative overflow-hidden shrink-0">
                {room.images?.[0] ? (
                  <img src={room.images[0]} alt={room.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
                ) : (
@@ -55,7 +55,7 @@ export function Step2RoomSelection({
                    <span className="text-brand-blue-200 font-serif text-xs md:text-sm px-2 text-center">{room.name}</span>
                  </div>
                )}
-               <div className="absolute top-2 right-2 bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full shadow-sm text-[10px] font-bold text-gray-700 flex items-center gap-1 border border-gray-100/50">
+               <div className="absolute top-2 right-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm px-2 py-0.5 rounded-full shadow-sm text-[10px] font-bold text-gray-700 dark:text-gray-200 flex items-center gap-1 border border-gray-100/50 dark:border-gray-700/50">
                  <span className="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse" />
                  {room.availableCount} {isEs ? "disp." : "avail."}
                </div>
@@ -73,14 +73,14 @@ export function Step2RoomSelection({
             <div className="p-3 md:p-5 flex flex-col flex-grow justify-between min-w-0">
                <div className="flex justify-between items-start gap-2">
                  <div className="pr-2 min-w-0 flex-1">
-                    <h3 className="text-sm md:text-base font-bold text-gray-900 font-serif truncate">{room.name}</h3>
-                    <p className="text-xs text-gray-500 line-clamp-2 mt-1 mb-1 hidden md:block">
+                    <h3 className="text-sm md:text-base font-bold text-gray-900 dark:text-white font-serif truncate">{room.name}</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mt-1 mb-1 hidden md:block">
                       {room.description}
                     </p>
                  </div>
                  <div className="text-right shrink-0">
                    {room.appliedPromotion && (
-                     <span className="text-[10px] font-bold text-gray-400 line-through decoration-brand-green/30 decoration-2 -mb-0.5 block">
+                     <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 line-through decoration-brand-green/30 decoration-2 -mb-0.5 block">
                        {formatPrice(room.originalPrice)}
                      </span>
                    )}

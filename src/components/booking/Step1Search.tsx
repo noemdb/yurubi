@@ -87,7 +87,7 @@ export function Step1Search({
         </p>
       </div>
 
-      <div className="space-y-6 bg-gray-50 p-6 rounded-3xl border border-gray-100">
+      <div className="space-y-6 bg-gray-50 dark:bg-gray-800/50 p-6 rounded-3xl border border-gray-100 dark:border-gray-700">
         {/* Date Picker */}
         <div className="space-y-2">
           <label className="text-label ml-1">
@@ -99,14 +99,14 @@ export function Step1Search({
                 id="date"
                 variant={"outline"}
                 className={cn(
-                  "text-slate-950 w-full justify-start text-left font-bold h-14 rounded-2xl border-gray-200 shadow-sm bg-white hover:bg-gray-50",
+                  "text-slate-950 dark:text-white w-full justify-start text-left font-bold h-14 rounded-2xl border-gray-200 dark:border-gray-700 shadow-sm bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800",
                   !date && "text-muted-foreground"
                 )}
               >
                 <CalendarIcon className="mr-3 h-5 w-5 text-brand-blue" />
                 {date?.from ? (
                   date.to ? (
-                    <span className="font-medium text-gray-900">
+                    <span className="font-medium text-gray-900 dark:text-white">
                       {format(date.from, "LLL dd, y", { locale: dateLocale })} -{" "}
                       {format(date.to, "LLL dd, y", { locale: dateLocale })}
                     </span>
@@ -120,7 +120,7 @@ export function Step1Search({
                 )}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 rounded-2xl shadow-xl border-gray-100" align="center">
+            <PopoverContent className="w-auto p-0 rounded-2xl shadow-xl border-gray-100 dark:border-gray-800" align="center">
               <Calendar
                 initialFocus
                 mode="range"
@@ -142,13 +142,13 @@ export function Step1Search({
             {isEs ? "Huéspedes" : "Guests"}
           </label>
           <Select value={guests} onValueChange={setGuests}>
-            <SelectTrigger className="text-slate-950 h-14 rounded-2xl border-gray-200 shadow-sm bg-white hover:bg-gray-50 font-bold">
+            <SelectTrigger className="text-slate-950 dark:text-white h-14 rounded-2xl border-gray-200 dark:border-gray-700 shadow-sm bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 font-bold">
               <div className="flex items-center gap-3">
                 <Users className="w-5 h-5 text-brand-blue" />
                 <SelectValue placeholder={isEs ? "Número de huéspedes" : "Number of guests"} />
               </div>
             </SelectTrigger>
-            <SelectContent className="rounded-xl border-gray-100 shadow-lg">
+            <SelectContent className="rounded-xl border-gray-100 dark:border-gray-800 shadow-lg">
               {[1, 2, 3, 4, 5, 6].map((num) => (
                 <SelectItem key={num} value={num.toString()} className="font-medium">
                   {num} {num === 1 ? (isEs ? "Huésped" : "Guest") : (isEs ? "Huéspedes" : "Guests")}

@@ -19,7 +19,7 @@ export default async function BookingPage({ params, searchParams }: PageProps) {
   const { roomType } = await searchParams;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12 transition-colors duration-300">
       <div className="container mx-auto px-4 lg:px-8 max-w-5xl">
         <BookingWizard locale={locale} initialRoomType={roomType} />
       </div>
