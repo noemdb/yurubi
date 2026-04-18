@@ -46,7 +46,7 @@ export default async function RoomsPage({ params }: PageProps) {
           {rooms.map((room) => (
             <div
               key={room.id}
-              className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col group h-full"
+              className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col group h-full"
             >
               {/* Image Section */}
               <div className="aspect-[4/3] relative bg-gray-200 overflow-hidden shrink-0">
@@ -59,12 +59,12 @@ export default async function RoomsPage({ params }: PageProps) {
                   textClassName="font-serif text-brand-blue/30 text-2xl font-bold -rotate-12"
                 />
                 
-                {/* Price tag flotante - Glassmorphism style */}
-                <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-2xl shadow-lg z-10 ring-1 ring-black/5">
-                  <span className="font-serif text-xl font-bold text-brand-blue">
+                {/* Price tag flotante - Glassmorphism sutil */}
+                <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-lg z-10 ring-1 ring-white/10 group-hover:scale-105 transition-transform duration-500">
+                  <span className="font-serif text-sm font-bold text-white drop-shadow-md">
                     {formatPrice(room.basePrice)}
                   </span>
-                  <span className="text-gray-500 text-xs ml-1 uppercase tracking-wider">{t("perNight")}</span>
+                  <span className="text-white/80 text-[10px] ml-1 uppercase tracking-wider drop-shadow-md">{t("perNight")}</span>
                 </div>
 
                 <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -82,11 +82,11 @@ export default async function RoomsPage({ params }: PageProps) {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-4 mt-auto">
-                  <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-xl border border-gray-100">
+                  <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
                     <Users className="h-4 w-4 text-brand-blue" />
                     <span>{room.maxOccupancy} max</span>
                   </div>
-                  <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-xl border border-gray-100">
+                  <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
                     <Wifi className="h-4 w-4 text-brand-green" />
                     <span>Wi-Fi</span>
                   </div>
@@ -94,7 +94,7 @@ export default async function RoomsPage({ params }: PageProps) {
 
                 {/* Footer del card */}
                 <div className="mt-auto grid grid-cols-2 gap-4 pt-2 border-t border-gray-50">
-                  <Button asChild variant="outline" className="rounded-full h-12 border-gray-200 hover:border-brand-blue hover:bg-brand-blue/5 text-gray-600 transition-all">
+                  <Button asChild variant="outline" className="rounded-xl h-12 border-gray-200 hover:border-brand-blue hover:bg-brand-blue/5 text-gray-600 transition-all">
                     <Link href={`/${locale}/habitaciones/${room.slug}`}>
                       {t("viewDetails")}
                     </Link>
@@ -104,7 +104,7 @@ export default async function RoomsPage({ params }: PageProps) {
                     roomName={room.name}
                     roomId={room.id}
                     locale={locale}
-                    className="w-full text-cta-sm h-12 px-6 border border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(37,211,102,0.1)]"
+                    className="w-full text-cta-sm h-12 px-6 border border-[#25D366]/50 text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] rounded-xl backdrop-blur-md transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(37,211,102,0.1)]"
                   />
                   {/*
                   <Button asChild className="bg-brand-blue hover:bg-brand-blue-700 rounded-full h-12 shadow-md hover:shadow-lg transition-all text-white border-none">
