@@ -29,7 +29,7 @@ export function BookingSuccessDetails({
   const dateLocale = isEs ? es : enUS;
 
   return (
-    <div className="bg-white rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
+    <div className="bg-white rounded-xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
       <div className="bg-brand-green p-8 text-white relative">
         <div className="absolute top-4 right-4">
            <Button variant="ghost" onClick={onClose} className="text-white hover:bg-white/20 rounded-full h-10 w-10 p-0">
@@ -59,7 +59,7 @@ export function BookingSuccessDetails({
             <div className="space-y-1">
                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{isEs ? "Huésped Principal" : "Main Guest"}</p>
                <div className="flex items-center gap-3">
-                 <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400">
+                 <div className="w-8 h-8 rounded-md bg-gray-50 flex items-center justify-center text-gray-400">
                    <User className="w-4 h-4" />
                  </div>
                  <p className="text-sm font-bold text-gray-900">{details.guestName || (isEs ? "Cargando..." : "Loading...")}</p>
@@ -69,7 +69,7 @@ export function BookingSuccessDetails({
             <div className="space-y-1">
                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{isEs ? "Fechas de Estadía" : "Stay Dates"}</p>
                <div className="flex items-center gap-3">
-                 <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400">
+                 <div className="w-8 h-8 rounded-md bg-gray-50 flex items-center justify-center text-gray-400">
                    <Calendar className="w-4 h-4" />
                  </div>
                  <p className="text-sm font-bold text-gray-900">
@@ -81,7 +81,7 @@ export function BookingSuccessDetails({
             <div className="space-y-1">
                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{isEs ? "Categoría Reservada" : "Room Category"}</p>
                <div className="flex items-center gap-3">
-                 <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400">
+                 <div className="w-8 h-8 rounded-md bg-gray-50 flex items-center justify-center text-gray-400">
                    <MapPin className="w-4 h-4" />
                  </div>
                  <p className="text-sm font-bold text-gray-900">{details.roomTypeName}</p>
@@ -90,7 +90,7 @@ export function BookingSuccessDetails({
           </div>
 
           {/* Payment Info */}
-          <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex flex-col justify-between">
+          <div className="bg-gray-50 rounded-lg p-6 border border-gray-100 flex flex-col justify-between">
             <div className="space-y-4">
               <div className="flex justify-between items-center text-xs uppercase tracking-wider font-bold text-gray-400">
                  <span>{isEs ? "Método" : "Method"}</span>
@@ -114,14 +114,14 @@ export function BookingSuccessDetails({
 
         <div className="mt-10 flex gap-4">
           <Button 
-            className="flex-1 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-2xl h-14 font-bold gap-2 text-sm shadow-lg shadow-brand-blue/20"
+            className="flex-1 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-lg h-14 font-bold gap-2 text-sm shadow-lg shadow-brand-blue/20"
             onClick={onClose}
           >
             {isEs ? "Finalizar y Cerrar" : "Finish & Close"}
           </Button>
           <Button 
             variant="outline" 
-            className="rounded-2xl h-14 w-14 p-0 border-gray-100 text-gray-400 hover:text-brand-blue transition-all"
+            className="rounded-lg h-14 w-14 p-0 border-gray-100 text-gray-400 hover:text-brand-blue transition-all"
             onClick={() => window.print()}
           >
             <Printer className="w-5 h-5" />

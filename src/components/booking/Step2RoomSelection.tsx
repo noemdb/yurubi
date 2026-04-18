@@ -39,8 +39,7 @@ export function Step2RoomSelection({
             {isEs ? "Selecciona la habitación ideal para tu estadía." : "Select the ideal room for your stay."}
           </p>
         </div>
-        <Button variant="ghost" onClick={onBack} className="text-brand-blue dark:text-brand-blue-400 hover:bg-brand-blue-50 dark:hover:bg-brand-blue-900/20 rounded-xl">
-        <Button variant="ghost" onClick={onBack} className="text-brand-blue dark:text-brand-blue-400 hover:bg-brand-blue-50 dark:hover:bg-brand-blue-900/20 rounded-md">
+        <Button variant="ghost" onClick={onBack} className="text-brand-blue dark:text-brand-blue-400 hover:bg-brand-blue-50 dark:hover:bg-brand-blue-900/20 rounded-lg">
           &larr; {isEs ? "Modificar Búsqueda" : "Modify Search"}
         </Button>
       </div>

@@ -48,7 +48,6 @@ export function Step4Payment({
           <ShieldCheck className="h-6 w-6 text-brand-green" />
           {isEs ? "Método de Pago Preferido" : "Preferred Payment Method"}
         </h2>
-        <Button variant="ghost" onClick={onBack} className="text-brand-blue dark:text-brand-blue-400 rounded-xl h-10 px-4 hover:bg-brand-blue-50 dark:hover:bg-brand-blue-900/20">
         <Button variant="ghost" onClick={onBack} className="text-brand-blue dark:text-brand-blue-400 rounded-lg h-10 px-4 hover:bg-brand-blue-50 dark:hover:bg-brand-blue-900/20">
           &larr; {isEs ? "Atrás" : "Back"}
         </Button>
