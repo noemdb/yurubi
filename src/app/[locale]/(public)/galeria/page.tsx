@@ -100,6 +100,8 @@ export default async function GalleryPage({ params }: PageProps) {
               : "Every corner of Hotel Río Yurubí has been designed to create unforgettable memories. Book today and be part of our gallery."}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
+
+ {/*
             <Button
               variant="ghost"
               className="w-full sm:w-auto text-cta h-16 px-10 border border-[#25D366]/50 text-white hover:bg-[#25D366]/20 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(37,211,102,0.15)]"
@@ -110,6 +112,9 @@ export default async function GalleryPage({ params }: PageProps) {
                 {tHero("whatsapp")}
               </a>
             </Button>
+
+*/}
+
           </div>
         </div>
       </div>
