@@ -4,6 +4,7 @@
     "about": "About Us",
     "rooms": "Rooms",
     "restaurant": "Restaurant",
+    "cytrus": "Cytrus",
     "pool": "Pool",
     "meetingRoom": "Meeting Room",
     "gallery": "Gallery",
@@ -236,5 +237,16 @@
       "eventsTitle": "Events & Business",
       "events": "We offer versatile halls with capacity for 15 to 350 people, perfect for corporate meetings, conferences, or social celebrations."
     }
+  },
+  "cytrus": {
+    "title": "Cytrus Lounge & Bar",
+    "subtitle": "Terrace & Restaurant",
+    "experience": "Exclusive Experience",
+    "heroTitle": "Where the chill atmosphere meets signature cocktails",
+    "description": "A unique terrace-restaurant experience at Hotel Río Yurubí. Specialized in signature cocktails, casual food, and the most 'chill' atmosphere in the city, ideal for groups or couples.",
+    "schedule": "Mon - Sat: 6:00 PM onwards",
+    "cuisine": "Casual Dining & Cocktails",
+    "ambiance": "Unique Ambiances",
+    "cta": "Enjoy the best terrace in the city"
   }
 }

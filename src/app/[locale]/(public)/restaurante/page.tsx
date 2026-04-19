@@ -160,6 +160,25 @@ export default async function RestaurantPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* CTA a Cytrus Lounge & Bar */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-800/30">
+        <div className="container mx-auto px-4 text-center">
+            <h3 className="text-3xl font-serif font-bold text-gray-900 dark:text-white mb-6">
+                {locale.startsWith("es") ? "¿Buscas un ambiente más relajado?" : "Looking for a more relaxed atmosphere?"}
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+                {locale.startsWith("es") 
+                    ? "Descubre Cytrus Lounge & Bar, nuestra terraza exclusiva con coctelería de autor y la mejor música chill de la ciudad." 
+                    : "Discover Cytrus Lounge & Bar, our exclusive terrace with signature cocktails and the best chill music in town."}
+            </p>
+            <Button asChild variant="outline" size="lg" className="rounded-full border-brand-green text-brand-green hover:bg-brand-green hover:text-white transition-all">
+                <Link href="/cytrus">
+                    {locale.startsWith("es") ? "Visitar Cytrus Lounge & Bar" : "Visit Cytrus Lounge & Bar"} <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+            </Button>
+        </div>
+      </section>
     </div>
   );
 }

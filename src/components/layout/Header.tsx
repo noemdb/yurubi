@@ -22,6 +22,7 @@ export function Header() {
     { name: t("about"), href: "/nosotros" },
     { name: t("rooms"), href: "/habitaciones" },
     { name: t("restaurant"), href: "/restaurante" },
+    { name: t("cytrus"), href: "/cytrus" },
     { name: t("pool"), href: "/piscina" },
     { name: t("meetingRoom"), href: "/sala-de-reuniones" },
     { name: t("gallery"), href: "/galeria" },

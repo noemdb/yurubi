@@ -4,6 +4,7 @@
     "about": "Nosotros",
     "rooms": "Habitaciones",
     "restaurant": "Restaurante",
+    "cytrus": "Cytrus",
     "pool": "Piscina",
     "meetingRoom": "Sala de Reuniones",
     "gallery": "Galería",
@@ -250,5 +251,16 @@
       "eventsTitle": "Eventos y Negocios",
       "events": "Disponemos de salones versátiles con capacidad desde 15 hasta 350 personas, perfectos para reuniones corporativas, conferencias o celebraciones sociales."
     }
+  },
+  "cytrus": {
+    "title": "Cytrus Lounge & Bar",
+    "subtitle": "Terraza & Restaurante",
+    "experience": "Experiencia Exclusiva",
+    "heroTitle": "Donde el ambiente chill se encuentra con la coctelería de autor",
+    "description": "Una experiencia de terraza-restaurante única en el Hotel Río Yurubí. Especializada en coctelería de autor, comida casual y el ambiente más 'chill' de la ciudad, ideal para disfrutar en grupo o en pareja.",
+    "schedule": "Lun - Sáb: 6:00 PM en adelante",
+    "cuisine": "Cocina Casual & Coctelería",
+    "ambiance": "Ambientes Únicos",
+    "cta": "Disfruta de la mejor terraza de la ciudad"
   }
 }
