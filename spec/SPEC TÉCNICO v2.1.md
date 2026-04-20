@@ -1,4 +1,5 @@
 # 📐 SPEC TÉCNICO v2.1 — Hotel Río Yurubí
+
 ## Sistema Full-Stack · Entorno de Desarrollo Dirigido por Agentes IA
 
 **Versión:** 2.1  
@@ -42,23 +43,23 @@ Plataforma digital integral para el **Hotel Río Yurubí** (San Felipe, Yaracuy,
 
 ### 1.2 Objetivos de Negocio Medibles
 
-| Objetivo | Métrica | Target |
-|----------|---------|--------|
-| Aumentar reservas directas | % de reservas via sitio vs. teléfono | +40% en 6 meses |
-| Reducir tiempo de gestión | Minutos/reserva para recepcionista | De 15min → 5min |
-| Mejorar visibilidad online | Google rank para "hotel San Felipe" | Top 3 resultados locales |
-| Centralizar datos | % de reservas registradas en sistema | 100% |
+| Objetivo                   | Métrica                              | Target                   |
+| -------------------------- | ------------------------------------ | ------------------------ |
+| Aumentar reservas directas | % de reservas via sitio vs. teléfono | +40% en 6 meses          |
+| Reducir tiempo de gestión  | Minutos/reserva para recepcionista   | De 15min → 5min          |
+| Mejorar visibilidad online | Google rank para "hotel San Felipe"  | Top 3 resultados locales |
+| Centralizar datos          | % de reservas registradas en sistema | 100%                     |
 
 ### 1.3 Alcance — Incluye / Excluye
 
-| Módulo | Incluye | Excluye |
-|--------|---------|---------|
-| Landing Pública | 10 secciones, i18n ES/EN, SEO Local | Pagos online, chat en vivo |
-| Reservas de Habitación | Wizard 4 pasos, estados, emails | Disponibilidad en tiempo real, overbooking automático |
-| Reservas Adicionales | Sala de reuniones, restaurante | Piscina (sin reserva, solo info) |
-| Dashboard | 4 roles, KPIs, CRUDs, bitácora | App móvil nativa, SMS |
-| Contenido | Reseñas moderadas, promociones, PageSections | CMS headless externo, blog completo |
-| Comunicaciones | Emails transaccionales vía Resend | WhatsApp Business API, SMS |
+| Módulo                 | Incluye                                      | Excluye                                               |
+| ---------------------- | -------------------------------------------- | ----------------------------------------------------- |
+| Landing Pública        | 10 secciones, i18n ES/EN, SEO Local          | Pagos online, chat en vivo                            |
+| Reservas de Habitación | Wizard 4 pasos, estados, emails              | Disponibilidad en tiempo real, overbooking automático |
+| Reservas Adicionales   | Sala de reuniones, restaurante               | Piscina (sin reserva, solo info)                      |
+| Dashboard              | 4 roles, KPIs, CRUDs, bitácora               | App móvil nativa, SMS                                 |
+| Contenido              | Reseñas moderadas, promociones, PageSections | CMS headless externo, blog completo                   |
+| Comunicaciones         | Emails transaccionales vía Resend            | WhatsApp Business API, SMS                            |
 
 ---
 
@@ -104,7 +105,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (!user || !user.isActive) return null;
         const valid = await bcrypt.compare(parsed.data.password, user.password);
         if (!valid) return null;
-        return { id: user.id, email: user.email, name: user.name, role: user.role };
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+        };
       },
     }),
   ],
@@ -181,20 +187,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 **Breaking changes que afectan este proyecto:**
 
-| # | Cambio | Patrón v15 (obsoleto) | Patrón v16 (correcto) |
-|---|--------|----------------------|----------------------|
-| 1 | `middleware.ts` renombrado a `proxy.ts` | `export function middleware(req)` en `middleware.ts` | `export function proxy(req)` en `proxy.ts` — runtime es Node.js, NO Edge |
-| 2 | `params` y `searchParams` son ahora async | `const { slug } = params` | `const { slug } = await params` |
-| 3 | `generateMetadata` también recibe params async | `const { locale } = params` | `const { locale } = await params` |
-| 4 | Turbopack es el bundler por defecto | `"dev": "next dev --turbopack"` | `"dev": "next dev"` (flag ya no necesario) |
-| 5 | `experimental.ppr` eliminado | `experimental: { ppr: true }` | Usar `"use cache"` directive (Cache Components) |
-| 6 | React Compiler estable | `experimental: { reactCompiler: true }` | `reactCompiler: true` (top-level, opt-in) |
-| 7 | `cacheLife` / `cacheTag` sin prefijo `unstable_` | `unstable_cacheLife(...)` | `cacheLife(...)` directo |
-| 8 | Node.js mínimo: 20.9.0 | Node 18.x aceptado | **Node.js >= 20.9.0 requerido** |
-| 9 | React 19.2 incluido | `react: "19.0.0"` | `react: "19.2.0"` |
-| 10 | `next lint` eliminado | `"lint": "next lint"` | `"lint": "eslint src/"` directamente |
+| #   | Cambio                                           | Patrón v15 (obsoleto)                                | Patrón v16 (correcto)                                                    |
+| --- | ------------------------------------------------ | ---------------------------------------------------- | ------------------------------------------------------------------------ |
+| 1   | `middleware.ts` renombrado a `proxy.ts`          | `export function middleware(req)` en `middleware.ts` | `export function proxy(req)` en `proxy.ts` — runtime es Node.js, NO Edge |
+| 2   | `params` y `searchParams` son ahora async        | `const { slug } = params`                            | `const { slug } = await params`                                          |
+| 3   | `generateMetadata` también recibe params async   | `const { locale } = params`                          | `const { locale } = await params`                                        |
+| 4   | Turbopack es el bundler por defecto              | `"dev": "next dev --turbopack"`                      | `"dev": "next dev"` (flag ya no necesario)                               |
+| 5   | `experimental.ppr` eliminado                     | `experimental: { ppr: true }`                        | Usar `"use cache"` directive (Cache Components)                          |
+| 6   | React Compiler estable                           | `experimental: { reactCompiler: true }`              | `reactCompiler: true` (top-level, opt-in)                                |
+| 7   | `cacheLife` / `cacheTag` sin prefijo `unstable_` | `unstable_cacheLife(...)`                            | `cacheLife(...)` directo                                                 |
+| 8   | Node.js mínimo: 20.9.0                           | Node 18.x aceptado                                   | **Node.js >= 20.9.0 requerido**                                          |
+| 9   | React 19.2 incluido                              | `react: "19.0.0"`                                    | `react: "19.2.0"`                                                        |
+| 10  | `next lint` eliminado                            | `"lint": "next lint"`                                | `"lint": "eslint src/"` directamente                                     |
 
 **Consecuencias:**
+
 - `src/middleware.ts` pasa a ser `src/proxy.ts` con export nombrado `proxy` (no `middleware`)
 - Todos los `page.tsx`, `layout.tsx` y `generateMetadata` deben hacer `await props.params` antes de destructurar
 - Los scripts de `package.json` no incluyen `--turbopack`
@@ -778,10 +785,13 @@ export const loginSchema = z.object({
 export const createUserSchema = z.object({
   name: z.string().min(2, "Nombre demasiado corto").max(100),
   email: z.string().email("Email inválido"),
-  password: z.string().min(8).regex(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-    "La contraseña debe tener mayúscula, minúscula y número"
-  ),
+  password: z
+    .string()
+    .min(8)
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      "La contraseña debe tener mayúscula, minúscula y número",
+    ),
   role: z.enum(["RECEPTIONIST", "OWNER", "ADMIN"]),
 });
 
@@ -796,7 +806,8 @@ import { z } from "zod";
 export const guestSchema = z.object({
   fullName: z.string().min(2, "Nombre requerido").max(150),
   email: z.string().email("Email inválido"),
-  phone: z.string()
+  phone: z
+    .string()
     .regex(/^\+?[1-9]\d{7,14}$/, "Teléfono inválido (ej: +582541234567)"),
   idDocument: z.string().min(4, "Documento requerido").max(20),
   address: z.string().min(5, "Dirección requerida").max(200),
@@ -812,24 +823,29 @@ import { z } from "zod";
 import { guestSchema } from "./guest";
 
 // Paso 1: Selección de fechas y tipo
-export const reservationStep1Schema = z.object({
-  roomTypeId: z.string().cuid("Selecciona un tipo de habitación"),
-  checkIn: z.coerce.date()
-    .refine((d) => d >= new Date(), "La fecha de entrada debe ser futura"),
-  checkOut: z.coerce.date(),
-  numberOfGuests: z.number().int().min(1, "Mínimo 1 huésped").max(6),
-}).refine(
-  (data) => data.checkOut > data.checkIn,
-  { message: "Check-out debe ser después del check-in", path: ["checkOut"] }
-).refine(
-  (data) => {
-    const nights = Math.ceil(
-      (data.checkOut.getTime() - data.checkIn.getTime()) / (1000 * 60 * 60 * 24)
-    );
-    return nights >= 1;
-  },
-  { message: "Mínimo 1 noche", path: ["checkOut"] }
-);
+export const reservationStep1Schema = z
+  .object({
+    roomTypeId: z.string().cuid("Selecciona un tipo de habitación"),
+    checkIn: z.coerce
+      .date()
+      .refine((d) => d >= new Date(), "La fecha de entrada debe ser futura"),
+    checkOut: z.coerce.date(),
+    numberOfGuests: z.number().int().min(1, "Mínimo 1 huésped").max(6),
+  })
+  .refine((data) => data.checkOut > data.checkIn, {
+    message: "Check-out debe ser después del check-in",
+    path: ["checkOut"],
+  })
+  .refine(
+    (data) => {
+      const nights = Math.ceil(
+        (data.checkOut.getTime() - data.checkIn.getTime()) /
+          (1000 * 60 * 60 * 24),
+      );
+      return nights >= 1;
+    },
+    { message: "Mínimo 1 noche", path: ["checkOut"] },
+  );
 
 // Paso 2: Datos del huésped
 export const reservationStep2Schema = guestSchema;
@@ -863,9 +879,17 @@ export const meetingRoomBookingSchema = z.object({
   phone: z.string().regex(/^\+?[1-9]\d{7,14}$/),
   email: z.string().email().optional(),
   eventDetails: z.string().min(10, "Describe el evento").max(1000),
-  eventDate: z.coerce.date().refine((d) => d >= new Date(), "Fecha futura requerida"),
-  startTime: z.string().regex(/^\d{2}:\d{2}$/).default("06:00"),
-  endTime: z.string().regex(/^\d{2}:\d{2}$/).default("12:00"),
+  eventDate: z.coerce
+    .date()
+    .refine((d) => d >= new Date(), "Fecha futura requerida"),
+  startTime: z
+    .string()
+    .regex(/^\d{2}:\d{2}$/)
+    .default("06:00"),
+  endTime: z
+    .string()
+    .regex(/^\d{2}:\d{2}$/)
+    .default("12:00"),
   numberOfGuests: z.number().int().min(1).max(30),
 });
 
@@ -874,7 +898,9 @@ export const restaurantBookingSchema = z.object({
   phone: z.string().regex(/^\+?[1-9]\d{7,14}$/),
   idDocument: z.string().max(20).optional(),
   email: z.string().email().optional(),
-  eventDate: z.coerce.date().refine((d) => d >= new Date(), "Fecha futura requerida"),
+  eventDate: z.coerce
+    .date()
+    .refine((d) => d >= new Date(), "Fecha futura requerida"),
   timeSlot: z.enum(["SLOT_12_14", "SLOT_14_16"]),
   numberOfGuests: z.number().int().min(1).max(80),
 });
@@ -896,27 +922,34 @@ export type ReviewInput = z.infer<typeof reviewSchema>;
 // src/lib/validators/promotion.ts
 import { z } from "zod";
 
-export const promotionSchema = z.object({
-  title: z.string().min(3).max(100),
-  titleEn: z.string().max(100).optional(),
-  description: z.string().min(10).max(2000),
-  descriptionEn: z.string().max(2000).optional(),
-  discountType: z.enum(["PERCENT", "FIXED"]),
-  value: z.number().positive().refine(
-    (v) => v <= 100 || true, // Solo se valida 0-100 si es PERCENT (refinement cruzado)
-    "Porcentaje debe ser 0-100"
-  ),
-  startDate: z.coerce.date(),
-  endDate: z.coerce.date(),
-  conditions: z.string().max(1000).optional(),
-  conditionsEn: z.string().max(1000).optional(),
-  imageUrl: z.string().url().optional(),
-  isActive: z.boolean().default(true),
-  applicableRoomIds: z.array(z.string().cuid()).min(1, "Selecciona al menos un tipo"),
-}).refine(
-  (data) => data.endDate > data.startDate,
-  { message: "Fecha fin debe ser después de fecha inicio", path: ["endDate"] }
-);
+export const promotionSchema = z
+  .object({
+    title: z.string().min(3).max(100),
+    titleEn: z.string().max(100).optional(),
+    description: z.string().min(10).max(2000),
+    descriptionEn: z.string().max(2000).optional(),
+    discountType: z.enum(["PERCENT", "FIXED"]),
+    value: z
+      .number()
+      .positive()
+      .refine(
+        (v) => v <= 100 || true, // Solo se valida 0-100 si es PERCENT (refinement cruzado)
+        "Porcentaje debe ser 0-100",
+      ),
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date(),
+    conditions: z.string().max(1000).optional(),
+    conditionsEn: z.string().max(1000).optional(),
+    imageUrl: z.string().url().optional(),
+    isActive: z.boolean().default(true),
+    applicableRoomIds: z
+      .array(z.string().cuid())
+      .min(1, "Selecciona al menos un tipo"),
+  })
+  .refine((data) => data.endDate > data.startDate, {
+    message: "Fecha fin debe ser después de fecha inicio",
+    path: ["endDate"],
+  });
 
 export type PromotionInput = z.infer<typeof promotionSchema>;
 ```
@@ -927,33 +960,33 @@ export type PromotionInput = z.infer<typeof promotionSchema>;
 
 ### 7.1 Definición de Roles
 
-| Rol | Descripción | Acceso a Dashboard |
-|-----|-------------|-------------------|
-| `RECEPTIONIST` | Gestiona reservas del día a día | Reservas, huéspedes, calendario |
-| `OWNER` | Dueño del hotel, solo lectura analítica | Reportes KPIs, bitácora |
-| `ADMIN` | Administración total del sistema | Todo lo anterior + configuración, usuarios, contenido |
+| Rol            | Descripción                             | Acceso a Dashboard                                    |
+| -------------- | --------------------------------------- | ----------------------------------------------------- |
+| `RECEPTIONIST` | Gestiona reservas del día a día         | Reservas, huéspedes, calendario                       |
+| `OWNER`        | Dueño del hotel, solo lectura analítica | Reportes KPIs, bitácora                               |
+| `ADMIN`        | Administración total del sistema        | Todo lo anterior + configuración, usuarios, contenido |
 
 > **Nota:** Los visitantes NO tienen rol en la base de datos. Interactúan exclusivamente con la landing page pública sin autenticación.
 
 ### 7.2 Matriz Completa de Permisos
 
-| Permiso | RECEPTIONIST | OWNER | ADMIN |
-|---------|:-----------:|:-----:|:-----:|
-| Ver lista de reservas | ✅ | ✅ | ✅ |
-| Crear reserva (staff) | ✅ | ❌ | ✅ |
-| Editar reserva | ✅ | ❌ | ✅ |
-| Confirmar reserva | ✅ | ❌ | ✅ |
-| Rechazar/cancelar reserva | ✅ | ❌ | ✅ |
-| Ver huéspedes | ✅ | ✅ | ✅ |
-| Ver dashboard KPIs | ❌ | ✅ | ✅ |
-| Ver bitácora auditoría | ❌ | ✅ | ✅ |
-| Gestionar tipos de habitación | ❌ | ❌ | ✅ |
-| Gestionar promociones | ❌ | ❌ | ✅ |
-| Moderar reseñas | ❌ | ❌ | ✅ |
-| Gestionar usuarios | ❌ | ❌ | ✅ |
-| Editar configuración sistema | ❌ | ❌ | ✅ |
-| Editar contenido landing | ❌ | ❌ | ✅ |
-| Gestionar sala/restaurante | ✅ | ❌ | ✅ |
+| Permiso                       | RECEPTIONIST | OWNER | ADMIN |
+| ----------------------------- | :----------: | :---: | :---: |
+| Ver lista de reservas         |      ✅      |  ✅   |  ✅   |
+| Crear reserva (staff)         |      ✅      |  ❌   |  ✅   |
+| Editar reserva                |      ✅      |  ❌   |  ✅   |
+| Confirmar reserva             |      ✅      |  ❌   |  ✅   |
+| Rechazar/cancelar reserva     |      ✅      |  ❌   |  ✅   |
+| Ver huéspedes                 |      ✅      |  ✅   |  ✅   |
+| Ver dashboard KPIs            |      ❌      |  ✅   |  ✅   |
+| Ver bitácora auditoría        |      ❌      |  ✅   |  ✅   |
+| Gestionar tipos de habitación |      ❌      |  ❌   |  ✅   |
+| Gestionar promociones         |      ❌      |  ❌   |  ✅   |
+| Moderar reseñas               |      ❌      |  ❌   |  ✅   |
+| Gestionar usuarios            |      ❌      |  ❌   |  ✅   |
+| Editar configuración sistema  |      ❌      |  ❌   |  ✅   |
+| Editar contenido landing      |      ❌      |  ❌   |  ✅   |
+| Gestionar sala/restaurante    |      ✅      |  ❌   |  ✅   |
 
 ### 7.3 Helper de RBAC (Server-side)
 
@@ -982,11 +1015,7 @@ const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     "reservations:write",
     "reservations:confirm",
   ],
-  OWNER: [
-    "reservations:read",
-    "analytics:read",
-    "audit:read",
-  ],
+  OWNER: ["reservations:read", "analytics:read", "audit:read"],
   ADMIN: [
     "reservations:read",
     "reservations:write",
@@ -1053,9 +1082,7 @@ export default auth(async function proxy(req: NextRequest) {
 });
 
 export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|images|fonts).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|images|fonts).*)"],
 };
 ```
 
@@ -1231,39 +1258,39 @@ hotel-rio-yurubi/
 
 ### 9.1 Rutas Públicas
 
-| Ruta | Tipo de Componente | Datos (fuente) | SEO |
-|------|-------------------|----------------|-----|
-| `/[locale]` | Server Component | `PageSection` (hero, home) | ✅ Metadata dinámica |
-| `/[locale]/habitaciones` | Server Component | `RoomType[]` activos | ✅ |
-| `/[locale]/habitaciones/[slug]` | Server Component | `RoomType` por slug | ✅ |
-| `/[locale]/reservar` | Client Component | `RoomType[]` (fetched en server padre) | ❌ |
-| `/[locale]/reservar/confirmada` | Server Component | `searchParams.reservationId` | ❌ |
-| `/[locale]/restaurante` | Server Component | `PageSection` + `RestaurantBooking` form | ✅ |
-| `/[locale]/salon-reuniones` | Server Component | `PageSection` + `MeetingRoomBooking` form | ✅ |
-| `/[locale]/piscina` | Server Component | `PageSection` + `SystemSetting.pool_price` | ✅ |
-| `/[locale]/galeria` | Server Component | `PageSection.images` | ✅ |
-| `/[locale]/opiniones` | Server Component | `Review[]` status=APPROVED | ✅ |
-| `/[locale]/ubicacion` | Server Component | `SystemSetting` + coords estáticas | ✅ |
-| `/[locale]/contacto` | Server Component + Client form | — | ✅ |
-| `/[locale]/promociones` | Server Component | `Promotion[]` activas y vigentes | ✅ |
+| Ruta                            | Tipo de Componente             | Datos (fuente)                             | SEO                  |
+| ------------------------------- | ------------------------------ | ------------------------------------------ | -------------------- |
+| `/[locale]`                     | Server Component               | `PageSection` (hero, home)                 | ✅ Metadata dinámica |
+| `/[locale]/habitaciones`        | Server Component               | `RoomType[]` activos                       | ✅                   |
+| `/[locale]/habitaciones/[slug]` | Server Component               | `RoomType` por slug                        | ✅                   |
+| `/[locale]/reservar`            | Client Component               | `RoomType[]` (fetched en server padre)     | ❌                   |
+| `/[locale]/reservar/confirmada` | Server Component               | `searchParams.reservationId`               | ❌                   |
+| `/[locale]/restaurante`         | Server Component               | `PageSection` + `RestaurantBooking` form   | ✅                   |
+| `/[locale]/salon-reuniones`     | Server Component               | `PageSection` + `MeetingRoomBooking` form  | ✅                   |
+| `/[locale]/piscina`             | Server Component               | `PageSection` + `SystemSetting.pool_price` | ✅                   |
+| `/[locale]/galeria`             | Server Component               | `PageSection.images`                       | ✅                   |
+| `/[locale]/opiniones`           | Server Component               | `Review[]` status=APPROVED                 | ✅                   |
+| `/[locale]/ubicacion`           | Server Component               | `SystemSetting` + coords estáticas         | ✅                   |
+| `/[locale]/contacto`            | Server Component + Client form | —                                          | ✅                   |
+| `/[locale]/promociones`         | Server Component               | `Promotion[]` activas y vigentes           | ✅                   |
 
 ### 9.2 Rutas del Dashboard
 
-| Ruta | Permisos requeridos | Datos principales |
-|------|---------------------|-------------------|
-| `/[locale]/dashboard` | Cualquier rol | Redirige según rol |
-| `/[locale]/dashboard/reservas` | `reservations:read` | `Reservation[]` con filtros |
-| `/[locale]/dashboard/reservas/nueva` | `reservations:write` | `RoomType[]`, `Guest[]` |
-| `/[locale]/dashboard/reservas/[id]` | `reservations:read` | `Reservation` + `AuditLog[]` |
-| `/[locale]/dashboard/huespedes` | `reservations:read` | `Guest[]` paginado |
-| `/[locale]/dashboard/habitaciones` | `admin:rooms` | `RoomType[]` + `Room[]` |
-| `/[locale]/dashboard/servicios` | `reservations:read` | `MeetingRoomBooking[]` + `RestaurantBooking[]` |
-| `/[locale]/dashboard/promociones` | `admin:promotions` | `Promotion[]` |
-| `/[locale]/dashboard/resenas` | `admin:reviews` | `Review[]` por estado |
-| `/[locale]/dashboard/reportes` | `analytics:read` | KPIs + datos para ApexCharts |
-| `/[locale]/dashboard/configuracion` | `admin:settings` | `SystemSetting[]` |
-| `/[locale]/dashboard/usuarios` | `admin:users` | `User[]` |
-| `/[locale]/dashboard/bitacora` | `audit:read` | `AuditLog[]` paginado |
+| Ruta                                 | Permisos requeridos  | Datos principales                              |
+| ------------------------------------ | -------------------- | ---------------------------------------------- |
+| `/[locale]/dashboard`                | Cualquier rol        | Redirige según rol                             |
+| `/[locale]/dashboard/reservas`       | `reservations:read`  | `Reservation[]` con filtros                    |
+| `/[locale]/dashboard/reservas/nueva` | `reservations:write` | `RoomType[]`, `Guest[]`                        |
+| `/[locale]/dashboard/reservas/[id]`  | `reservations:read`  | `Reservation` + `AuditLog[]`                   |
+| `/[locale]/dashboard/huespedes`      | `reservations:read`  | `Guest[]` paginado                             |
+| `/[locale]/dashboard/habitaciones`   | `admin:rooms`        | `RoomType[]` + `Room[]`                        |
+| `/[locale]/dashboard/servicios`      | `reservations:read`  | `MeetingRoomBooking[]` + `RestaurantBooking[]` |
+| `/[locale]/dashboard/promociones`    | `admin:promotions`   | `Promotion[]`                                  |
+| `/[locale]/dashboard/resenas`        | `admin:reviews`      | `Review[]` por estado                          |
+| `/[locale]/dashboard/reportes`       | `analytics:read`     | KPIs + datos para ApexCharts                   |
+| `/[locale]/dashboard/configuracion`  | `admin:settings`     | `SystemSetting[]`                              |
+| `/[locale]/dashboard/usuarios`       | `admin:users`        | `User[]`                                       |
+| `/[locale]/dashboard/bitacora`       | `audit:read`         | `AuditLog[]` paginado                          |
 
 ---
 
@@ -1290,14 +1317,17 @@ type ActionResult<T = void> =
 // ─── Acción pública: el visitante crea la reserva ─────────────
 
 export async function createReservationAction(
-  formData: unknown
+  formData: unknown,
 ): Promise<ActionResult<{ reservationId: string }>> {
   const parsed = createReservationSchema.safeParse(formData);
   if (!parsed.success) {
     return {
       success: false,
       error: "Datos inválidos",
-      fieldErrors: parsed.error.flatten().fieldErrors as Record<string, string[]>,
+      fieldErrors: parsed.error.flatten().fieldErrors as Record<
+        string,
+        string[]
+      >,
     };
   }
 
@@ -1318,22 +1348,29 @@ export async function createReservationAction(
 
     const roomType = await prisma.roomType.findUnique({
       where: { id: data.roomTypeId },
-      select: { rooms: { where: { isAvailable: true } }, basePrice: true, name: true },
+      select: {
+        rooms: { where: { isAvailable: true } },
+        basePrice: true,
+        name: true,
+      },
     });
 
-    if (!roomType) return { success: false, error: "Tipo de habitación no encontrado" };
+    if (!roomType)
+      return { success: false, error: "Tipo de habitación no encontrado" };
 
     // Sistema de availability sin tiempo real: solo alertar, no bloquear
     const availableCount = roomType.rooms.length;
     if (conflicting >= availableCount) {
       return {
         success: false,
-        error: "No hay disponibilidad para esas fechas. Contáctanos directamente.",
+        error:
+          "No hay disponibilidad para esas fechas. Contáctanos directamente.",
       };
     }
 
     const nights = Math.ceil(
-      (data.checkOut.getTime() - data.checkIn.getTime()) / (1000 * 60 * 60 * 24)
+      (data.checkOut.getTime() - data.checkIn.getTime()) /
+        (1000 * 60 * 60 * 24),
     );
     const totalPrice = roomType.basePrice * nights;
 
@@ -1382,7 +1419,7 @@ export async function createReservationAction(
 // ─── Confirmar reserva (Recepcionista / Admin) ────────────────
 
 export async function confirmReservationAction(
-  reservationId: string
+  reservationId: string,
 ): Promise<ActionResult> {
   const user = await requirePermission("reservations:confirm");
 
@@ -1393,7 +1430,10 @@ export async function confirmReservationAction(
 
   if (!reservation) return { success: false, error: "Reserva no encontrada" };
   if (reservation.status !== "PENDING")
-    return { success: false, error: "Solo se pueden confirmar reservas en estado PENDING" };
+    return {
+      success: false,
+      error: "Solo se pueden confirmar reservas en estado PENDING",
+    };
 
   await prisma.reservation.update({
     where: { id: reservationId },
@@ -1418,7 +1458,7 @@ export async function confirmReservationAction(
 
 export async function cancelReservationAction(
   reservationId: string,
-  reason: string
+  reason: string,
 ): Promise<ActionResult> {
   const user = await requirePermission("reservations:write");
 
@@ -1428,7 +1468,10 @@ export async function cancelReservationAction(
 
   if (!reservation) return { success: false, error: "Reserva no encontrada" };
   if (reservation.status === "COMPLETED")
-    return { success: false, error: "No se puede cancelar una reserva completada" };
+    return {
+      success: false,
+      error: "No se puede cancelar una reserva completada",
+    };
 
   await prisma.reservation.update({
     where: { id: reservationId },
@@ -1457,20 +1500,20 @@ export async function cancelReservationAction(
 
 ### 11.1 Secciones Requeridas en Orden
 
-| # | Sección | Slug del PageSection | Componente | Notas |
-|---|---------|---------------------|-----------|-------|
-| 1 | Hero | `home-hero` | `HeroSection` | Imagen fondo + CTA "Reservar Ahora" |
-| 2 | Promociones Destacadas | — | `PromotionBanner` | Solo si hay promociones activas |
-| 3 | Habitaciones | `habitaciones-preview` | `RoomTypeGrid` | 4 tipos destacados |
-| 4 | Servicios | `servicios-overview` | `ServicesGrid` | Restaurante, Piscina, Sala, Bar |
-| 5 | Restaurante | `restaurante-info` | `RestaurantSection` | Horario, capacidad, CTA reserva mesa |
-| 6 | Piscina | `piscina-info` | `PoolSection` | Horario, costo, normas |
-| 7 | Sala de Reuniones | `sala-reuniones-info` | `MeetingRoomSection` | Capacidad 30p, equipamiento |
-| 8 | Galería | — | `GalleryGrid` | Filtrable por categoría |
-| 9 | Testimonios | — | `ReviewsCarousel` | Solo status=APPROVED |
-| 10 | Ubicación | `ubicacion-info` | `LocationSection` | Mapa Google embed + datos |
-| 11 | Contacto | — | `ContactSection` | Form + WhatsApp link |
-| 12 | Promociones completas | — | `PromotionsList` | Página `/promociones` |
+| #   | Sección                | Slug del PageSection   | Componente           | Notas                                |
+| --- | ---------------------- | ---------------------- | -------------------- | ------------------------------------ |
+| 1   | Hero                   | `home-hero`            | `HeroSection`        | Imagen fondo + CTA "Reservar Ahora"  |
+| 2   | Promociones Destacadas | —                      | `PromotionBanner`    | Solo si hay promociones activas      |
+| 3   | Habitaciones           | `habitaciones-preview` | `RoomTypeGrid`       | 4 tipos destacados                   |
+| 4   | Servicios              | `servicios-overview`   | `ServicesGrid`       | Restaurante, Piscina, Sala, Bar      |
+| 5   | Restaurante            | `restaurante-info`     | `RestaurantSection`  | Horario, capacidad, CTA reserva mesa |
+| 6   | Piscina                | `piscina-info`         | `PoolSection`        | Horario, costo, normas               |
+| 7   | Sala de Reuniones      | `sala-reuniones-info`  | `MeetingRoomSection` | Capacidad 30p, equipamiento          |
+| 8   | Galería                | —                      | `GalleryGrid`        | Filtrable por categoría              |
+| 9   | Testimonios            | —                      | `ReviewsCarousel`    | Solo status=APPROVED                 |
+| 10  | Ubicación              | `ubicacion-info`       | `LocationSection`    | Mapa Google embed + datos            |
+| 11  | Contacto               | —                      | `ContactSection`     | Form + WhatsApp link                 |
+| 12  | Promociones completas  | —                      | `PromotionsList`     | Página `/promociones`                |
 
 ### 11.2 SEO — Metadata por Página
 
@@ -1479,9 +1522,9 @@ export async function cancelReservationAction(
 // Next.js 16: params es async — siempre await antes de usar
 import type { Metadata } from "next";
 
-export async function generateMetadata(
-  props: { params: Promise<{ locale: string }> }
-): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await props.params; // ← await obligatorio en Next.js 16
   const isEs = locale === "es";
 
@@ -1493,7 +1536,12 @@ export async function generateMetadata(
       ? "Hotel frente al Parque Nacional Yurubí. Habitaciones cómodas, restaurante, piscina y sala de reuniones en San Felipe, Yaracuy, Venezuela."
       : "Hotel facing Yurubí National Park. Comfortable rooms, restaurant, pool and meeting room in San Felipe, Yaracuy, Venezuela.",
     keywords: isEs
-      ? ["hotel San Felipe", "hotel Yaracuy", "Parque Nacional Yurubí alojamiento", "hotel Venezuela"]
+      ? [
+          "hotel San Felipe",
+          "hotel Yaracuy",
+          "Parque Nacional Yurubí alojamiento",
+          "hotel Venezuela",
+        ]
       : ["hotel San Felipe Venezuela", "Yurubi National Park accommodation"],
     openGraph: {
       title: "Hotel Río Yurubí",
@@ -1531,13 +1579,21 @@ const hotelJsonLd = {
     latitude: "10.4035",
     longitude: "-68.7470",
   },
-  telephone: "+582542310798",
+  telephone: "+584267224991",
   email: "hotelrioyurubi@gmail.com",
   priceRange: "$$",
   amenityFeature: [
     { "@type": "LocationFeatureSpecification", name: "Piscina", value: true },
-    { "@type": "LocationFeatureSpecification", name: "Restaurante", value: true },
-    { "@type": "LocationFeatureSpecification", name: "Estacionamiento", value: true },
+    {
+      "@type": "LocationFeatureSpecification",
+      name: "Restaurante",
+      value: true,
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      name: "Estacionamiento",
+      value: true,
+    },
     { "@type": "LocationFeatureSpecification", name: "WiFi", value: true },
   ],
 };
@@ -1545,12 +1601,12 @@ const hotelJsonLd = {
 
 ### 11.3 Targets de Performance
 
-| Métrica | Target | Estrategia |
-|---------|--------|-----------|
-| LCP | < 2.5s | `next/image` con WebP/AVIF, `priority` en hero image |
-| FID | < 100ms | Minimizar JS en Server Components |
-| CLS | < 0.1 | Dimensiones explícitas en `next/image` |
-| Lighthouse Score | > 90 | Auditoría con `npx lighthouse` en CI |
+| Métrica          | Target  | Estrategia                                           |
+| ---------------- | ------- | ---------------------------------------------------- |
+| LCP              | < 2.5s  | `next/image` con WebP/AVIF, `priority` en hero image |
+| FID              | < 100ms | Minimizar JS en Server Components                    |
+| CLS              | < 0.1   | Dimensiones explícitas en `next/image`               |
+| Lighthouse Score | > 90    | Auditoría con `npx lighthouse` en CI                 |
 
 ---
 
@@ -1628,7 +1684,10 @@ interface BookingWizardProps {
   paymentInstructions: Record<string, string>; // De SystemSetting
 }
 
-export function BookingWizard({ roomTypes, paymentInstructions }: BookingWizardProps) {
+export function BookingWizard({
+  roomTypes,
+  paymentInstructions,
+}: BookingWizardProps) {
   const [step, setStep] = useState<WizardStep>(1);
   const [data, setData] = useState<WizardData>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -1648,7 +1707,9 @@ export function BookingWizard({ roomTypes, paymentInstructions }: BookingWizardP
     });
 
     if (result.success) {
-      router.push(`/${locale}/reservar/confirmada?id=${result.data.reservationId}`);
+      router.push(
+        `/${locale}/reservar/confirmada?id=${result.data.reservationId}`,
+      );
     } else {
       setError(result.error);
       setIsLoading(false);
@@ -1667,7 +1728,7 @@ export function BookingWizard({ roomTypes, paymentInstructions }: BookingWizardP
 export function calculateReservationPrice(
   basePrice: number,
   checkIn: Date,
-  checkOut: Date
+  checkOut: Date,
 ): { nights: number; total: number } {
   const ms = checkOut.getTime() - checkIn.getTime();
   const nights = Math.ceil(ms / (1000 * 60 * 60 * 24));
@@ -1684,6 +1745,7 @@ export function calculateReservationPrice(
 **Página principal** `/dashboard`: Listado de reservas con filtros de estado (PENDING, CONFIRMED, CANCELLED) y rango de fechas. Vista de calendario opcional.
 
 **Acciones disponibles:**
+
 - Confirmar reserva (PENDING → CONFIRMED)
 - Rechazar reserva (PENDING → REJECTED) con campo de motivo obligatorio
 - Cancelar reserva (CONFIRMED → CANCELLED) con campo de motivo obligatorio
@@ -1694,12 +1756,12 @@ export function calculateReservationPrice(
 
 **KPIs en cards:**
 
-| KPI | Cálculo | Período |
-|-----|---------|---------|
-| Reservas Activas | `count WHERE status=CONFIRMED AND checkIn >= today` | Actual |
-| Reservas del Mes | `count WHERE createdAt IN [startOfMonth, endOfMonth]` | Filtrable |
-| Tasa de Cancelación | `cancelled / total * 100` | Filtrable |
-| Ocupación % | `occupiedRooms / totalRooms * 100` | Hoy |
+| KPI                 | Cálculo                                               | Período   |
+| ------------------- | ----------------------------------------------------- | --------- |
+| Reservas Activas    | `count WHERE status=CONFIRMED AND checkIn >= today`   | Actual    |
+| Reservas del Mes    | `count WHERE createdAt IN [startOfMonth, endOfMonth]` | Filtrable |
+| Tasa de Cancelación | `cancelled / total * 100`                             | Filtrable |
+| Ocupación %         | `occupiedRooms / totalRooms * 100`                    | Hoy       |
 
 **Gráficos ApexCharts (Client Components):**
 
@@ -1750,14 +1812,14 @@ Acceso completo. Adicionalmente:
 
 ### 14.1 Catálogo de Emails
 
-| Evento | Trigger | Destinatario | Template |
-|--------|---------|-------------|---------|
-| Reserva PENDING | `createReservationAction` | Cliente + hotel | `reservation-pending` |
-| Reserva CONFIRMED | `confirmReservationAction` | Cliente | `reservation-confirmed` |
-| Reserva REJECTED | `rejectReservationAction` | Cliente | `reservation-rejected` |
-| Recordatorio check-in | Cron 24h antes | Cliente | `checkin-reminder` |
-| Solicitud de reseña | Cron post-checkout + 24h | Cliente | `review-request` |
-| Nueva reserva (staff) | `createReservationAction` | hotel email | `staff-new-reservation` |
+| Evento                | Trigger                    | Destinatario    | Template                |
+| --------------------- | -------------------------- | --------------- | ----------------------- |
+| Reserva PENDING       | `createReservationAction`  | Cliente + hotel | `reservation-pending`   |
+| Reserva CONFIRMED     | `confirmReservationAction` | Cliente         | `reservation-confirmed` |
+| Reserva REJECTED      | `rejectReservationAction`  | Cliente         | `reservation-rejected`  |
+| Recordatorio check-in | Cron 24h antes             | Cliente         | `checkin-reminder`      |
+| Solicitud de reseña   | Cron post-checkout + 24h   | Cliente         | `review-request`        |
+| Nueva reserva (staff) | `createReservationAction`  | hotel email     | `staff-new-reservation` |
 
 ### 14.2 Wrapper de Envío
 
@@ -2029,7 +2091,10 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: [
           { key: "X-DNS-Prefetch-Control", value: "on" },
-          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -2117,10 +2182,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/forms"),
-    require("@tailwindcss/typography"),
-  ],
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
 };
 
 export default config;
@@ -2165,58 +2227,58 @@ Los criterios están redactados como tests ejecutables o condiciones verificable
 
 ### 17.1 Landing Page Pública
 
-| ID | Criterio | Verificación |
-|----|----------|-------------|
-| LP-01 | LCP < 2.5s | `npx lighthouse --only-categories=performance` score ≥ 90 |
-| LP-02 | Responsive en 375px, 768px, 1280px | `npx playwright test` con viewports |
-| LP-03 | Header sticky visible en scroll | E2E: scroll 500px → header visible en viewport |
-| LP-04 | Las 10 secciones existen en el DOM | `document.querySelectorAll("[data-section]").length === 10` |
-| LP-05 | Switch ES/EN cambia URL y contenido | `router.push("/en")` → `<html lang="en">` + texto inglés |
-| LP-06 | Meta title incluye "San Felipe" | `document.title.includes("San Felipe")` |
-| LP-07 | JSON-LD Hotel presente en `<head>` | `document.querySelector('script[type="application/ld+json"]')` |
+| ID    | Criterio                               | Verificación                                                      |
+| ----- | -------------------------------------- | ----------------------------------------------------------------- |
+| LP-01 | LCP < 2.5s                             | `npx lighthouse --only-categories=performance` score ≥ 90         |
+| LP-02 | Responsive en 375px, 768px, 1280px     | `npx playwright test` con viewports                               |
+| LP-03 | Header sticky visible en scroll        | E2E: scroll 500px → header visible en viewport                    |
+| LP-04 | Las 10 secciones existen en el DOM     | `document.querySelectorAll("[data-section]").length === 10`       |
+| LP-05 | Switch ES/EN cambia URL y contenido    | `router.push("/en")` → `<html lang="en">` + texto inglés          |
+| LP-06 | Meta title incluye "San Felipe"        | `document.title.includes("San Felipe")`                           |
+| LP-07 | JSON-LD Hotel presente en `<head>`     | `document.querySelector('script[type="application/ld+json"]')`    |
 | LP-08 | Formulario de contacto retorna success | POST con datos válidos → HTTP 200 + email recibido en EMAIL_HOTEL |
 
 ### 17.2 Sistema de Reservas
 
-| ID | Criterio | Verificación |
-|----|----------|-------------|
-| RES-01 | Step 1 rechaza checkOut <= checkIn | Zod refinement → fieldError en `checkOut` |
-| RES-02 | Step 1 rechaza numberOfGuests > maxOccupancy | Server-side check → `{ success: false }` |
-| RES-03 | Reserva creada con status PENDING | `prisma.reservation.findUnique(id).status === "PENDING"` |
-| RES-04 | totalPrice = basePrice × nights | `reservation.totalPrice === roomType.basePrice * reservation.numberOfNights` |
-| RES-05 | Email enviado a cliente tras creación | Resend API → email en bandeja de `guest.email` |
-| RES-06 | Email enviado a hotel tras creación | Resend API → email en `EMAIL_HOTEL` |
-| RES-07 | Redirección a `/reservar/confirmada?id=XXX` | `router.pathname === "/reservar/confirmada"` con `searchParams.id` presente |
-| RES-08 | Guest reutilizado si email ya existe | `connectOrCreate` → un solo registro en tabla `guests` por email |
+| ID     | Criterio                                     | Verificación                                                                 |
+| ------ | -------------------------------------------- | ---------------------------------------------------------------------------- |
+| RES-01 | Step 1 rechaza checkOut <= checkIn           | Zod refinement → fieldError en `checkOut`                                    |
+| RES-02 | Step 1 rechaza numberOfGuests > maxOccupancy | Server-side check → `{ success: false }`                                     |
+| RES-03 | Reserva creada con status PENDING            | `prisma.reservation.findUnique(id).status === "PENDING"`                     |
+| RES-04 | totalPrice = basePrice × nights              | `reservation.totalPrice === roomType.basePrice * reservation.numberOfNights` |
+| RES-05 | Email enviado a cliente tras creación        | Resend API → email en bandeja de `guest.email`                               |
+| RES-06 | Email enviado a hotel tras creación          | Resend API → email en `EMAIL_HOTEL`                                          |
+| RES-07 | Redirección a `/reservar/confirmada?id=XXX`  | `router.pathname === "/reservar/confirmada"` con `searchParams.id` presente  |
+| RES-08 | Guest reutilizado si email ya existe         | `connectOrCreate` → un solo registro en tabla `guests` por email             |
 
 ### 17.3 RBAC
 
-| ID | Criterio | Verificación |
-|----|----------|-------------|
-| RBAC-01 | RECEPTIONIST no puede acceder a `/dashboard/configuracion` | HTTP 302 redirect a `/dashboard` |
-| RBAC-02 | OWNER no puede crear reserva | `createReservationAction` → `requirePermission("reservations:write")` → redirect |
-| RBAC-03 | OWNER puede ver `/dashboard/reportes` | HTTP 200 con datos de KPIs |
-| RBAC-04 | Solo ADMIN puede crear usuarios | `createUserAction` con rol RECEPTIONIST → error |
-| RBAC-05 | Token JWT incluye `role` | `jwt() callback` → `token.role` presente y correcto |
-| RBAC-06 | Usuario inactivo (`isActive=false`) no puede hacer login | `authorize()` → `return null` |
+| ID      | Criterio                                                   | Verificación                                                                     |
+| ------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| RBAC-01 | RECEPTIONIST no puede acceder a `/dashboard/configuracion` | HTTP 302 redirect a `/dashboard`                                                 |
+| RBAC-02 | OWNER no puede crear reserva                               | `createReservationAction` → `requirePermission("reservations:write")` → redirect |
+| RBAC-03 | OWNER puede ver `/dashboard/reportes`                      | HTTP 200 con datos de KPIs                                                       |
+| RBAC-04 | Solo ADMIN puede crear usuarios                            | `createUserAction` con rol RECEPTIONIST → error                                  |
+| RBAC-05 | Token JWT incluye `role`                                   | `jwt() callback` → `token.role` presente y correcto                              |
+| RBAC-06 | Usuario inactivo (`isActive=false`) no puede hacer login   | `authorize()` → `return null`                                                    |
 
 ### 17.4 Auditoría
 
-| ID | Criterio | Verificación |
-|----|----------|-------------|
-| AUDIT-01 | Confirmación de reserva crea AuditLog | `prisma.auditLog.findFirst({ where: { entityId, action: "CONFIRM" } })` |
-| AUDIT-02 | Cancelación de reserva crea AuditLog con reason | `auditLog.changes.after.reason !== null` |
-| AUDIT-03 | `changes` contiene before/after | `auditLog.changes.before !== undefined && auditLog.changes.after !== undefined` |
-| AUDIT-04 | `performedById` es null para acciones de visitante | `createReservation` → `auditLog.performedById === null` |
+| ID       | Criterio                                           | Verificación                                                                    |
+| -------- | -------------------------------------------------- | ------------------------------------------------------------------------------- |
+| AUDIT-01 | Confirmación de reserva crea AuditLog              | `prisma.auditLog.findFirst({ where: { entityId, action: "CONFIRM" } })`         |
+| AUDIT-02 | Cancelación de reserva crea AuditLog con reason    | `auditLog.changes.after.reason !== null`                                        |
+| AUDIT-03 | `changes` contiene before/after                    | `auditLog.changes.before !== undefined && auditLog.changes.after !== undefined` |
+| AUDIT-04 | `performedById` es null para acciones de visitante | `createReservation` → `auditLog.performedById === null`                         |
 
 ### 17.5 Emails
 
-| ID | Criterio | Verificación |
-|----|----------|-------------|
-| EMAIL-01 | Template ES en reserva con language="es" | `subject` contiene "Solicitud de Reserva" |
-| EMAIL-02 | Template EN en reserva con language="en" | `subject` contiene "Reservation Request" |
-| EMAIL-03 | Email incluye `reservationId` truncado | Body HTML contiene `reservation.id.slice(-8).toUpperCase()` |
-| EMAIL-04 | Email no se envía si Resend falla silenciosamente | Error es logueado, no re-throw en createReservationAction |
+| ID       | Criterio                                          | Verificación                                                |
+| -------- | ------------------------------------------------- | ----------------------------------------------------------- |
+| EMAIL-01 | Template ES en reserva con language="es"          | `subject` contiene "Solicitud de Reserva"                   |
+| EMAIL-02 | Template EN en reserva con language="en"          | `subject` contiene "Reservation Request"                    |
+| EMAIL-03 | Email incluye `reservationId` truncado            | Body HTML contiene `reservation.id.slice(-8).toUpperCase()` |
+| EMAIL-04 | Email no se envía si Resend falla silenciosamente | Error es logueado, no re-throw en createReservationAction   |
 
 ---
 
@@ -2312,25 +2374,25 @@ Los criterios están redactados como tests ejecutables o condiciones verificable
 
 Los siguientes gaps del documento original tienen decisiones tomadas. El agente debe respetar estas decisiones y no reabrir la discusión.
 
-| # | Gap Original | Decisión Tomada | Justificación |
-|---|-------------|-----------------|---------------|
-| G-01 | Moneda de precios | USD como moneda base. Tasa VES/USD configurable en `SystemSetting.exchange_rate`. La visualización en el dashboard puede mostrar ambas. | Venezuela: precios referenciales en USD es práctica estándar |
-| G-02 | Disponibilidad en tiempo real | NO se implementa disponibilidad en tiempo real. El sistema verifica disponibilidad aproximada (habitaciones disponibles del tipo vs. reservas activas solapadas) y advierte, pero no bloquea automáticamente. La confirmación final es siempre manual por staff. | Costo de complejidad vs. beneficio para hotel pequeño |
-| G-03 | Política de cancelación | Default: reembolso 100% si cancela con >48h de anticipación, 0% si <48h. Configurable en `SystemSetting.cancellation_policy`. | Estándar de la industria para hoteles boutique |
-| G-04 | Horario Sala de Reuniones | 6:00 AM – 12:00 PM (mediodía). Precio: $250 USD/día. Configurable. | Especificado en retrospectiva original |
-| G-05 | Duración reserva restaurante | Dos turnos: SLOT_12_14 (12:00-14:00) y SLOT_14_16 (14:00-16:00). Modelado como enum `RestaurantTimeSlot`. | Simplifica lógica y evita solapamientos |
-| G-06 | Costo de piscina | Configurable en `SystemSetting.pool_price`. Valor inicial: 0 (admin debe configurar). | No se especificó monto en requisitos |
-| G-07 | Exportación de reportes | Excluida del alcance v1.0. Marcada como funcionalidad futura. | No definida como prioritaria |
-| G-08 | Textos de landing editables | Implementados via modelo `PageSection` con slugs únicos. Admin edita desde dashboard. | Permite autonomía del hotel sin deploy |
-| G-09 | i18n en App Router | `next-intl` (ADR-003). La config `i18n` de `next.config.js` es Pages Router y causa errores. | Bug crítico del spec v1.0 corregido |
-| G-10 | Auth.js versión | Auth.js v5 (no NextAuth v4). API diferente: `auth()` en lugar de `getServerSession()`. | Versión actual al momento de este spec |
-| G-11 | Seed inicial | `prisma/seed.ts` debe crear: 1 usuario ADMIN, 7 tipos de habitación (según Sección 4.1 original), SystemSettings base, 1 PageSection por sección de landing | Setup mínimo para que el sistema sea operativo en día 1 |
-| G-12 | Rutas con tildes | `reseñas` → `resenas` en el filesystem para evitar issues en case-insensitive OS (macOS) y deployments | Problema real en proyectos Next.js en producción |
-| G-13 | Versión de Next.js | **Next.js 16.2.0** (latest marzo 2026). Breaking changes documentados en ADR-008. `middleware.ts` → `proxy.ts`, `params` async, Turbopack default, `next lint` eliminado, Node.js >= 20.9.0 requerido | Solicitud explícita del cliente. Versión más reciente y estable disponible |
+| #    | Gap Original                  | Decisión Tomada                                                                                                                                                                                                                                                  | Justificación                                                              |
+| ---- | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| G-01 | Moneda de precios             | USD como moneda base. Tasa VES/USD configurable en `SystemSetting.exchange_rate`. La visualización en el dashboard puede mostrar ambas.                                                                                                                          | Venezuela: precios referenciales en USD es práctica estándar               |
+| G-02 | Disponibilidad en tiempo real | NO se implementa disponibilidad en tiempo real. El sistema verifica disponibilidad aproximada (habitaciones disponibles del tipo vs. reservas activas solapadas) y advierte, pero no bloquea automáticamente. La confirmación final es siempre manual por staff. | Costo de complejidad vs. beneficio para hotel pequeño                      |
+| G-03 | Política de cancelación       | Default: reembolso 100% si cancela con >48h de anticipación, 0% si <48h. Configurable en `SystemSetting.cancellation_policy`.                                                                                                                                    | Estándar de la industria para hoteles boutique                             |
+| G-04 | Horario Sala de Reuniones     | 6:00 AM – 12:00 PM (mediodía). Precio: $250 USD/día. Configurable.                                                                                                                                                                                               | Especificado en retrospectiva original                                     |
+| G-05 | Duración reserva restaurante  | Dos turnos: SLOT_12_14 (12:00-14:00) y SLOT_14_16 (14:00-16:00). Modelado como enum `RestaurantTimeSlot`.                                                                                                                                                        | Simplifica lógica y evita solapamientos                                    |
+| G-06 | Costo de piscina              | Configurable en `SystemSetting.pool_price`. Valor inicial: 0 (admin debe configurar).                                                                                                                                                                            | No se especificó monto en requisitos                                       |
+| G-07 | Exportación de reportes       | Excluida del alcance v1.0. Marcada como funcionalidad futura.                                                                                                                                                                                                    | No definida como prioritaria                                               |
+| G-08 | Textos de landing editables   | Implementados via modelo `PageSection` con slugs únicos. Admin edita desde dashboard.                                                                                                                                                                            | Permite autonomía del hotel sin deploy                                     |
+| G-09 | i18n en App Router            | `next-intl` (ADR-003). La config `i18n` de `next.config.js` es Pages Router y causa errores.                                                                                                                                                                     | Bug crítico del spec v1.0 corregido                                        |
+| G-10 | Auth.js versión               | Auth.js v5 (no NextAuth v4). API diferente: `auth()` en lugar de `getServerSession()`.                                                                                                                                                                           | Versión actual al momento de este spec                                     |
+| G-11 | Seed inicial                  | `prisma/seed.ts` debe crear: 1 usuario ADMIN, 7 tipos de habitación (según Sección 4.1 original), SystemSettings base, 1 PageSection por sección de landing                                                                                                      | Setup mínimo para que el sistema sea operativo en día 1                    |
+| G-12 | Rutas con tildes              | `reseñas` → `resenas` en el filesystem para evitar issues en case-insensitive OS (macOS) y deployments                                                                                                                                                           | Problema real en proyectos Next.js en producción                           |
+| G-13 | Versión de Next.js            | **Next.js 16.2.0** (latest marzo 2026). Breaking changes documentados en ADR-008. `middleware.ts` → `proxy.ts`, `params` async, Turbopack default, `next lint` eliminado, Node.js >= 20.9.0 requerido                                                            | Solicitud explícita del cliente. Versión más reciente y estable disponible |
 
 ---
 
-*Documento generado para consumo directo por agentes de IA de generación de código.*  
-*Versión: 2.1 · Stack canónico: Next.js 16.2.0 + Auth.js v5 + Prisma 5 + next-intl 3 + Resend*  
-*Actualizado: migración a Next.js 16 con breaking changes documentados en ADR-008.*  
-*Cada sección es accionable. No existen TODOs ni placeholders sin decisión tomada.*
+_Documento generado para consumo directo por agentes de IA de generación de código._  
+_Versión: 2.1 · Stack canónico: Next.js 16.2.0 + Auth.js v5 + Prisma 5 + next-intl 3 + Resend_  
+_Actualizado: migración a Next.js 16 con breaking changes documentados en ADR-008._  
+_Cada sección es accionable. No existen TODOs ni placeholders sin decisión tomada._

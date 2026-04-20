@@ -107,7 +107,7 @@ export default async function GalleryPage({ params }: PageProps) {
               className="w-full sm:w-auto text-cta h-16 px-10 border border-[#25D366]/50 text-white hover:bg-[#25D366]/20 hover:border-[#25D366] rounded-full backdrop-blur-md transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(37,211,102,0.15)]"
               asChild
             >
-              <a href="https://wa.me/582542310798" target="_blank" rel="noopener noreferrer" className="flex items-center">
+              <a href="https://wa.me/584267224991" target="_blank" rel="noopener noreferrer" className="flex items-center">
                 <MessageSquare className="mr-3 h-6 w-6 text-[#25D366] fill-[#25D366]/10" />
                 {tHero("whatsapp")}
               </a>

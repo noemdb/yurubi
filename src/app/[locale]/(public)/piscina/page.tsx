@@ -158,7 +158,7 @@ export default async function PoolPage({ params }: PageProps) {
             </div>
             <div className="mt-8 p-3 bg-white/50 dark:bg-slate-900/60 rounded-lg border border-brand-green/10 dark:border-[#1e5a37]/30 flex justify-between items-center transition-colors">
               <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-widest">Visitantes Externos</p>
-              <p className="text-brand-green dark:text-emerald-400 font-bold text-lg">USD 7.5 </p>
+              <p className="text-brand-green dark:text-emerald-400 font-bold text-lg">USD 7 </p>
             </div>
           </div>
 

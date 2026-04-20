@@ -50,7 +50,7 @@ const hotelJsonLd = {
     latitude: "10.4035",
     longitude: "-68.7470",
   },
-  telephone: "+582542310798",
+  telephone: "+584267224991",
   email: "hotelrioyurubi@gmail.com",
   priceRange: "$$",
 };

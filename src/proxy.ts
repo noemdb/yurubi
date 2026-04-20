@@ -11,6 +11,6 @@ export const config = {
     // Set a cookie to remember the previous locale for all requests that have a matching locale prefix
     "/(es|en)/:path*",
     // Enable redirects that add missing locales (e.g. `/about` => `/en/about`)
-    "/((?!_next|_vercel|favicon.ico|images|fonts|api).*)",
+    "/((?!_next|_vercel|favicon.ico|images|video|fonts|api).*)",
   ],
 };

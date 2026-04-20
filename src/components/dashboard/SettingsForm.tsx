@@ -44,7 +44,7 @@ export function SettingsForm({ initialData, locale }: { initialData: any, locale
   const form = useForm<z.infer<typeof settingsSchema>>({
     resolver: zodResolver(settingsSchema),
     defaultValues: {
-      phone: initialData.contact?.phone || "+58 254-231-0798",
+      phone: initialData.contact?.phone || "+58 426-722-4991",
       email: initialData.contact?.email || "hotelrioyurubi@gmail.com",
       address: initialData.contact?.address || "Final Avenida La Fuente, San Felipe, Yaracuy",
       instagram: initialData.social?.instagram || "",

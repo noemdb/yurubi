@@ -92,7 +92,7 @@ export default async function TermsPage({ params }: PageProps) {
                 <br />
                 <strong>Email:</strong> hotelrioyurubi@gmail.com
                 <br />
-                <strong>Teléfono:</strong> +58 254-231-0798
+                <strong>Teléfono:</strong> +58 426-722-4991
                 <br />
                 <strong>Dirección:</strong> Final Avenida La Fuente, San Felipe, Yaracuy, Venezuela
               </p>
@@ -152,7 +152,7 @@ export default async function TermsPage({ params }: PageProps) {
                 <br />
                 <strong>Email:</strong> hotelrioyurubi@gmail.com
                 <br />
-                <strong>Phone:</strong> +58 254-231-0798
+                <strong>Phone:</strong> +58 426-722-4991
                 <br />
                 <strong>Address:</strong> Final Avenida La Fuente, San Felipe, Yaracuy, Venezuela
               </p>

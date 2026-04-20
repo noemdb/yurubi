@@ -231,8 +231,8 @@ async function main() {
       key: "hotel_info",
       value: {
         name: "Hotel Río Yurubí",
-        phone: "+58 254-231-0798",
-        whatsapp: "+582542310798",
+        phone: "+58 426-722-4991",
+        whatsapp: "+584267224991",
         email: "hotelrioyurubi@gmail.com",
         address: "Final Avenida La Fuente, San Felipe, Yaracuy, Venezuela",
         lat: 10.4035,
