@@ -78,76 +78,75 @@ export function Hero({ locale }: { locale: string }) {
       </div>
 
       {/* Content */}
-      <div className="container relative z-40 mx-auto px-4 text-center">
+      <div className="container relative z-40 mx-auto px-4 h-full flex items-center justify-center pt-20">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-4xl mx-auto flex flex-col items-center"
+          className="w-full max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"
         >
-          {/* Logo Integration */}
+          {/* Text Content (Left Side) */}
+          <div className="text-center lg:text-left flex flex-col items-center lg:items-start order-2 lg:order-1">
+            <motion.h1 
+              variants={itemVariants}
+              className="text-hero mb-6 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
+            >
+              {t("title")}
+            </motion.h1>
+            
+            <motion.p 
+              variants={itemVariants}
+              className="text-hero-subtitle mb-12 max-w-2xl drop-shadow-md"
+            >
+              {t("subtitle")}
+            </motion.p>
+            
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 w-full sm:w-auto"
+            >
+              <Button
+                asChild
+                size="lg"
+                variant="ghost"
+                className="w-full sm:w-auto text-cta h-16 px-10 rounded-2xl border border-white/30 text-white hover:bg-white/10 hover:border-white backdrop-blur-md transition-all transform hover:scale-105 active:scale-95"
+              >
+                <Link href={`/${locale}/habitaciones`}>{t("ctaSecondary")}</Link>
+              </Button>
+
+              <Button
+                type="button"
+                variant="ghost"
+                className="w-full sm:w-auto text-cta h-16 px-10 border border-[#25D366]/50 text-white hover:bg-[#25D366]/20 hover:border-[#25D366] rounded-lg backdrop-blur-md transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(37,211,102,0.15)]"
+                onClick={() => window.open("https://wa.me/584267224991", "_blank")}
+              >
+                <MessageSquare className="mr-3 h-6 w-6 text-[#25D366] fill-[#25D366]/10" />
+                {t("whatsapp")}
+              </Button>
+            </motion.div>
+          </div>
+
+          {/* Video Integration (Right Side) */}
           <motion.div
             variants={itemVariants}
-            className="mb-8 relative"
+            className="flex justify-center lg:justify-end order-1 lg:order-2"
           >
-            <div className="absolute -inset-4 bg-white/10 blur-2xl rounded-full" />
-            <Image
-              src="/images/logo/logo.jpg"
-              alt="Hotel Río Yurubí Logo"
-              width={140}
-              height={140}
-              className="relative rounded shadow-2xl border-2 border-white/20"
-              priority
-              unoptimized
-              sizes="140px"
-            />
-
-          </motion.div>
-
-          <motion.h1 
-            variants={itemVariants}
-            className="text-hero mb-6 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
-          >
-            {t("title")}
-          </motion.h1>
-          
-          <motion.p 
-            variants={itemVariants}
-            className="text-hero-subtitle mb-12 max-w-2xl mx-auto drop-shadow-md"
-          >
-            {t("subtitle")}
-          </motion.p>
-          
-          <motion.div 
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center justify-center gap-6"
-          >
-            {/* <Button
-              asChild
-              size="lg"
-              className="w-full sm:w-auto text-cta h-16 px-10 bg-brand-green hover:bg-brand-green-600 text-white rounded-full shadow-[0_0_20px_rgba(69,176,114,0.3)] hover:shadow-[0_0_30px_rgba(69,176,114,0.5)] transition-all transform hover:scale-105 active:scale-95 border-none"
+            <div
+              suppressHydrationWarning
+              className="relative w-full max-w-[320px] lg:max-w-[400px] rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-white/30 group"
+              style={{ aspectRatio: '464 / 832' }}
             >
-              <Link href={`/${locale}/reservar`}>{t("cta")}</Link>
-            </Button> */}
-            
-            <Button
-              asChild
-              size="lg"
-              variant="ghost"
-              className="w-full sm:w-auto text-cta h-16 px-10 rounded-2xl border border-white/30 text-white hover:bg-white/10 hover:border-white backdrop-blur-md transition-all transform hover:scale-105 active:scale-95"
-            >
-              <Link href={`/${locale}/habitaciones`}>{t("ctaSecondary")}</Link>
-            </Button>
-
-            <Button
-              type="button"
-              variant="ghost"
-              className="w-full sm:w-auto text-cta h-16 px-10 border border-[#25D366]/50 text-white hover:bg-[#25D366]/20 hover:border-[#25D366] rounded-lg backdrop-blur-md transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(37,211,102,0.15)]"
-              onClick={() => window.open("https://wa.me/584267224991", "_blank")}
-            >
-              <MessageSquare className="mr-3 h-6 w-6 text-[#25D366] fill-[#25D366]/10" />
-              {t("whatsapp")}
-            </Button>
+              <video
+                suppressHydrationWarning
+                src="/video/logo01.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-1000"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            </div>
           </motion.div>
         </motion.div>
       </div>
