@@ -133,12 +133,11 @@ export function Hero({ locale }: { locale: string }) {
           >
             <div
               suppressHydrationWarning
-              className="relative w-full max-w-[320px] lg:max-w-[400px] rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-white/30 group"
-              style={{ aspectRatio: '464 / 832' }}
+              className="relative w-full max-w-[320px] lg:max-w-[400px] aspect-square rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-white/30 group"
             >
               <video
                 suppressHydrationWarning
-                src="/video/logo01.mp4"
+                src="/video/logov2.mp4"
                 autoPlay
                 loop
                 muted

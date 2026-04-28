@@ -88,11 +88,14 @@ export function Contact() {
                   </div>
                   <span>hotelrioyurubi@gmail.com</span>
                 </div>
-                <div className="flex items-center gap-4 text-muted-foreground dark:text-gray-400">
-                  <div className="bg-brand-green/10 p-3 rounded text-brand-green">
+                <div className="flex items-start gap-4 text-muted-foreground dark:text-gray-400">
+                  <div className="bg-brand-green/10 p-3 rounded text-brand-green mt-1">
                     <MessageSquare className="w-5 h-5" />
                   </div>
-                  <span>+58 254 231.07.98</span>
+                  <div className="flex flex-col gap-1">
+                    <span>+58 254 231.07.98</span>
+                    <span>+58 254 231.07.92</span>
+                  </div>
                 </div>
               </div>
             </div>

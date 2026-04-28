@@ -145,10 +145,13 @@ export function Footer() {
                 <MapPin className="h-5 w-5 text-brand-blue shrink-0 mt-0.5" />
                 <span>{tLoc("address")}</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-brand-blue shrink-0" />
-                <span>{tLoc("phone")}</span>
-                <span>+58 254 231.07.98</span>
+              <li className="flex items-start gap-3">
+                <Phone className="h-5 w-5 text-brand-blue shrink-0 mt-0.5" />
+                <div className="flex flex-col gap-1">
+                  <span>{tLoc("phone")}</span>
+                  <span>+58 254 231.07.98</span>
+                  <span>+58 254 231.07.92</span>
+                </div>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-brand-blue shrink-0" />

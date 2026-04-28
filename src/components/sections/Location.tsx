@@ -71,7 +71,7 @@ export function Location() {
                 </div>
                 <div>
                   <h3 className="text-card-title mb-2">Contacto</h3>
-                  <p className="text-muted-foreground dark:text-gray-400 text-sm mb-1">+58 254 231.07.98</p>
+                  <p className="text-muted-foreground dark:text-gray-400 text-sm mb-1">+58 254 231.07.98 / +58 254 231.07.92</p>
                   <p className="text-muted-foreground dark:text-gray-400 text-sm mb-4">hotelrioyurubi@gmail.com</p>
                   <div className="flex items-center gap-2 text-brand-green font-bold text-sm">
                     <span className="relative flex h-2 w-2">
