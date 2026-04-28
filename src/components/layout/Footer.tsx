@@ -52,8 +52,8 @@ export function Footer() {
               Tu refugio natural en el corazón de Yaracuy. Disfruta de la tranquilidad del Parque Nacional Yurubí con la mejor atención y comodidad.
             </p>
             <div className="flex gap-4 pt-2">
-              {/* <a
-                href="https://instagram.com"
+              <a
+                href="https://www.instagram.com/rioyurubihotel?igsh=Z3BnMTIxaXl1bXNy"
                 target="_blank"
                 rel="noreferrer"
                 className="text-gray-400 hover:text-brand-green transition-colors"
@@ -61,7 +61,7 @@ export function Footer() {
               >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a
+              {/* <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
