@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Loader2, Mail, MessageSquare } from "lucide-react";
+import { Loader2, Mail, MessageSquare, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -96,6 +96,19 @@ export function Contact() {
                     <span>+58 254 231.07.98</span>
                     <span>+58 254 231.07.92</span>
                   </div>
+                </div>
+                <div className="flex items-center gap-4 text-muted-foreground dark:text-gray-400">
+                  <div className="bg-purple-500/10 p-3 rounded text-purple-500">
+                    <Instagram className="w-5 h-5" />
+                  </div>
+                  <a 
+                    href="https://www.instagram.com/rioyurubihotel?igsh=Z3BnMTIxaXl1bXNy" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="hover:text-purple-500 transition-colors"
+                  >
+                    @rioyurubihotel
+                  </a>
                 </div>
               </div>
             </div>

@@ -51,25 +51,19 @@ export function Footer() {
             <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
               Tu refugio natural en el corazón de Yaracuy. Disfruta de la tranquilidad del Parque Nacional Yurubí con la mejor atención y comodidad.
             </p>
-            <div className="flex gap-4 pt-2">
+            <div className="flex gap-4 pt-4">
               <a
                 href="https://www.instagram.com/rioyurubihotel?igsh=Z3BnMTIxaXl1bXNy"
                 target="_blank"
                 rel="noreferrer"
-                className="text-gray-400 hover:text-brand-green transition-colors"
-                title="Instagram"
+                className="group flex items-center gap-3 px-5 py-2.5 rounded-full bg-gray-800/80 border border-gray-700/50 hover:bg-gradient-to-tr hover:from-amber-500 hover:via-pink-500 hover:to-purple-500 hover:border-transparent hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                title="Síguenos en Instagram"
               >
-                <Instagram className="h-5 w-5" />
+                <Instagram className="h-5 w-5 text-gray-400 group-hover:text-white transition-colors duration-300" />
+                <span className="text-sm font-medium text-gray-400 group-hover:text-white transition-colors duration-300">
+                  Síguenos en Instagram
+                </span>
               </a>
-              {/* <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                className="text-gray-400 hover:text-brand-green transition-colors"
-                title="Facebook"
-              >
-                <Facebook className="h-5 w-5" />
-              </a> */}
             </div>
           </div>
 
