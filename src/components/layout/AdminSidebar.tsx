@@ -6,7 +6,8 @@ import {
   LogOut, 
   ChevronLeft, 
   ChevronRight,
-  ShieldCheck 
+  ShieldCheck,
+  Github
 } from "lucide-react";
 import { Link } from "@/routing";
 import { cn } from "@/lib/utils";
@@ -156,6 +157,25 @@ export function AdminSidebar({
             {!isCollapsed && <span>{logoutLabel}</span>}
           </button>
         </form>
+
+        {!isCollapsed && (
+          <div className="mt-4 pt-4 border-t border-gray-100 dark:border-slate-800 flex flex-col items-center justify-center text-[10px] text-gray-400 dark:text-gray-500 gap-1">
+            <span>&copy; {new Date().getFullYear()} Hotel Río Yurubí</span>
+            <span className="flex items-center gap-1 text-gray-400">
+              Desarrollado por 
+              <a 
+                href="https://github.com/noemdb" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="inline-flex items-center gap-1 hover:text-brand-blue transition-colors"
+                title="Perfil de GitHub de noemdb"
+              >
+                <Github className="h-3 w-3" />
+                <span className="font-medium">@noemdb</span>
+              </a>
+            </span>
+          </div>
+        )}
       </div>
       </aside>
     </>

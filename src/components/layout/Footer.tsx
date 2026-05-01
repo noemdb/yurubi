@@ -1,7 +1,7 @@
 // src/components/layout/Footer.tsx
 import { useTranslations } from "next-intl";
 import { Link } from "@/routing";
-import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin, Phone, Github } from "lucide-react";
 import Image from "next/image";
 
 export function Footer() {
@@ -157,9 +157,23 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 mt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 gap-4">
-          <p>
-            &copy; {currentYear} Hotel Río Yurubí. Todos los derechos reservados.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+            <span>&copy; {currentYear} Hotel Río Yurubí. Todos los derechos reservados.</span>
+            <span className="hidden sm:inline text-gray-700">|</span>
+            <span className="flex items-center gap-1.5">
+              Desarrollado por 
+              <a 
+                href="https://github.com/noemdb" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="inline-flex items-center gap-1 text-gray-400 hover:text-white transition-colors"
+                title="Perfil de GitHub de noemdb"
+              >
+                <Github className="h-3.5 w-3.5" />
+                <span className="font-medium">@noemdb</span>
+              </a>
+            </span>
+          </div>
           <div className="flex gap-6">
             <Link href="/privacidad" className="hover:text-white transition-colors">
               Políticas de Privacidad

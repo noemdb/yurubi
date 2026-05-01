@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { LoginForm } from "@/components/auth/LoginForm";
+import { Github } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Iniciar Sesión | Hotel Río Yurubí",
@@ -102,8 +103,21 @@ export default async function LoginPage({ params }: PageProps) {
           <LoginForm locale={locale} />
 
           {/* Footer */}
-          <div className="mt-12 text-center text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} Hotel Río Yurubí. Todos los derechos reservados.
+          <div className="mt-12 text-center text-sm text-gray-400 flex flex-col items-center gap-2">
+            <span>&copy; {new Date().getFullYear()} Hotel Río Yurubí. Todos los derechos reservados.</span>
+            <span className="flex items-center gap-1.5 text-xs">
+              Desarrollado por 
+              <a 
+                href="https://github.com/noemdb" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="inline-flex items-center gap-1 hover:text-gray-900 transition-colors"
+                title="Perfil de GitHub de noemdb"
+              >
+                <Github className="h-3.5 w-3.5" />
+                <span className="font-medium">@noemdb</span>
+              </a>
+            </span>
           </div>
         </div>
       </div>
