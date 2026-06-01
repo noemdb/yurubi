@@ -13,8 +13,8 @@ export function Location() {
   const lat = "10.358537347511596";
   const lng = "-68.7466420671709";
   
-  // Usar las coordenadas exactas con mayor acercamiento (zoom 19) y vista satelital (t=k)
-  const mapUrl = `https://maps.google.com/maps?q=${lat},${lng}&z=19&t=k&output=embed`;
+  // URL del mapa embebido con las coordenadas exactas y vista satelital (t=k)
+  const mapUrl = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL || `https://maps.google.com/maps?q=${lat},${lng}&z=19&t=k&output=embed`;
 
   return (
     <section className="py-8 bg-background dark:bg-gray-950 relative overflow-hidden border-t border-border dark:border-gray-800 transition-colors duration-300">
@@ -54,7 +54,7 @@ export function Location() {
                     {t("address")}
                   </p>
                   <a 
-                    href={process.env.NEXT_PUBLIC_GOOGLE_MAPS_URL || `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}
+                    href={process.env.NEXT_PUBLIC_GOOGLE_MAPS_URL || `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 text-brand-blue font-bold text-sm hover:translate-x-1 transition-transform"
@@ -107,7 +107,7 @@ export function Location() {
             <div className="absolute bottom-8 right-8 z-20">
               <Button asChild size="lg" className="rounded-lg bg-card dark:bg-gray-900 text-foreground dark:text-white hover:bg-brand-blue hover:text-white shadow-xl transition-all px-8 h-14">
                 <a 
-                  href={process.env.NEXT_PUBLIC_GOOGLE_MAPS_URL || `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}
+                  href={process.env.NEXT_PUBLIC_GOOGLE_MAPS_URL || `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-2"
