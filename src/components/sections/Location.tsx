@@ -10,11 +10,11 @@ export function Location() {
   const t = useTranslations("location");
   
   // Coordenadas del Hotel Río Yurubí
-  const lat = "10.4035";
-  const lng = "-68.7470";
+  const lat = "10.358537347511596";
+  const lng = "-68.7466420671709";
   
-  // Usar el nombre del hotel para un marcador más detallado y zoom 17
-  const mapUrl = `https://maps.google.com/maps?q=Hotel+Rio+Yurubi+San+Felipe&z=17&t=m&output=embed`;
+  // Usar las coordenadas exactas con mayor acercamiento (zoom 19) y vista satelital (t=k)
+  const mapUrl = `https://maps.google.com/maps?q=${lat},${lng}&z=19&t=k&output=embed`;
 
   return (
     <section className="py-8 bg-background dark:bg-gray-950 relative overflow-hidden border-t border-border dark:border-gray-800 transition-colors duration-300">
@@ -101,7 +101,7 @@ export function Location() {
               loading="lazy" 
               referrerPolicy="no-referrer-when-downgrade"
               title="Hotel Río Yurubí Map Location"
-              className="w-full h-full"
+              className="w-full h-full rounded-lg transition-all duration-500 dark:brightness-90"
             />
             {/* Map Overlay Button */}
             <div className="absolute bottom-8 right-8 z-20">
